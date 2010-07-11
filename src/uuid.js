@@ -3,7 +3,7 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.0 beta 2010-07-10
+ * @version 3.0 beta 2010-07-11
  * @license The MIT License: Copyright (c) 2010 LiosK.
  */
 
@@ -17,7 +17,7 @@ function UUID() {}
  * @returns {string} A version 4 UUID string.
  */
 UUID.generate = function() {
-  var rand = UUID._getRandomInt, hex = UUID._getIntAligner(16);
+  var rand = UUID._getRandomInt, hex = UUID._hexAligner;
   return  hex(rand(32), 8)          // time_low
         + "-"
         + hex(rand(16), 4)          // time_mid
@@ -55,6 +55,8 @@ UUID._getIntAligner = function(radix) {
   };
 };
 
+UUID._hexAligner = UUID._getIntAligner(16);
+
 // }}}
 
 // UUID Object Component {{{
@@ -66,6 +68,13 @@ UUID._getIntAligner = function(radix) {
  */
 UUID.FIELD_NAMES = ["timeLow", "timeMid", "timeHiAndVersion",
                     "clockSeqHiAndReserved", "clockSeqLow", "node"];
+
+/**
+ * Sizes of each UUID field.
+ * @type int[]
+ * @constant
+ */
+UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
 
 /**
  * Generates a version 4 {@link UUID}.
@@ -106,28 +115,28 @@ UUID.parse = function(strId) {
  * @returns {UUID} this.
  */
 UUID.prototype._init = function() {
-  var names = UUID.FIELD_NAMES, sizes = [32, 16, 16, 8, 8, 48];
-  var bin = UUID._getIntAligner(2), hex = UUID._getIntAligner(16);
+  var names = UUID.FIELD_NAMES, sizes = UUID.FIELD_SIZES;
+  var bin = UUID._binAligner, hex = UUID._hexAligner;
 
   /**
    * List of UUID field values (as integer values).
    * @type int[]
    */
-  this.intFields = new Array(sizes.length);
+  this.intFields = new Array(6);
 
   /**
    * List of UUID field values (as binary bit string values).
    * @type string[]
    */
-  this.bitFields = new Array(sizes.length);
+  this.bitFields = new Array(6);
 
   /**
    * List of UUID field values (as hexadecimal string values).
    * @type string[]
    */
-  this.hexFields = new Array(sizes.length);
+  this.hexFields = new Array(6);
 
-  for (var i = 0, len = sizes.length; i < len; i++) {
+  for (var i = 0; i < 6; i++) {
     var intValue = parseInt(arguments[i] || 0);
     this.intFields[i] = this.intFields[names[i]] = intValue;
     this.bitFields[i] = this.bitFields[names[i]] = bin(intValue, sizes[i]);
@@ -156,6 +165,8 @@ UUID.prototype._init = function() {
   return this;
 };
 
+UUID._binAligner = UUID._getIntAligner(2);
+
 /**
  * Returns UUID string representation.
  * @returns {string} {@link UUID#hexString}.
@@ -169,7 +180,7 @@ UUID.prototype.toString = function() { return this.hexString; };
  */
 UUID.prototype.equals = function(uuid) {
   if (!(uuid instanceof UUID)) { return false; }
-  for (var i = 0, len = this.intFields.length; i < len; i++) {
+  for (var i = 0; i < 6; i++) {
     if (this.intFields[i] !== uuid.intFields[i]) { return false; }
   }
   return true;

@@ -4,6 +4,14 @@ The RFC-compliant UUID generator for JavaScript.
 
 See RFC 4122 L<http://www.ietf.org/rfc/rfc4122.txt>.
 
+=head2 Features
+
+Generates RFC 4122 compliant UUIDs.
+
+Version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs) are available.
+
+UUID object allows a variety of access to the UUID including access to the UUID fields.
+
 =head2 Usage Examples
 
   // the simplest way to get an UUID (as a hexadecimal string)
