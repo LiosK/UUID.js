@@ -47,6 +47,12 @@
         for (var j = 0, len = counts.length / 8; j < len; j++) {
           messages.push("Octet" + j + "\t\t" + counts.slice(j * 8, (j + 1) * 8).join("\t"));
         }
+        if (counts[64] != n || counts[65] != 0) {
+          messages.push("Invalid variant bits.");
+        }
+        if (counts[48] != 0 || counts[49] != n || counts[50] != 0 || counts[51] != 0) {
+          messages.push("Invalid version bits.");
+        }
         messages.push("");
       }
       // ]]>

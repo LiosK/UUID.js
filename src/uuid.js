@@ -3,7 +3,7 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.0 beta 2010-07-11
+ * @version 3.0 beta 2010-07-14
  * @license The MIT License: Copyright (c) 2010 LiosK.
  */
 
@@ -225,7 +225,7 @@ UUID.genV1 = function() {
  * Probability to advance the timestamp fraction: the ratio of tick increments to sequence increments.
  * @type float
  */
-UUID._tsRatio = 1 / 8;
+UUID._tsRatio = 1 / 4;
 
 /**
  * Persistent state for UUID version 1.
