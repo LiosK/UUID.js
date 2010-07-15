@@ -28,7 +28,7 @@
 
       // loop to test state initialization
       for (var i = 0; i < n; i++) {
-        UUID._state = new UUID._state.constructor();
+        UUID.resetState();
         var uuid = uuids[n + i] = String(UUID.genV1());
         if (!pattern.test(uuid)) {
           messages.push("Invalid format\t" + uuid);

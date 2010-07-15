@@ -3,7 +3,7 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.0 beta 2010-07-14
+ * @version 3.0 beta 2010-07-15
  * @license The MIT License: Copyright (c) 2010 LiosK.
  */
 
@@ -219,6 +219,13 @@ UUID.genV1 = function() {
   var csl = st.sequence & 0xFF;
 
   return new UUID()._init(tl, tf.mid, thav, cshar, csl, st.node);
+};
+
+/**
+ * Re-initializes version 1 UUID state.
+ */
+UUID.resetState = function() {
+  UUID._state = new UUID._state.constructor();
 };
 
 /**
