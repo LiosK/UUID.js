@@ -3,7 +3,7 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.0
+ * @version 3.1 beta
  * @license The MIT License: Copyright (c) 2010 LiosK.
  */
 
@@ -199,11 +199,11 @@ UUID.genV1 = function() {
   if (now != st.timestamp) {
     if (now < st.timestamp) { st.sequence++; }
     st.timestamp = now;
-    st.tick = 0;
-  } else if (Math.random() < UUID._tsRatio && st.tick < 9999) {
-    // increment the timestamp fraction at a probability
+    st.tick &= 0xF;
+  } else if (Math.random() < UUID._tsRatio && st.tick < 9984) {
+    // advance the timestamp fraction at a probability
     // to compensate for the low timestamp resolution
-    st.tick++;
+    st.tick += 1 + UUID._getRandomInt(4);
   } else {
     st.sequence++;
   }
@@ -229,7 +229,7 @@ UUID.resetState = function() {
 };
 
 /**
- * Probability to advance the timestamp fraction: the ratio of tick increments to sequence increments.
+ * Probability to advance the timestamp fraction: the ratio of tick movements to sequence increments.
  * @type float
  */
 UUID._tsRatio = 1 / 4;
@@ -243,7 +243,7 @@ UUID._state = new function UUIDState() {
   this.timestamp = 0;
   this.sequence = rand(14);
   this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
-  this.tick = 0;  // timestamp fraction smaller than a millisecond
+  this.tick = rand(4);  // timestamp fraction smaller than a millisecond
 };
 
 /**
