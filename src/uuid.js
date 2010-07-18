@@ -94,7 +94,7 @@ UUID.genV4 = function() {
  * @returns {UUID} {@link UUID} object or null.
  */
 UUID.parse = function(strId) {
-  var r, p = /^([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})$/i;
+  var r, p = /^(?:urn:uuid:)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})$/i;
   if (r = p.exec(strId)) {
     return new UUID()._init(parseInt(r[1], 16), parseInt(r[2], 16),
                             parseInt(r[3], 16), parseInt(r[4], 16),
@@ -162,6 +162,12 @@ UUID.prototype._init = function() {
   this.hexString = this.hexFields[0] + "-" + this.hexFields[1] + "-" + this.hexFields[2]
                  + "-" + this.hexFields[3] + this.hexFields[4] + "-" + this.hexFields[5];
 
+  /**
+   * UUID string representation as a URN ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * @type string
+   */
+  this.urn = "urn:uuid:" + this.hexString;
+
   return this;
 };
 
@@ -199,7 +205,7 @@ UUID.genV1 = function() {
   if (now != st.timestamp) {
     if (now < st.timestamp) { st.sequence++; }
     st.timestamp = now;
-    st.tick &= 0xF;
+    st.tick = UUID._getRandomInt(4);
   } else if (Math.random() < UUID._tsRatio && st.tick < 9984) {
     // advance the timestamp fraction at a probability
     // to compensate for the low timestamp resolution

@@ -20,7 +20,7 @@
         var lft = (i & 1) ? UUID.genV1() : UUID.genV4();
         var rgt = (i & 1) ? UUID.genV4() : UUID.genV1();
 
-        var parsed = UUID.parse(lft);
+        var parsed = UUID.parse(i & 2 ? lft : lft.urn);
         if (parsed == null) {
           messages.push("UUID.parse() error\t" + lft);
         } else {
@@ -70,6 +70,10 @@
         var version = parseInt(bstr.substring(48, 52), 2);
         if (version != uuid.version) {
           messages.push("UUID#version error\t" + uuid);
+        }
+
+        if (uuid.urn != "urn:uuid:" + uuid.hexString) {
+          messages.push("UUID#urn error\t" + uuid);
         }
       }
 
