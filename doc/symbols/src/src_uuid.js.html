@@ -272,5 +272,20 @@
 <span class='line'>265</span> 
 <span class='line'>266</span> </span><span class="COMM">// }}}</span><span class="WHIT">
 <span class='line'>267</span> 
-<span class='line'>268</span> </span><span class="COMM">// vim: et ts=2 sw=2 fdm=marker fmr&</span><span class="WHIT">
-<span class='line'>269</span> </span></pre></body></html>
+<span class='line'>268</span> </span><span class="COMM">// Backward Compatibility Component {{{</span><span class="WHIT">
+<span class='line'>269</span> 
+<span class='line'>270</span> </span><span class="COMM">/**
+<span class='line'>271</span>  * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
+<span class='line'>272</span>  */</span><span class="WHIT">
+<span class='line'>273</span> </span><span class="NAME">UUID.makeBackwardCompatible</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">  </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">f</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">UUID.generate</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">  </span><span class="NAME">UUID.generate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">o</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>276</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">o</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">o.version</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">UUID.genV1</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">hexString</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">f.call</span><span class="PUNC">(</span><span class="NAME">UUID</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">  </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>278</span> </span><span class="WHIT">  </span><span class="NAME">UUID.makeBackwardCompatible</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>280</span> 
+<span class='line'>281</span> </span><span class="COMM">// }}}</span><span class="WHIT">
+<span class='line'>282</span> 
+<span class='line'>283</span> </span><span class="COMM">// vim: et ts=2 sw=2 fdm=marker fmr&</span><span class="WHIT">
+<span class='line'>284</span> </span></pre></body></html>

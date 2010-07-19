@@ -265,4 +265,19 @@ UUID._getTimeFieldValues = function(time) {
 
 // }}}
 
+// Backward Compatibility Component {{{
+
+/**
+ * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
+ */
+UUID.makeBackwardCompatible = function() {
+  var f = UUID.generate;
+  UUID.generate = function(o) {
+    return (o && o.version == 1) ? UUID.genV1().hexString : f.call(UUID);
+  };
+  UUID.makeBackwardCompatible = function() {};
+};
+
+// }}}
+
 // vim: et ts=2 sw=2 fdm=marker fmr&
