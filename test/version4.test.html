@@ -15,14 +15,14 @@
       var messages = [];
       var uuids = new Array(n * 2);
 
-      // loop to cover two methods: UUID.generate() and UUID.genV4()
-      for (var method = 0; method < 2; method++) {
+      // loop to cover two tests: UUID.generate() and UUID.genV4()
+      for (var test = 0; test < 2; test++) {
         var counts = new Array(128);
         for (var i = 0; i < counts.length; i++) { counts[i] = 0; }
 
         // loop to generate n UUIDs
         for (var i = 0; i < n; i++) {
-          var uuid = uuids[method * n + i] = method ? UUID.generate() : String(UUID.genV4());
+          var uuid = uuids[test * n + i] = test ? UUID.generate() : String(UUID.genV4());
 
           if (!pattern.test(uuid)) {
             messages.push("Invalid format\t" + uuid);
