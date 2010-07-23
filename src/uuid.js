@@ -65,6 +65,7 @@ UUID._hexAligner = UUID._getIntAligner(16);
  * Names of each UUID field.
  * @type string[]
  * @constant
+ * @since 3.0
  */
 UUID.FIELD_NAMES = ["timeLow", "timeMid", "timeHiAndVersion",
                     "clockSeqHiAndReserved", "clockSeqLow", "node"];
@@ -73,12 +74,14 @@ UUID.FIELD_NAMES = ["timeLow", "timeMid", "timeHiAndVersion",
  * Sizes of each UUID field.
  * @type int[]
  * @constant
+ * @since 3.0
  */
 UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
 
 /**
  * Generates a version 4 {@link UUID}.
  * @returns {UUID} A version 4 {@link UUID} object.
+ * @since 3.0
  */
 UUID.genV4 = function() {
   var rand = UUID._getRandomInt;
@@ -92,6 +95,7 @@ UUID.genV4 = function() {
  * Converts hexadecimal UUID string to an {@link UUID} object.
  * @param {string} strId UUID hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
  * @returns {UUID} {@link UUID} object or null.
+ * @since 3.0
  */
 UUID.parse = function(strId) {
   var r, p = /^(?:urn:uuid:)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})$/i;
@@ -182,7 +186,7 @@ UUID.prototype.toString = function() { return this.hexString; };
 /**
  * Tests if two {@link UUID} objects are equal.
  * @param {UUID} uuid
- * @returns {bool}
+ * @returns {bool} True if two {@link UUID} objects are equal.
  */
 UUID.prototype.equals = function(uuid) {
   if (!(uuid instanceof UUID)) { return false; }
@@ -199,6 +203,7 @@ UUID.prototype.equals = function(uuid) {
 /**
  * Generates a version 1 {@link UUID}.
  * @returns {UUID} A version 1 {@link UUID} object.
+ * @since 3.0
  */
 UUID.genV1 = function() {
   var now = new Date().getTime(), st = UUID._state;
@@ -229,6 +234,7 @@ UUID.genV1 = function() {
 
 /**
  * Re-initializes version 1 UUID state.
+ * @since 3.0
  */
 UUID.resetState = function() {
   UUID._state = new UUID._state.constructor();
@@ -269,6 +275,8 @@ UUID._getTimeFieldValues = function(time) {
 
 /**
  * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
+ * @since 3.1
+ * @deprecated Version 2.x. compatible interface is not recommended.
  */
 UUID.makeBackwardCompatible = function() {
   var f = UUID.generate;

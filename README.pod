@@ -42,12 +42,20 @@ UUID object allows a variety of access to the UUID including access to the UUID 
   document.writeln(objV1.version);  // 1
 
   // get UUID field values in 3 different formats by 2 different accessors
-  document.writeln(uuid.intFields.timeLow);           // 2699096368
-  document.writeln(uuid.bitFields.timeMid);           // "1000110000100001"
-  document.writeln(uuid.hexFields.timeHiAndVersion);  // "11df"
-  document.writeln(uuid.intFields[3]);                // 146
-  document.writeln(uuid.bitFields[4]);                // "11011001"
-  document.writeln(uuid.hexFields[5]);                // "95795a3bcd40"
+  document.writeln(uuid.intFields.timeLow);               // 2699096368
+  document.writeln(uuid.bitFields.timeMid);               // "1000110000100001"
+  document.writeln(uuid.hexFields.timeHiAndVersion);      // "11df"
+  document.writeln(uuid.intFields.clockSeqHiAndReserved); // 146
+  document.writeln(uuid.bitFields.clockSeqLow);           // "11011001"
+  document.writeln(uuid.hexFields.node);                  // "95795a3bcd40"
+
+  document.writeln(uuid.intFields[0]);                    // 2699096368
+  document.writeln(uuid.bitFields[1]);                    // "1000110000100001"
+  document.writeln(uuid.hexFields[2]);                    // "11df"
+  document.writeln(uuid.intFields[3]);                    // 146
+  document.writeln(uuid.bitFields[4]);                    // "11011001"
+  document.writeln(uuid.hexFields[5]);                    // "95795a3bcd40"
+
 
 =head2 License
 
