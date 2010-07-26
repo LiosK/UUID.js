@@ -3,7 +3,7 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.1
+ * @version 3.2 beta
  * @license The MIT License: Copyright (c) 2010 LiosK.
  */
 
@@ -98,7 +98,7 @@ UUID.genV4 = function() {
  * @since 3.0
  */
 UUID.parse = function(strId) {
-  var r, p = /^(?:urn:uuid:)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})$/i;
+  var r, p = /^(?:urn:uuid:|\{)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})(?:\})?$/i;
   if (r = p.exec(strId)) {
     return new UUID()._init(parseInt(r[1], 16), parseInt(r[2], 16),
                             parseInt(r[3], 16), parseInt(r[4], 16),
