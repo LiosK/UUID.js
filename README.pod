@@ -14,6 +14,8 @@ UUID object allows a variety of access to the UUID including access to the UUID 
 
 =head2 Usage Examples
 
+Load F<src/uuid.js> to get full functionality. If you only need C<UUID.generate()> method, F<dist/uuid.core.js> satisfies your needs.
+
   // the simplest way to get an UUID (as a hexadecimal string)
   document.writeln(UUID.generate());  // "0db9a5fa-f532-4736-89d6-8819c7f3ac7b"
 
