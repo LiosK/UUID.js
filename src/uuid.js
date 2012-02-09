@@ -7,10 +7,23 @@
  * @license The MIT License: Copyright (c) 2010 LiosK.
  */
 
+(function(){
 // Core Component {{{
 
+//store an existing version in preperation 
+var previousUUID = window.UUID;
+
 /** @constructor */
-function UUID() {}
+// define the UUID object inside the closer to allow noConflict mode.
+var UUID = function() {}
+
+
+UUID.noConflict = function(){
+  var newUUID = window.UUID;
+  window.UUID = previousUUID;
+  return newUUID;
+}
+
 
 /**
  * The simplest function to get an UUID string.
@@ -287,5 +300,10 @@ UUID.makeBackwardCompatible = function() {
 };
 
 // }}}
+
+//expose the global UUID object
+window.UUID = UUID;
+
+})();
 
 // vim: et ts=2 sw=2 fdm=marker fmr&
