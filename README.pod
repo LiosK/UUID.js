@@ -12,6 +12,8 @@ Version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUID
 
 UUID object allows a variety of access to the UUID including access to the UUID fields.
 
+Low timestamp resolution of JavaScript is compensated by random numbers.
+
 =head2 Usage Examples
 
 Load F<src/uuid.js> to get full functionality. If you only need C<UUID.generate()> method, F<dist/uuid.core.js> satisfies your needs.
@@ -63,7 +65,7 @@ Load F<src/uuid.js> to get full functionality. If you only need C<UUID.generate(
 
 This library is licensed under the MIT license.
 
-  Copyright (c) 2010 LiosK.
+  Copyright (c) 2010-2012 LiosK.
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal

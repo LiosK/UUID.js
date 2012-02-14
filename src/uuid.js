@@ -4,7 +4,7 @@
  * @fileOverview
  * @author  LiosK
  * @version 3.2 beta
- * @license The MIT License: Copyright (c) 2010 LiosK.
+ * @license The MIT License: Copyright (c) 2010-2012 LiosK.
  */
 
 // Core Component {{{
@@ -49,9 +49,9 @@ UUID._getRandomInt = function(x) {
  */
 UUID._getIntAligner = function(radix) {
   return function(num, length) {
-    var hex = num.toString(radix), i = length - hex.length, z = "0";
-    for (; i > 0; i >>>= 1, z += z) { if (i & 1) { hex = z + hex; } }
-    return hex;
+    var str = num.toString(radix), i = length - str.length, z = "0";
+    for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
+    return str;
   };
 };
 
