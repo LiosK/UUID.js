@@ -3,13 +3,16 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.2 beta
+ * @version 3.2 rc
  * @license The MIT License: Copyright (c) 2010-2012 LiosK.
  */
 
+/** @constructor */
+var UUID = (function() {
+
 // Core Component {{{
 
-/** @constructor */
+/** @lends UUID */
 function UUID() {}
 
 /**
@@ -275,7 +278,7 @@ UUID._getTimeFieldValues = function(time) {
 
 // }}}
 
-// Backward Compatibility Component {{{
+// Misc. Component {{{
 
 /**
  * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
@@ -290,6 +293,17 @@ UUID.makeBackwardCompatible = function() {
   UUID.makeBackwardCompatible = function() {};
 };
 
+/**
+ * Preserves the value of 'UUID' global variable set before the load of UUID.js.
+ * @since 3.2
+ * @type object
+ */
+UUID.overwrittenUUID = arguments[0];
+
 // }}}
+
+return UUID;
+
+})(UUID);
 
 // vim: et ts=2 sw=2 fdm=marker fmr&
