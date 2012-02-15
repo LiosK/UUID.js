@@ -98,14 +98,18 @@ UUID.genV4 = function() {
  * @since 3.0
  */
 UUID.parse = function(strId) {
-  var r, p = /^(?:urn:uuid:|\{)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})(?:\})?$/i;
+  var r, p = /^\s*(urn:uuid:|\{)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})(\})?\s*$/i;
   if (r = p.exec(strId)) {
-    return new UUID()._init(parseInt(r[1], 16), parseInt(r[2], 16),
-                            parseInt(r[3], 16), parseInt(r[4], 16),
-                            parseInt(r[5], 16), parseInt(r[6], 16));
-  } else {
-    return null;
+    var l = r[1] || "", t = r[8] || "";
+    if (((l + t) === "") ||
+        (l === "{" && t === "}") ||
+        (l.toLowerCase() === "urn:uuid:" && t === "")) {
+      return new UUID()._init(parseInt(r[2], 16), parseInt(r[3], 16),
+                              parseInt(r[4], 16), parseInt(r[5], 16),
+                              parseInt(r[6], 16), parseInt(r[7], 16));
+    }
   }
+  return null;
 };
 
 /**

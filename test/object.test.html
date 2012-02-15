@@ -36,6 +36,28 @@
         uuids.push(lft, rgt, parsed);
       }
 
+      // test UUID.parse() in another way
+      for (var i = 0, len = uuids.length; i < len; i++) {
+        var uuid = uuids[i];
+
+        var valid = [uuid.urn, uuid.hexString.toUpperCase(), "{" + uuid + "}",
+                     " " + uuid + "\n", uuid.urn.toUpperCase()];
+        for (var j = 0; j < valid.length; j++) {
+          var parsed = UUID.parse(valid[j]);
+          if (parsed == null) {
+            messages.push("UUID.parse() error (type 1)\t" + valid[j]);
+          }
+        }
+
+        var invalid = ["{" + uuid, uuid + "}", uuid.urn + "}", "{ " + uuid + "}"];
+        for (var j = 0; j < invalid.length; j++) {
+          var parsed = UUID.parse(invalid[j]);
+          if (parsed != null) {
+            messages.push("UUID.parse() error (type 2)\t" + invalid[j]);
+          }
+        }
+      }
+
       // test formatted strings, field values and version number
       for (var i = 0, len = uuids.length; i < len; i++) {
         var uuid = uuids[i];
