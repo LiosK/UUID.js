@@ -1,7 +1,7 @@
 module("UUID.makeBackwardCompatible()");
 
 (function() {
-  var n = 16;
+  var n = 4;
   var options = { version: 1 };
   var v4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
   var v1 = /^[0-9a-f]{8}-[0-9a-f]{4}-1[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f][13579bdf][0-9a-f]{10}$/;

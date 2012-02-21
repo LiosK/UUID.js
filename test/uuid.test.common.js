@@ -53,7 +53,7 @@ var UUIDTestCommon = {};
       equal(ncollisions, 0, "count of collisions among " + n + " UUIDs");
     });
 
-    test("four-sigma tests for random bits", 128, function() {
+    test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", 128, function() {
       var mean = n * 0.5, sd = Math.sqrt(n * 0.5 * 0.5);  // binom dist
       var lbound = mean - 4 * sd, ubound = mean + 4 * sd;
 

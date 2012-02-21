@@ -3,12 +3,14 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.2 rc
+ * @version 3.2
  * @license The MIT License: Copyright (c) 2010-2012 LiosK.
  */
 
 /** @constructor */
-var UUID = (function() {
+var UUID;
+
+UUID = (function(overwrittenUUID) {
 
 // Core Component {{{
 
@@ -298,7 +300,7 @@ UUID.makeBackwardCompatible = function() {
  * @since 3.2
  * @type object
  */
-UUID.overwrittenUUID = arguments[0];
+UUID.overwrittenUUID = overwrittenUUID;
 
 // }}}
 
