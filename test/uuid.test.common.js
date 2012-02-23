@@ -3,9 +3,14 @@ var UUIDTestCommon = {};
 (function(ns) {
   var sizes = [32, 16, 16, 8, 8, 48];
   var names = ["timeLow", "timeMid", "timeHiAndVersion", "clockSeqHiAndReserved", "clockSeqLow", "node"];
+  var ubounds = new Array(6);
+  for (var i = 0; i < 6; i++) { ubounds[i] = Math.pow(2, sizes[i]); }
+
+  var patHex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|0{8}-0{4}-0{4}-0{4}-0{12}$/;
+  var patBit  = /^[01]{48}0(?:001|010|011|100|101)[01]{12}10[01]{62}|0{128}$/;
 
   ns.testV4AsString = function(generator) {
-    var n = 4096;
+    var n = 16384;
     var v4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
     var uuids = new Array(n);
@@ -62,17 +67,17 @@ var UUIDTestCommon = {};
         switch (i) {
           case 64:
           case 49:
-          equal(c, n, "bit " + i + ": reserved bit '1'");
-          break;
+            equal(c, n, "bit " + i + ": reserved bit '1'");
+            break;
           case 65:
           case 48:
           case 50:
           case 51:
-          equal(c, 0, "bit " + i + ": reserved bit '0'");
-          break;
+            equal(c, 0, "bit " + i + ": reserved bit '0'");
+            break;
           default:
-          ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (allowable range: " + lbound + "-" + ubound + ")");
-          break;
+            ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (allowable range: " + lbound + "-" + ubound + ")");
+            break;
         }
       }
     });
@@ -81,14 +86,32 @@ var UUIDTestCommon = {};
   ns.testObjectProperties = function(uuid) {
     ok(uuid instanceof UUID, "object instanceof UUID");
 
+    ok((uuid.version === 1) || (uuid.version === 2) || (uuid.version === 3) ||
+       (uuid.version === 4) || (uuid.version === 5), "UUID#version in (1-5)");
+    ok(patHex.test(uuid.hexString), "UUID#hexString matches" + patHex);
+    ok(patBit.test(uuid.bitString), "UUID#bitString matches " + patBit);
+
+    strictEqual(uuid.hexString, String(uuid), "UUID#hexString === UUID#toString()");
+    strictEqual("urn:uuid:" + uuid.hexString, uuid.urn, "'urn:uuid:' + UUID#hexString === UUID#urn");
+
+    strictEqual(uuid.bitFields.join(""), uuid.bitString, "joined bitFields equals bitString");
+    strictEqual(uuid.hexFields.slice(0, 4).join("-") + uuid.hexFields.slice(4).join("-"), uuid.hexString, "joined hexFields equals hexString");
+
     equal(uuid.intFields.length, 6, "length of intFields list");
     equal(uuid.bitFields.length, 6, "length of bitFields list");
     equal(uuid.hexFields.length, 6, "length of hexFields list");
     for (var j = 0; j < 6; j++) {
       var nm = names[j];
-      equal(uuid.intFields[j], uuid.intFields[nm], "intFields[" + j + "] == intFields[" + nm + "]");
-      equal(uuid.bitFields[j], uuid.bitFields[nm], "bitFields[" + j + "] == bitFields[" + nm + "]");
-      equal(uuid.hexFields[j], uuid.hexFields[nm], "hexFields[" + j + "] == hexFields[" + nm + "]");
+      strictEqual(uuid.intFields[j], uuid.intFields[nm], "intFields[" + j + "] === intFields." + nm);
+      strictEqual(uuid.bitFields[j], uuid.bitFields[nm], "bitFields[" + j + "] === bitFields." + nm);
+      strictEqual(uuid.hexFields[j], uuid.hexFields[nm], "hexFields[" + j + "] === hexFields." + nm);
+
+      ok(0 <= uuid.intFields[j] && uuid.intFields[j] < ubounds[j], "0 <= intFields." + nm + " < 2^" + sizes[j]);
+      equal(uuid.bitFields[j].length, sizes[j], "bitFields." + nm + ".length");
+      equal(uuid.hexFields[j].length, sizes[j] / 4, "hexFields." + nm + ".length");
+
+      strictEqual(parseInt(uuid.bitFields[j], 2), uuid.intFields[j], "parseInt(bitFields." + nm + ", 2) === intFields." + nm);
+      strictEqual(parseInt(uuid.hexFields[j], 16), uuid.intFields[j], "parseInt(hexFields." + nm + ", 16) === intFields." + nm);
     }
   }
 
