@@ -1,22 +1,28 @@
-=head1 UUID.js
+=head1 NAME
 
-The RFC-compliant UUID generator for JavaScript.
+UUID.js - The RFC-compliant UUID generator for JavaScript.
 
-See RFC 4122 L<http://www.ietf.org/rfc/rfc4122.txt>.
+=head1 SYNOPSYS
 
-=head2 Features
+  var uuid = UUID.generate();
 
-Generates RFC 4122 compliant UUIDs.
+=head1 DESCRIPTION
 
-Version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs) are available.
+UUID.js library generates an RFC 4122 compliant Universally Unique IDentifier (UUID).
 
-UUID object allows a variety of access to the UUID including access to the UUID fields.
+=head1 FEATURES
 
-Low timestamp resolution of JavaScript is compensated by random numbers.
+Supports Version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs).
 
-=head2 Usage Examples
+Provides an object-oriented interface, allowing users to output a UUID in several formats, compare UUIDs, and access the internal fields of a UUID.
 
-Load F<src/uuid.js> to get full functionality. If you only need C<UUID.generate()> method, F<dist/uuid.core.js> satisfies your needs.
+Adds random digits to compensate for the low (millisecond) timestamp resolution of JavaScript when generating Version 1 UUIDs, which requires 100-nanosecond resolution.
+
+Tested by many test cases including format checks and statistical variance tests.
+
+=head1 USAGE EXAMPLES
+
+Load F<src/uuid.js> to get full functionality. If you only need C<UUID.generate()> method, load F<dist/uuid.core.js>.
 
   // the simplest way to get an UUID (as a hexadecimal string)
   document.writeln(UUID.generate());  // "0db9a5fa-f532-4736-89d6-8819c7f3ac7b"
@@ -61,11 +67,15 @@ Load F<src/uuid.js> to get full functionality. If you only need C<UUID.generate(
   document.writeln(uuid.hexFields[5]);                    // "95795a3bcd40"
 
 
-=head2 License
+  // avoid conflicts with other libraries (noConflict mode)
+  var arbitraryVarName = UUID;
+  UUID = UUID.overwrittenUUID;  // restore original value
+
+=head1 LICENSE
 
 This library is licensed under the MIT license.
 
-  Copyright (c) 2010-2012 LiosK.
+  Copyright (c) 2010-2016 LiosK.
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -84,5 +94,19 @@ This library is licensed under the MIT license.
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
+
+=head1 AUTHOR
+
+LiosK E<lt>contact@mail.liosk.netE<gt>
+
+=head1 SEE ALSO
+
+RFC 4122: L<http://www.ietf.org/rfc/rfc4122.txt>
+
+API Documents: L<http://liosk.github.io/UUID.js/doc/symbols/UUID.html>
+
+uuid.js Tests: L<http://liosk.github.io/UUID.js/test/test.uuid.js.html>
+
+uuid.core.js Tests: L<http://liosk.github.io/UUID.js/test/test.uuid.core.js.html>
 
 =cut
