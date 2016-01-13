@@ -15,6 +15,7 @@ UUID.js library generates an RFC 4122 compliant Universally Unique IDentifier (U
 * Supports Version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs).
 * Provides an object-oriented interface, allowing users to output a UUID in several formats, compare UUIDs, and access the internal fields of a UUID.
 * Adds random digits to compensate for the low (millisecond) timestamp resolution of JavaScript when generating Version 1 UUIDs, which requires 100-nanosecond resolution.
+* Properly handles 32-bit `Math.random()` implementation of WebKit-based browsers when generating a large random integer.
 * Tested by many test cases including format checks and statistical variance tests.
 
 # USAGE EXAMPLES
