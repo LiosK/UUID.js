@@ -4,7 +4,9 @@ UUID.js - The RFC-compliant UUID generator for JavaScript.
 
 # SYNOPSYS
 
-    var uuid = UUID.generate();
+```javascript
+var uuid = UUID.generate();
+```
 
 # DESCRIPTION
 
@@ -22,52 +24,54 @@ UUID.js library generates an RFC 4122 compliant Universally Unique IDentifier (U
 
 Load `src/uuid.js` to get full functionality. If you only need `UUID.generate()` method, load `dist/uuid.core.js`.
 
-    // the simplest way to get an UUID (as a hexadecimal string)
-    document.writeln(UUID.generate());  // "0db9a5fa-f532-4736-89d6-8819c7f3ac7b"
+```javascript
+// the simplest way to get an UUID (as a hexadecimal string)
+document.writeln(UUID.generate());  // "0db9a5fa-f532-4736-89d6-8819c7f3ac7b"
 
 
-    // create a version 4 (random-numbers-based) UUID object
-    var objV4 = UUID.genV4();
+// create a version 4 (random-numbers-based) UUID object
+var objV4 = UUID.genV4();
 
-    // create a version 1 (time-based) UUID object
-    var objV1 = UUID.genV1();
+// create a version 1 (time-based) UUID object
+var objV1 = UUID.genV1();
 
-    // create an UUID object from a hexadecimal string
-    var uuid = UUID.parse("a0e0f130-8c21-11df-92d9-95795a3bcd40");
-
-
-    // UUID object as a string
-    document.writeln(uuid.toString());  // "a0e0f130-8c21-11df-92d9-95795a3bcd40"
-    document.writeln(uuid.hexString);   // "a0e0f130-8c21-11df-92d9-95795a3bcd40"
-    document.writeln(uuid.bitString);   // "101000001110000 ... 1100110101000000"
-    document.writeln(uuid.urn);         // "urn:uuid:a0e0f130-8c21-11df-92d9-95795a3bcd40"
-
-    // compare UUID objects
-    document.writeln(objV4.equals(objV1));  // false
-
-    // show version numbers
-    document.writeln(objV4.version);  // 4
-    document.writeln(objV1.version);  // 1
-
-    // get UUID field values in 3 different formats by 2 different accessors
-    document.writeln(uuid.intFields.timeLow);               // 2699096368
-    document.writeln(uuid.bitFields.timeMid);               // "1000110000100001"
-    document.writeln(uuid.hexFields.timeHiAndVersion);      // "11df"
-    document.writeln(uuid.intFields.clockSeqHiAndReserved); // 146
-    document.writeln(uuid.bitFields.clockSeqLow);           // "11011001"
-    document.writeln(uuid.hexFields.node);                  // "95795a3bcd40"
-
-    document.writeln(uuid.intFields[0]);                    // 2699096368
-    document.writeln(uuid.bitFields[1]);                    // "1000110000100001"
-    document.writeln(uuid.hexFields[2]);                    // "11df"
-    document.writeln(uuid.intFields[3]);                    // 146
-    document.writeln(uuid.bitFields[4]);                    // "11011001"
-    document.writeln(uuid.hexFields[5]);                    // "95795a3bcd40"
+// create an UUID object from a hexadecimal string
+var uuid = UUID.parse("a0e0f130-8c21-11df-92d9-95795a3bcd40");
 
 
-    // avoid conflicts with other libraries (noConflict mode)
-    var arbitraryVarName = UUID;
-    UUID = UUID.overwrittenUUID;  // restore original value
+// UUID object as a string
+document.writeln(uuid.toString());  // "a0e0f130-8c21-11df-92d9-95795a3bcd40"
+document.writeln(uuid.hexString);   // "a0e0f130-8c21-11df-92d9-95795a3bcd40"
+document.writeln(uuid.bitString);   // "101000001110000 ... 1100110101000000"
+document.writeln(uuid.urn);         // "urn:uuid:a0e0f130-8c21-11df-92d9-95795a3bcd40"
+
+// compare UUID objects
+document.writeln(objV4.equals(objV1));  // false
+
+// show version numbers
+document.writeln(objV4.version);  // 4
+document.writeln(objV1.version);  // 1
+
+// get UUID field values in 3 different formats by 2 different accessors
+document.writeln(uuid.intFields.timeLow);               // 2699096368
+document.writeln(uuid.bitFields.timeMid);               // "1000110000100001"
+document.writeln(uuid.hexFields.timeHiAndVersion);      // "11df"
+document.writeln(uuid.intFields.clockSeqHiAndReserved); // 146
+document.writeln(uuid.bitFields.clockSeqLow);           // "11011001"
+document.writeln(uuid.hexFields.node);                  // "95795a3bcd40"
+
+document.writeln(uuid.intFields[0]);                    // 2699096368
+document.writeln(uuid.bitFields[1]);                    // "1000110000100001"
+document.writeln(uuid.hexFields[2]);                    // "11df"
+document.writeln(uuid.intFields[3]);                    // 146
+document.writeln(uuid.bitFields[4]);                    // "11011001"
+document.writeln(uuid.hexFields[5]);                    // "95795a3bcd40"
+
+
+// avoid conflicts with other libraries (noConflict mode)
+var arbitraryVarName = UUID;
+UUID = UUID.overwrittenUUID;  // restore original value
+```
 
 # LICENSE
 
