@@ -17,6 +17,7 @@
 <li>Supports Version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs).</li>
 <li>Provides an object-oriented interface, allowing users to output a UUID in several formats, compare UUIDs, and access the internal fields of a UUID.</li>
 <li>Adds random digits to compensate for the low (millisecond) timestamp resolution of JavaScript when generating Version 1 UUIDs, which requires 100-nanosecond resolution.</li>
+<li>Properly handles 32-bit <code>Math.random()</code> implementation of WebKit-based browsers when generating a large random integer.</li>
 <li>Tested by many test cases including format checks and statistical variance tests.</li>
 </ul>
 
@@ -99,7 +100,7 @@ THE SOFTWARE.
 
 <h1>AUTHOR</h1>
 
-<p>LiosK <a href="&#x6D;&#x61;&#105;&#108;&#116;&#x6F;:&#99;on&#116;a&#99;&#116;&#64;&#109;a&#x69;&#108;&#x2E;&#x6C;&#x69;&#x6F;&#115;&#x6B;&#46;&#110;&#x65;&#x74;">&#99;on&#116;a&#99;&#116;&#64;&#109;a&#x69;&#108;&#x2E;&#x6C;&#x69;&#x6F;&#115;&#x6B;&#46;&#110;&#x65;&#x74;</a></p>
+<p>LiosK <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#111;:&#x63;&#x6F;&#110;&#x74;a&#x63;&#116;&#64;m&#97;&#x69;&#x6C;&#x2E;&#x6C;&#x69;&#x6F;&#x73;&#x6B;&#46;&#110;&#x65;&#x74;">&#x63;&#x6F;&#110;&#x74;a&#x63;&#116;&#64;m&#97;&#x69;&#x6C;&#x2E;&#x6C;&#x69;&#x6F;&#x73;&#x6B;&#46;&#110;&#x65;&#x74;</a></p>
 
 <h1>SEE ALSO</h1>
 
