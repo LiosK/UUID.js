@@ -1,6 +1,6 @@
-module("UUID.overwrittenUUID");
+QUnit.module("UUID.overwrittenUUID");
 
-test("UUID.overwrittenUUID preserves initialOccupant", 1, function() {
+QUnit.test("UUID.overwrittenUUID preserves initialOccupant", 1, function() {
   ok(UUID.overwrittenUUID === initialOccupant, "UUID.overwrittenUUID === initialOccupant: " + initialOccupant);
 });
 

@@ -1,8 +1,9 @@
-module("UUID.genV1() as object");
+QUnit.module("UUID.genV1() as object");
 
 (function() {
+  "use strict";
 
-  test("basic object tests", function() {
+  QUnit.test("basic object tests", function() {
     var n = 16;
 
     for (var i = 0; i < n; i++) {

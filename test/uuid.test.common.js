@@ -1,6 +1,8 @@
 var UUIDTestCommon = {};
 
 (function(ns) {
+  "use strict";
+
   var sizes = [32, 16, 16, 8, 8, 48];
   var names = ["timeLow", "timeMid", "timeHiAndVersion", "clockSeqHiAndReserved", "clockSeqLow", "node"];
   var ubounds = new Array(6);
@@ -17,7 +19,7 @@ var UUIDTestCommon = {};
     var counts = new Array(128);
     for (var i = 0; i < 128; i++) { counts[i] = 0; }
 
-    test("version4 format tests", n, function() {
+    QUnit.test("version4 format tests", n, function() {
       for (var i = 0; i < n; i++) {
         var uuid = uuids[i] = generator();
         ok(v4.test(uuid), "version4 format test: " + uuid);
@@ -35,7 +37,7 @@ var UUIDTestCommon = {};
       }
     });
 
-    test("reserved bit tests", 6, function() {
+    QUnit.test("reserved bit tests", 6, function() {
       equal(counts[64], n, "bit 64: variant bit '1'");
       equal(counts[65], 0, "bit 65: variant bit '0'");
 
@@ -45,7 +47,7 @@ var UUIDTestCommon = {};
       equal(counts[51], 0, "bit 51: version bit '0'");
     });
 
-    test("collision test", 1, function() {
+    QUnit.test("collision test", 1, function() {
       var ncollisions = 0, table = {};
       for (var i = 0, len = uuids.length; i < len; i++) {
         if (table.hasOwnProperty(uuids[i])) {
@@ -58,7 +60,7 @@ var UUIDTestCommon = {};
       equal(ncollisions, 0, "count of collisions among " + n + " UUIDs");
     });
 
-    test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", 128, function() {
+    QUnit.test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", 128, function() {
       var mean = n * 0.5, sd = Math.sqrt(n * 0.5 * 0.5);  // binom dist
       var lbound = mean - 4 * sd, ubound = mean + 4 * sd;
 
