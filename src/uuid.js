@@ -3,14 +3,15 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.2
- * @license The MIT License: Copyright (c) 2010-2012 LiosK.
+ * @version v3.3.0
+ * @license The MIT License: Copyright (c) 2010-2016 LiosK.
  */
 
 /** @constructor */
 var UUID;
 
 UUID = (function(overwrittenUUID) {
+"use strict";
 
 // Core Component {{{
 
@@ -167,6 +168,13 @@ UUID.prototype._init = function() {
    * @type string
    */
   this.bitString = this.bitFields.join("");
+
+  /**
+   * Non-delimited hexadecimal string representation ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").
+   * @type string
+   * @since v3.3.0
+   */
+  this.hexNoDelim = this.hexFields.join("");
 
   /**
    * UUID hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").

@@ -1,4 +1,4 @@
-module("UUID#generate()");
+QUnit.module("UUID.generate()");
 
 UUIDTestCommon.testV4AsString(function() {
   return UUID.generate();

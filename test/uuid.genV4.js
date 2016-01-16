@@ -1,10 +1,9 @@
-module("UUID#genV4() as object");
+QUnit.module("UUID.genV4() as object");
 
 (function() {
-  var sizes = [32, 16, 16, 8, 8, 48];
-  var names = ["timeLow", "timeMid", "timeHiAndVersion", "clockSeqHiAndReserved", "clockSeqLow", "node"];
+  "use strict";
 
-  test("basic object tests", function() {
+  QUnit.test("basic object tests", function() {
     var n = 16;
 
     for (var i = 0; i < n; i++) {
@@ -17,7 +16,7 @@ module("UUID#genV4() as object");
 
 })();
 
-module("UUID#genV4() as string");
+QUnit.module("UUID.genV4() as string");
 
 UUIDTestCommon.testV4AsString(function() {
   return UUID.genV4().hexString;
