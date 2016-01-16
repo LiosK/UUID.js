@@ -1,10 +1,10 @@
 /**
- * UUID.core.js: The minimal subset of the RFC-compliant UUID generator UUID.js.
+ * UUID.core.js: A small subset of UUID.js, the RFC-compliant UUID generator for JavaScript.
  *
  * @fileOverview
  * @author  LiosK
- * @version core-1.1 rc
- * @license The MIT License: Copyright (c) 2012-2016 LiosK.
+ * @version v3.3.0-rc
+ * @license The MIT License: Copyright (c) 2010-2016 LiosK.
  */
 
 /** @constructor */

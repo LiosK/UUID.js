@@ -1,0 +1,29 @@
+{
+  "name": "uuid.js",
+  "homepage": "https://github.com/LiosK/UUID.js",
+  "description": "UUID.js: The RFC-compliant UUID generator for JavaScript.",
+  "main": "src/uuid.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "library",
+    "uuid",
+    "guid",
+    "rfc",
+    "4122",
+    "universally",
+    "globally",
+    "unique",
+    "identifier"
+  ],
+  "authors": [
+    "LiosK <contact@mail.liosk.net>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "doc",
+    "test"
+  ]
+}

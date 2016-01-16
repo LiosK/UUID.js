@@ -145,8 +145,9 @@ var UUIDTestCommon = {};
     var ubounds = new Array(6);
     for (var i = 0; i < 6; i++) { ubounds[i] = Math.pow(2, sizes[i]); }
 
-    var patHex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|0{8}-0{4}-0{4}-0{4}-0{12}$/;
-    var patBit  = /^[01]{48}0(?:001|010|011|100|101)[01]{12}10[01]{62}|0{128}$/;
+    var patHex = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|0{8}-0{4}-0{4}-0{4}-0{12})$/;
+    var patBit = /^(?:[01]{48}0(?:001|010|011|100|101)[01]{12}10[01]{62}|0{128})$/;
+    var patHexND = /^(?:[0-9a-f]{12}[1-5][0-9a-f]{3}[89ab][0-9a-f]{15}|0{32})$/;
 
     ok(uuid instanceof UUID, "object instanceof UUID");
 
@@ -154,11 +155,13 @@ var UUIDTestCommon = {};
        (uuid.version === 4) || (uuid.version === 5), "UUID#version in (1-5)");
        ok(patHex.test(uuid.hexString), "UUID#hexString matches" + patHex);
        ok(patBit.test(uuid.bitString), "UUID#bitString matches " + patBit);
+       ok(patHexND.test(uuid.hexNoDelim), "UUID#hexNoDelim matches " + patHexND);
 
        strictEqual(uuid.hexString, String(uuid), "UUID#hexString === UUID#toString()");
        strictEqual("urn:uuid:" + uuid.hexString, uuid.urn, "'urn:uuid:' + UUID#hexString === UUID#urn");
 
        strictEqual(uuid.bitFields.join(""), uuid.bitString, "joined bitFields equals bitString");
+       strictEqual(uuid.hexFields.join(""), uuid.hexNoDelim, "joined hexFields equals hexNoDelim");
        strictEqual(uuid.hexFields.slice(0, 4).join("-") + uuid.hexFields.slice(4).join("-"), uuid.hexString, "joined hexFields equals hexString");
 
        equal(uuid.intFields.length, 6, "length of intFields list");

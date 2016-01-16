@@ -40,7 +40,7 @@ QUnit.module("UUID.genV1() as string");
       ok(result, "proper clock sequence step: " + prev.toString(16) + " -> " + curr.toString(16));
       prev = curr;
     }
-    notEqual(nincrements, 0, "clock sequences changed");
+    notEqual(nincrements, 0, "clock sequences changed (possible to fail)");
   });
 
   QUnit.test("node identifier consistency tests", 48, function() {

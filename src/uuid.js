@@ -3,7 +3,7 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.3 rc
+ * @version v3.3.0-rc
  * @license The MIT License: Copyright (c) 2010-2016 LiosK.
  */
 
@@ -168,6 +168,13 @@ UUID.prototype._init = function() {
    * @type string
    */
   this.bitString = this.bitFields.join("");
+
+  /**
+   * Non-delimited hexadecimal string representation ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").
+   * @type string
+   * @since v3.3.0
+   */
+  this.hexNoDelim = this.hexFields.join("");
 
   /**
    * UUID hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").

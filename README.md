@@ -44,6 +44,7 @@ document.writeln(uuid.toString());  // "a0e0f130-8c21-11df-92d9-95795a3bcd40"
 document.writeln(uuid.hexString);   // "a0e0f130-8c21-11df-92d9-95795a3bcd40"
 document.writeln(uuid.bitString);   // "101000001110000 ... 1100110101000000"
 document.writeln(uuid.urn);         // "urn:uuid:a0e0f130-8c21-11df-92d9-95795a3bcd40"
+document.writeln(uuid.hexNoDelim);  // "a0e0f1308c2111df92d995795a3bcd40"
 
 // compare UUID objects
 document.writeln(objV4.equals(objV1));  // false
