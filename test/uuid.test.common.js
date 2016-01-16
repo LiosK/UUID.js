@@ -151,35 +151,41 @@ var UUIDTestCommon = {};
 
     ok(uuid instanceof UUID, "object instanceof UUID");
 
-    ok((uuid.version === 1) || (uuid.version === 2) || (uuid.version === 3) ||
-       (uuid.version === 4) || (uuid.version === 5), "UUID#version in (1-5)");
-       ok(patHex.test(uuid.hexString), "UUID#hexString matches" + patHex);
-       ok(patBit.test(uuid.bitString), "UUID#bitString matches " + patBit);
-       ok(patHexND.test(uuid.hexNoDelim), "UUID#hexNoDelim matches " + patHexND);
+    ok((uuid.version === 1) || (uuid.version === 2) || (uuid.version === 3) || (uuid.version === 4) || (uuid.version === 5), "UUID#version in (1-5)");
+    ok(patHex.test(uuid.hexString), "UUID#hexString matches" + patHex);
+    ok(patBit.test(uuid.bitString), "UUID#bitString matches " + patBit);
+    ok(patHexND.test(uuid.hexNoDelim), "UUID#hexNoDelim matches " + patHexND);
 
-       strictEqual(uuid.hexString, String(uuid), "UUID#hexString === UUID#toString()");
-       strictEqual("urn:uuid:" + uuid.hexString, uuid.urn, "'urn:uuid:' + UUID#hexString === UUID#urn");
+    strictEqual(uuid.hexString, String(uuid), "UUID#hexString === UUID#toString()");
+    strictEqual("urn:uuid:" + uuid.hexString, uuid.urn, "'urn:uuid:' + UUID#hexString === UUID#urn");
 
-       strictEqual(uuid.bitFields.join(""), uuid.bitString, "joined bitFields equals bitString");
-       strictEqual(uuid.hexFields.join(""), uuid.hexNoDelim, "joined hexFields equals hexNoDelim");
-       strictEqual(uuid.hexFields.slice(0, 4).join("-") + uuid.hexFields.slice(4).join("-"), uuid.hexString, "joined hexFields equals hexString");
+    strictEqual(uuid.bitFields.join(""), uuid.bitString, "joined bitFields equals bitString");
+    strictEqual(uuid.hexFields.join(""), uuid.hexNoDelim, "joined hexFields equals hexNoDelim");
+    strictEqual(uuid.hexFields.slice(0, 4).join("-") + uuid.hexFields.slice(4).join("-"), uuid.hexString, "joined hexFields equals hexString");
 
-       equal(uuid.intFields.length, 6, "length of intFields list");
-       equal(uuid.bitFields.length, 6, "length of bitFields list");
-       equal(uuid.hexFields.length, 6, "length of hexFields list");
-       for (var j = 0; j < 6; j++) {
-         var nm = names[j];
-         strictEqual(uuid.intFields[j], uuid.intFields[nm], "intFields[" + j + "] === intFields." + nm);
-         strictEqual(uuid.bitFields[j], uuid.bitFields[nm], "bitFields[" + j + "] === bitFields." + nm);
-         strictEqual(uuid.hexFields[j], uuid.hexFields[nm], "hexFields[" + j + "] === hexFields." + nm);
+    equal(uuid.intFields.length, 6, "length of intFields list");
+    equal(uuid.bitFields.length, 6, "length of bitFields list");
+    equal(uuid.hexFields.length, 6, "length of hexFields list");
+    for (var j = 0; j < 6; j++) {
+      var nm = names[j];
+      strictEqual(uuid.intFields[j], uuid.intFields[nm], "intFields[" + j + "] === intFields." + nm);
+      strictEqual(uuid.bitFields[j], uuid.bitFields[nm], "bitFields[" + j + "] === bitFields." + nm);
+      strictEqual(uuid.hexFields[j], uuid.hexFields[nm], "hexFields[" + j + "] === hexFields." + nm);
 
-         ok(0 <= uuid.intFields[j] && uuid.intFields[j] < ubounds[j], "0 <= intFields." + nm + " < 2^" + sizes[j]);
-         equal(uuid.bitFields[j].length, sizes[j], "bitFields." + nm + ".length");
-         equal(uuid.hexFields[j].length, sizes[j] / 4, "hexFields." + nm + ".length");
+      ok(0 <= uuid.intFields[j] && uuid.intFields[j] < ubounds[j], "0 <= intFields." + nm + " < 2^" + sizes[j]);
+      equal(uuid.bitFields[j].length, sizes[j], "bitFields." + nm + ".length");
+      equal(uuid.hexFields[j].length, sizes[j] / 4, "hexFields." + nm + ".length");
 
-         strictEqual(parseInt(uuid.bitFields[j], 2), uuid.intFields[j], "parseInt(bitFields." + nm + ", 2) === intFields." + nm);
-         strictEqual(parseInt(uuid.hexFields[j], 16), uuid.intFields[j], "parseInt(hexFields." + nm + ", 16) === intFields." + nm);
-       }
+      strictEqual(parseInt(uuid.bitFields[j], 2), uuid.intFields[j], "parseInt(bitFields." + nm + ", 2) === intFields." + nm);
+      strictEqual(parseInt(uuid.hexFields[j], 16), uuid.intFields[j], "parseInt(hexFields." + nm + ", 16) === intFields." + nm);
+    }
+
+    ok(uuid.equals(uuid), "UUID#equals(self)");
+    notOk(uuid.equals(UUID.genV4()), "!UUID#equals(UUID.genV4())");
+    ok(uuid.equals(UUID.parse(uuid.hexString)), "UUID#equals(UUID.parse(UUID#hexString))");
+    ok(uuid.equals(UUID.parse(uuid.urn)), "UUID#equals(UUID.parse(UUID#urn))");
+    ok(uuid.hexString === UUID.parse(uuid.hexString).hexString, "UUID#hexString === UUID.parse(UUID#hexString)#hexString");
+    ok(uuid.hexString === UUID.parse(uuid.urn).hexString, "UUID#hexString === UUID.parse(UUID#urn)#hexString");
   };
 
 })(UUIDTestCommon);
