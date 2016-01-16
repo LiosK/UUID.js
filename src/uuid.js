@@ -3,14 +3,15 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version 3.2
- * @license The MIT License: Copyright (c) 2010-2012 LiosK.
+ * @version 3.3 rc
+ * @license The MIT License: Copyright (c) 2010-2016 LiosK.
  */
 
 /** @constructor */
 var UUID;
 
 UUID = (function(overwrittenUUID) {
+"use strict";
 
 // Core Component {{{
 

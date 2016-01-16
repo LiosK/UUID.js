@@ -1,5 +1,5 @@
 /*
- Version: core-1.0
- The MIT License: Copyright (c) 2012 LiosK.
+ Version: core-1.1 rc
+ The MIT License: Copyright (c) 2012-2016 LiosK.
 */
-function UUID(){}UUID.generate=function(){var a=UUID._gri,b=UUID._ha;return b(a(32),8)+"-"+b(a(16),4)+"-"+b(16384|a(12),4)+"-"+b(32768|a(14),4)+"-"+b(a(48),12)};UUID._gri=function(a){return 0>a?NaN:30>=a?0|Math.random()*(1<<a):53>=a?(0|1073741824*Math.random())+1073741824*(0|Math.random()*(1<<a-30)):NaN};UUID._ha=function(a,b){for(var c=a.toString(16),d=b-c.length,e="0";0<d;d>>>=1,e+=e)d&1&&(c=e+c);return c};
+var UUID;UUID=function(g){function f(){}function b(c){return 0>c?NaN:30>=c?0|Math.random()*(1<<c):53>=c?(0|1073741824*Math.random())+1073741824*(0|Math.random()*(1<<c-30)):NaN}function a(c,b){for(var a=c.toString(16),d=b-a.length,e="0";0<d;d>>>=1,e+=e)d&1&&(a=e+a);return a}f.generate=function(){return a(b(32),8)+"-"+a(b(16),4)+"-"+a(16384|b(12),4)+"-"+a(32768|b(14),4)+"-"+a(b(48),12)};f.overwrittenUUID=g;return f}(UUID);
