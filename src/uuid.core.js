@@ -3,7 +3,7 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version v3.3.0
+ * @version v3.3.1
  * @license The MIT License: Copyright (c) 2010-2016 LiosK.
  */
 
@@ -37,13 +37,27 @@ UUID.generate = function() {
  * @param {int} x A positive integer ranging from 0 to 53, inclusive.
  * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
-function rand(x) {  // _getRandomInt
-  if (x <   0) return NaN;
-  if (x <= 30) return (0 | Math.random() * (1 <<      x));
-  if (x <= 53) return (0 | Math.random() * (1 <<     30))
-                    + (0 | Math.random() * (1 << x - 30)) * (1 << 30);
-  return NaN;
-}
+var rand = (function() {
+  if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
+    return function(x) {
+      if (x < 0 || x > 53) { return NaN; }
+      var nums = crypto.getRandomValues(new Uint32Array(x <= 32 ? 1 : 2));
+      if (x <= 32) {
+        return nums[0] >>> 32 - x;
+      } else {
+        return nums[0] + (nums[1] >>> 64 - x) * 0x100000000;
+      }
+    };
+  } else {
+    return function(x) {
+      if (x <   0) return NaN;
+      if (x <= 30) return (0 | Math.random() * (1 <<      x));
+      if (x <= 53) return (0 | Math.random() * (1 <<     30))
+                        + (0 | Math.random() * (1 << x - 30)) * (1 << 30);
+      return NaN;
+    };
+  }
+})();
 
 /**
  * Converts an integer to a zero-filled hexadecimal string.
