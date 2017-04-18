@@ -3,8 +3,8 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version v3.3.1
- * @license The MIT License: Copyright (c) 2010-2016 LiosK.
+ * @version v3.4.0-dev
+ * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
 /** @constructor */
@@ -206,6 +206,7 @@ UUID.prototype._init = function() {
   return this;
 };
 
+
 UUID._binAligner = UUID._getIntAligner(2);
 
 /**
@@ -226,6 +227,14 @@ UUID.prototype.equals = function(uuid) {
   }
   return true;
 };
+
+/**
+ * Nil UUID object.
+ * @type UUID
+ * @constant
+ * @since v3.4.0
+ */
+UUID.NIL = new UUID()._init(0, 0, 0, 0, 0, 0);
 
 // }}}
 
