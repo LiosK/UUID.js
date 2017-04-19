@@ -18,6 +18,8 @@ UUID = (function(overwrittenUUID) {
 /** @lends UUID */
 function UUID() {}
 
+UUID.empty = "00000000-0000-0000-0000-000000000000";
+
 /**
  * The simplest function to get an UUID string.
  * @returns {string} A version 4 UUID string.
