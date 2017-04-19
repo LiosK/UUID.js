@@ -64,6 +64,11 @@ function hex(num, length) { // _hexAligner
  */
 UUID.overwrittenUUID = overwrittenUUID;
 
+// For nodejs
+if (typeof module !== "undefined" && module && module.exports) {
+  module.exports = UUID;
+}
+
 return UUID;
 
 })(UUID);

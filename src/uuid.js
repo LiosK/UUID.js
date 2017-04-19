@@ -318,6 +318,11 @@ UUID.makeBackwardCompatible = function() {
  */
 UUID.overwrittenUUID = overwrittenUUID;
 
+// For nodejs
+if (typeof module !== "undefined" && module && module.exports) {
+  module.exports = UUID;
+}
+
 // }}}
 
 return UUID;
