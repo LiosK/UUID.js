@@ -48,20 +48,29 @@ UUID._getRandomInt = function(x) {
   return NaN;
 };
 
-/**
- * Returns a function that converts an integer to a zero-filled string.
- * @param {int} radix
- * @returns {function(num&#44; length)}
- */
-UUID._getIntAligner = function(radix) {
-  return function(num, length) {
-    var str = num.toString(radix), i = length - str.length, z = "0";
-    for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
-    return str;
+if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
+  UUID._getRandomInt = function(x) {
+    if (x < 0 || x > 53) { return NaN; }
+    var nums = crypto.getRandomValues(new Uint32Array(x <= 32 ? 1 : 2));
+    if (x <= 32) {
+      return nums[0] >>> 32 - x;
+    } else {
+      return nums[0] + (nums[1] >>> 64 - x) * 0x100000000;
+    }
   };
-};
+}
 
-UUID._hexAligner = UUID._getIntAligner(16);
+/**
+ * Converts an integer to a zero-filled hexadecimal string.
+ * @param {int} num
+ * @param {int} length
+ * @returns {string}
+ */
+UUID._hexAligner = function(num, length) {
+  var str = num.toString(16), i = length - str.length, z = "0";
+  for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
+  return str;
+};
 
 // }}}
 
@@ -192,7 +201,17 @@ UUID.prototype._init = function() {
   return this;
 };
 
-UUID._binAligner = UUID._getIntAligner(2);
+/**
+ * Converts an integer to a zero-filled binary string.
+ * @param {int} num
+ * @param {int} length
+ * @returns {string}
+ */
+UUID._binAligner = function(num, length) {
+  var str = num.toString(2), i = length - str.length, z = "0";
+  for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
+  return str;
+};
 
 /**
  * Returns UUID string representation.
@@ -296,7 +315,7 @@ UUID._getTimeFieldValues = function(time) {
 
 // }}}
 
-// Misc. Component {{{
+// Backward Compatibility Component {{{
 
 /**
  * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
@@ -310,6 +329,10 @@ UUID.makeBackwardCompatible = function() {
   };
   UUID.makeBackwardCompatible = function() {};
 };
+
+// }}}
+
+// Misc. Component {{{
 
 /**
  * Preserves the value of 'UUID' global variable set before the load of UUID.js.

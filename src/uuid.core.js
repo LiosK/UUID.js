@@ -13,6 +13,8 @@ var UUID;
 UUID = (function(overwrittenUUID) {
 "use strict";
 
+// Core Component {{{
+
 /** @lends UUID */
 function UUID() {}
 
@@ -21,6 +23,7 @@ function UUID() {}
  * @returns {string} A version 4 UUID string.
  */
 UUID.generate = function() {
+  var rand = UUID._getRandomInt, hex = UUID._hexAligner;
   return  hex(rand(32), 8)          // time_low
         + "-"
         + hex(rand(16), 4)          // time_mid
@@ -37,12 +40,24 @@ UUID.generate = function() {
  * @param {int} x A positive integer ranging from 0 to 53, inclusive.
  * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
-function rand(x) {  // _getRandomInt
+UUID._getRandomInt = function(x) {
   if (x <   0) return NaN;
   if (x <= 30) return (0 | Math.random() * (1 <<      x));
   if (x <= 53) return (0 | Math.random() * (1 <<     30))
                     + (0 | Math.random() * (1 << x - 30)) * (1 << 30);
   return NaN;
+};
+
+if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
+  UUID._getRandomInt = function(x) {
+    if (x < 0 || x > 53) { return NaN; }
+    var nums = crypto.getRandomValues(new Uint32Array(x <= 32 ? 1 : 2));
+    if (x <= 32) {
+      return nums[0] >>> 32 - x;
+    } else {
+      return nums[0] + (nums[1] >>> 64 - x) * 0x100000000;
+    }
+  };
 }
 
 /**
@@ -51,15 +66,19 @@ function rand(x) {  // _getRandomInt
  * @param {int} length
  * @returns {string}
  */
-function hex(num, length) { // _hexAligner
+UUID._hexAligner = function(num, length) {
   var str = num.toString(16), i = length - str.length, z = "0";
   for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
   return str;
-}
+};
+
+// }}}
+
+// Misc. Component {{{
 
 /**
  * Preserves the value of 'UUID' global variable set before the load of UUID.js.
- * @since core-1.1
+ * @since 3.2
  * @type object
  */
 UUID.overwrittenUUID = overwrittenUUID;
@@ -69,8 +88,10 @@ if (typeof module !== "undefined" && module && module.exports) {
   module.exports = UUID;
 }
 
+// }}}
+
 return UUID;
 
 })(UUID);
 
-// vim: et ts=2 sw=2
+// vim: et ts=2 sw=2 fdm=marker fmr&
