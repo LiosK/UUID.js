@@ -3,8 +3,8 @@
  *
  * @fileOverview
  * @author  LiosK
- * @version v3.3.0
- * @license The MIT License: Copyright (c) 2010-2016 LiosK.
+ * @version v3.4.0
+ * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
 /** @constructor */
@@ -213,6 +213,14 @@ UUID.prototype.equals = function(uuid) {
   return true;
 };
 
+/**
+ * Nil UUID object.
+ * @type UUID
+ * @constant
+ * @since v3.4.0
+ */
+UUID.NIL = new UUID()._init(0, 0, 0, 0, 0, 0);
+
 // }}}
 
 // UUID Version 1 Component {{{
@@ -309,6 +317,11 @@ UUID.makeBackwardCompatible = function() {
  * @type object
  */
 UUID.overwrittenUUID = overwrittenUUID;
+
+// For nodejs
+if (typeof module !== "undefined" && module && module.exports) {
+  module.exports = UUID;
+}
 
 // }}}
 

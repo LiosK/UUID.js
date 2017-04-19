@@ -61,7 +61,7 @@ pre.code
 	width: 600px;
 }
 
-.classList
+.classList, .methodList, .propertyList
 {
 	list-style-type: none;
 	padding: 0;
@@ -71,7 +71,7 @@ pre.code
 	overflow: auto;
 }
 
-.classList li
+.classList li, .methodList li, .propertyList li
 {
 	padding: 0;
 	margin: 0 0 8px 0;
@@ -196,6 +196,75 @@ ul.inheritsList
 </ul>
 <hr />
 			<!-- end publish.classesIndex -->
+			
+			<!-- ================== class summary ====================== -->
+			
+			
+			<!-- method list -->
+			
+				
+				
+					<h2>Methods</h2>
+					<ul class="methodList">
+						
+							<li><a href="../symbols/UUID.html#equals">equals</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.generate">generate</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.genV1">genV1</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.genV4">genV4</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.makeBackwardCompatible">makeBackwardCompatible</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.parse">parse</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.resetState">resetState</a></li>
+						
+							<li><a href="../symbols/UUID.html#toString">toString</a></li>
+						
+							<li><a href="../symbols/UUID.html#-UUID">UUID</a></li>
+						
+					</ul>
+				
+			
+			<!-- end method list -->
+			
+			<!-- field list -->
+			
+				
+				
+					<h2>Fields</h2>
+					<ul class="propertyList">
+						
+							<li><a href="../symbols/UUID.html#bitFields">bitFields</a></li>
+						
+							<li><a href="../symbols/UUID.html#bitString">bitString</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.FIELD_NAMES">FIELD_NAMES</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.FIELD_SIZES">FIELD_SIZES</a></li>
+						
+							<li><a href="../symbols/UUID.html#hexFields">hexFields</a></li>
+						
+							<li><a href="../symbols/UUID.html#hexNoDelim">hexNoDelim</a></li>
+						
+							<li><a href="../symbols/UUID.html#hexString">hexString</a></li>
+						
+							<li><a href="../symbols/UUID.html#intFields">intFields</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.NIL">NIL</a></li>
+						
+							<li>UUID.<a href="../symbols/UUID.html#.overwrittenUUID">overwrittenUUID</a></li>
+						
+							<li><a href="../symbols/UUID.html#urn">urn</a></li>
+						
+							<li><a href="../symbols/UUID.html#version">version</a></li>
+						
+					</ul>
+				
+			
+			<!-- end field list -->
 		</div>
 		
 		<div id="content">
@@ -255,8 +324,11 @@ ul.inheritsList
 					</thead>
 					<tbody>
 					
-						<tr>
-							<td class="attributes">&nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{string[]}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								<b><a href="../symbols/UUID.html#bitFields">bitFields</a></b>
@@ -265,8 +337,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{string}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								<b><a href="../symbols/UUID.html#bitString">bitString</a></b>
@@ -275,8 +350,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&lt;static&gt; &lt;constant&gt; &nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{string[]}</div>
+								&lt;static&gt; &lt;constant&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								UUID.<b><a href="../symbols/UUID.html#.FIELD_NAMES">FIELD_NAMES</a></b>
@@ -285,8 +363,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&lt;static&gt; &lt;constant&gt; &nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{int[]}</div>
+								&lt;static&gt; &lt;constant&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								UUID.<b><a href="../symbols/UUID.html#.FIELD_SIZES">FIELD_SIZES</a></b>
@@ -295,8 +376,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{string[]}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								<b><a href="../symbols/UUID.html#hexFields">hexFields</a></b>
@@ -305,8 +389,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{string}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								<b><a href="../symbols/UUID.html#hexNoDelim">hexNoDelim</a></b>
@@ -315,8 +402,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{string}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								<b><a href="../symbols/UUID.html#hexString">hexString</a></b>
@@ -325,8 +415,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{int[]}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								<b><a href="../symbols/UUID.html#intFields">intFields</a></b>
@@ -335,8 +428,24 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{<a href="../symbols/UUID.html">UUID</a>}</div>
+								&lt;static&gt; &lt;constant&gt; 
+							</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								UUID.<b><a href="../symbols/UUID.html#.NIL">NIL</a></b>
+								</div>
+								<div class="description">Nil UUID object.</div>
+							</td>
+						</tr>
+					
+						<tr>							
+							<td class="attributes">
+								<div class="light">{object}</div>
+								&lt;static&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								UUID.<b><a href="../symbols/UUID.html#.overwrittenUUID">overwrittenUUID</a></b>
@@ -345,8 +454,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{string}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								<b><a href="../symbols/UUID.html#urn">urn</a></b>
@@ -355,8 +467,11 @@ ul.inheritsList
 							</td>
 						</tr>
 					
-						<tr>
-							<td class="attributes">&nbsp;</td>
+						<tr>							
+							<td class="attributes">
+								<div class="light">{int}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
 								<b><a href="../symbols/UUID.html#version">version</a></b>
@@ -387,7 +502,10 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">
+								<div class="light">{bool}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/UUID.html#equals">equals</a></b>(uuid)
 								</div>
@@ -396,7 +514,10 @@ ul.inheritsList
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">
+								<div class="light">{string}</div>
+								&lt;static&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">UUID.<b><a href="../symbols/UUID.html#.generate">generate</a></b>()
 								</div>
@@ -405,7 +526,10 @@ ul.inheritsList
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">
+								<div class="light">{<a href="../symbols/UUID.html">UUID</a>}</div>
+								&lt;static&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">UUID.<b><a href="../symbols/UUID.html#.genV1">genV1</a></b>()
 								</div>
@@ -414,7 +538,10 @@ ul.inheritsList
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">
+								<div class="light">{<a href="../symbols/UUID.html">UUID</a>}</div>
+								&lt;static&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">UUID.<b><a href="../symbols/UUID.html#.genV4">genV4</a></b>()
 								</div>
@@ -423,7 +550,10 @@ ul.inheritsList
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">
+								
+								&lt;static&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">UUID.<b><a href="../symbols/UUID.html#.makeBackwardCompatible">makeBackwardCompatible</a></b>()
 								</div>
@@ -432,7 +562,10 @@ ul.inheritsList
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">
+								<div class="light">{<a href="../symbols/UUID.html">UUID</a>}</div>
+								&lt;static&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">UUID.<b><a href="../symbols/UUID.html#.parse">parse</a></b>(strId)
 								</div>
@@ -441,7 +574,10 @@ ul.inheritsList
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">
+								
+								&lt;static&gt; 
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont">UUID.<b><a href="../symbols/UUID.html#.resetState">resetState</a></b>()
 								</div>
@@ -450,11 +586,26 @@ ul.inheritsList
 						</tr>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">
+								<div class="light">{string}</div>
+								
+							</td>
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/UUID.html#toString">toString</a></b>()
 								</div>
 								<div class="description">Returns UUID string representation.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">
+								
+								&lt;inner&gt; 
+							</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/UUID.html#-UUID">UUID</a></b>()
+								</div>
+								<div class="description"></div>
 							</td>
 						</tr>
 					
@@ -497,7 +648,7 @@ ul.inheritsList
 			</div>
 			
 
-<!-- ============================== field details ========================== -->		
+<!-- ============================== property details ========================== -->		
 			
 				<div class="sectionTitle">
 					Field Detail
@@ -688,6 +839,33 @@ ul.inheritsList
 					
 
 						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".NIL"> </a>
+					<div class="fixedFont">&lt;static&gt; &lt;constant&gt; 
+					
+					<span class="light">{<a href="../symbols/UUID.html">UUID</a>}</span>
+					<span class="light">UUID.</span><b>NIL</b>
+					
+					</div>
+					<div class="description">
+						Nil UUID object.
+						
+						
+					</div>
+					
+					
+
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Since:</dt>
+								<dd>v3.4.0</dd>
+							</dl>
 						
 						
 						
@@ -1072,6 +1250,31 @@ ul.inheritsList
 						
 						
 
+					<hr />
+				
+					<a name="-UUID"> </a>
+					<div class="fixedFont">&lt;inner&gt; 
+					
+					
+					<b>UUID</b>()
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
 					
 				
 			
@@ -1086,7 +1289,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Jan 16 2016 13:15:03 GMT+0900 (JST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 19 2017 17:08:52 GMT-0400 (EDT)
 		</div>
 	</body>
 </html>

@@ -1,24 +1,24 @@
 QUnit.module("UUID.genV1() as object");
 
-(function() {
+(function(QUnit) {
   "use strict";
 
-  QUnit.test("basic object tests", function() {
+  QUnit.test("basic object tests", function(assert) {
     var n = 16;
 
     for (var i = 0; i < n; i++) {
       var uuid = UUID.genV1();
-      equal(uuid.version, 1, "version number field");
+      assert.equal(uuid.version, 1, "version number field");
 
-      UUIDTestCommon.testObjectProperties(uuid);
+      UUIDTestCommon.testObjectProperties(assert, uuid);
     }
   });
 
-})();
+})(QUnit);
 
 QUnit.module("UUID.genV1() as string");
 
-(function() {
+(function(QUnit) {
   "use strict";
 
   var generator = function() {
@@ -27,7 +27,8 @@ QUnit.module("UUID.genV1() as string");
 
   UUIDTestCommon.testV1AsString(generator);
 
-  QUnit.test("clock sequence tests", 1024, function() {
+  QUnit.test("clock sequence tests", function(assert) {
+    assert.expect(1024);
     var nincrements = 0;
     var prev = parseInt(generator().substr(19, 4), 16) & 0x3FFF;
     for (var i = 1; i < 1024; i++) {
@@ -37,13 +38,14 @@ QUnit.module("UUID.genV1() as string");
         result = true;
         nincrements++;
       }
-      ok(result, "proper clock sequence step: " + prev.toString(16) + " -> " + curr.toString(16));
+      assert.ok(result, "proper clock sequence step: " + prev.toString(16) + " -> " + curr.toString(16));
       prev = curr;
     }
-    notEqual(nincrements, 0, "clock sequences changed (possible to fail)");
+    assert.notEqual(nincrements, 0, "clock sequences changed (possible to fail)");
   });
 
-  QUnit.test("node identifier consistency tests", 48, function() {
+  QUnit.test("node identifier consistency tests", function(assert) {
+    assert.expect(48);
     var n = 4096, uuids = [];
     for (var i = 0; i < n; i++) { uuids[i] = generator(); }
     var counts = UUIDTestCommon.countEachBitsOne(uuids);
@@ -51,18 +53,18 @@ QUnit.module("UUID.genV1() as string");
     for (var i = 80; i < 128; i++) {
       var c = counts[i];
       if (i === 87) {
-        equal(c, n, "bit " + i + ": reserved bit '1'");
+        assert.equal(c, n, "bit " + i + ": reserved bit '1'");
       } else {
-        ok(c === 0 || c === n, "bit " + i + ": constant bit " + c + " (allowable value: " + 0 + " or " + n + ")");
+        assert.ok(c === 0 || c === n, "bit " + i + ": constant bit " + c + " (allowable value: " + 0 + " or " + n + ")");
       }
     }
   });
 
-})();
+})(QUnit);
 
 QUnit.module("UUID.genV1() and UUID.resetState()");
 
-(function() {
+(function(QUnit) {
   "use strict";
 
   var generator = function() {
@@ -72,7 +74,8 @@ QUnit.module("UUID.genV1() and UUID.resetState()");
 
   UUIDTestCommon.testV1AsString(generator);
 
-  QUnit.test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", 64, function() {
+  QUnit.test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", function(assert) {
+    assert.expect(64);
     var n = 4096, uuids = [];
     for (var i = 0; i < n; i++) { uuids[i] = generator(); }
     var counts = UUIDTestCommon.countEachBitsOne(uuids);
@@ -84,18 +87,18 @@ QUnit.module("UUID.genV1() and UUID.resetState()");
       switch (i) {
           case 64:
           case 87:
-              equal(c, n, "bit " + i + ": reserved bit '1'");
+              assert.equal(c, n, "bit " + i + ": reserved bit '1'");
               break;
           case 65:
-              equal(c, 0, "bit " + i + ": reserved bit '0'");
+              assert.equal(c, 0, "bit " + i + ": reserved bit '0'");
               break;
           default:
-              ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (allowable range: " + lbound + "-" + ubound + ")");
+              assert.ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (allowable range: " + lbound + "-" + ubound + ")");
               break;
       }
     }
   });
 
-})();
+})(QUnit);
 
 // vim: et ts=2 sw=2

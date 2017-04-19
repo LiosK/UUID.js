@@ -20,6 +20,10 @@ UUID.js library generates an RFC 4122 compliant Universally Unique IDentifier (U
 * Properly handles 32-bit `Math.random()` implementation of WebKit-based browsers when generating a large random integer.
 * Tested by many test cases including format checks and statistical variance tests.
 
+# INSTALL
+
+Download `src/uuid.js` or type `npm install uuidjs`.
+
 # USAGE EXAMPLES
 
 Load `src/uuid.js` to get full functionality. If you only need `UUID.generate()` method, load `dist/uuid.core.js`.
@@ -78,7 +82,7 @@ UUID = UUID.overwrittenUUID;  // restore original value
 
 This library is licensed under the MIT license.
 
-    Copyright (c) 2010-2016 LiosK.
+    Copyright (c) 2010-2017 LiosK.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
