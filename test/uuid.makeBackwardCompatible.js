@@ -28,6 +28,7 @@ QUnit.module("UUID.makeBackwardCompatible()");
       assert.ok(v1.test(rgt) && (UUID.parse(rgt).version === 1), "UUID.generate({ version: 1 }) returns UUIDv1: " + rgt);
     }
   });
+
 })(QUnit);
 
 // vim: et ts=2 sw=2

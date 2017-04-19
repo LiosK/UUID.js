@@ -40,27 +40,13 @@ UUID.generate = function() {
  * @param {int} x A positive integer ranging from 0 to 53, inclusive.
  * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
-UUID._getRandomInt = (function() {
-  if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
-    return function(x) {
-      if (x < 0 || x > 53) { return NaN; }
-      var nums = crypto.getRandomValues(new Uint32Array(x <= 32 ? 1 : 2));
-      if (x <= 32) {
-        return nums[0] >>> 32 - x;
-      } else {
-        return nums[0] + (nums[1] >>> 64 - x) * 0x100000000;
-      }
-    };
-  } else {
-    return function(x) {
-      if (x <   0) return NaN;
-      if (x <= 30) return (0 | Math.random() * (1 <<      x));
-      if (x <= 53) return (0 | Math.random() * (1 <<     30))
-                        + (0 | Math.random() * (1 << x - 30)) * (1 << 30);
-      return NaN;
-    };
-  }
-})();
+UUID._getRandomInt = function(x) {
+  if (x <   0) return NaN;
+  if (x <= 30) return (0 | Math.random() * (1 <<      x));
+  if (x <= 53) return (0 | Math.random() * (1 <<     30))
+                    + (0 | Math.random() * (1 << x - 30)) * (1 << 30);
+  return NaN;
+};
 
 /**
  * Returns a function that converts an integer to a zero-filled string.
@@ -205,7 +191,6 @@ UUID.prototype._init = function() {
 
   return this;
 };
-
 
 UUID._binAligner = UUID._getIntAligner(2);
 
