@@ -108,7 +108,7 @@ LiosK <contact@mail.liosk.net>
 
 # SEE ALSO
 
-* [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt)
-* [API Document](http://liosk.github.io/UUID.js/doc/symbols/UUID.html)
-* [Test cases: uuid.js](http://liosk.github.io/UUID.js/test/test.uuid.js.html)
-* [Test cases: uuid.core.js](http://liosk.github.io/UUID.js/test/test.uuid.core.js.html)
+* [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt)
+* [API Document](https://liosk.github.io/UUID.js/doc/symbols/UUID.html)
+* [Test cases: uuid.js](https://liosk.github.io/UUID.js/test/test.uuid.js.html)
+* [Test cases: uuid.core.js](https://liosk.github.io/UUID.js/test/test.uuid.core.js.html)
