@@ -1,6 +1,6 @@
 var UUIDTestCommon = {};
 
-(function(ns) {
+(function(QUnit, ns) {
   "use strict";
 
   function generateUUIDs(generator, n) {
@@ -32,15 +32,17 @@ var UUIDTestCommon = {};
 
   ns.testV4AsString = function(generator) {
 
-    QUnit.test("regexp format tests", 1024, function() {
+    QUnit.test("regexp format tests", function(assert) {
+      assert.expect(1024);
       var reformat = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
       for (var i = 0; i < 1024; i++) {
         var uuid = generator();
-        ok(reformat.test(uuid), reformat.source + " =~ " + uuid);
+        assert.ok(reformat.test(uuid), reformat.source + " =~ " + uuid);
       }
     });
 
-    QUnit.test("collision tests", 1, function() {
+    QUnit.test("collision tests", function(assert) {
+      assert.expect(1);
       var n = 16384, nerrors = 0, table = {};
       for (var i = 0; i < n; i++) {
         var uuid = generator();
@@ -50,22 +52,24 @@ var UUIDTestCommon = {};
           table[uuid] = true;
         }
       }
-      equal(nerrors, 0, "no collision among " + n + " UUIDs");
+      assert.equal(nerrors, 0, "no collision among " + n + " UUIDs");
     });
 
     var n = 4096, uuids = generateUUIDs(generator, n), counts = ns.countEachBitsOne(uuids);
 
-    QUnit.test("reserved bit tests", 6, function() {
-      equal(counts[64], n, "bit 64: variant bit '1'");
-      equal(counts[65], 0, "bit 65: variant bit '0'");
+    QUnit.test("reserved bit tests", function(assert) {
+      assert.expect(6);
+      assert.equal(counts[64], n, "bit 64: variant bit '1'");
+      assert.equal(counts[65], 0, "bit 65: variant bit '0'");
 
-      equal(counts[48], 0, "bit 48: version bit '0'");
-      equal(counts[49], n, "bit 49: version bit '1'");
-      equal(counts[50], 0, "bit 50: version bit '0'");
-      equal(counts[51], 0, "bit 51: version bit '0'");
+      assert.equal(counts[48], 0, "bit 48: version bit '0'");
+      assert.equal(counts[49], n, "bit 49: version bit '1'");
+      assert.equal(counts[50], 0, "bit 50: version bit '0'");
+      assert.equal(counts[51], 0, "bit 51: version bit '0'");
     });
 
-    QUnit.test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", 128, function() {
+    QUnit.test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", function(assert) {
+      assert.expect(128);
       var mean = n * 0.5, sd = Math.sqrt(n * 0.5 * 0.5);  // binom dist
       var lbound = mean - 4 * sd, ubound = mean + 4 * sd;
 
@@ -74,16 +78,16 @@ var UUIDTestCommon = {};
         switch (i) {
             case 64:
             case 49:
-                equal(c, n, "bit " + i + ": reserved bit '1'");
+                assert.equal(c, n, "bit " + i + ": reserved bit '1'");
                 break;
             case 65:
             case 48:
             case 50:
             case 51:
-                equal(c, 0, "bit " + i + ": reserved bit '0'");
+                assert.equal(c, 0, "bit " + i + ": reserved bit '0'");
                 break;
             default:
-                ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (allowable range: " + lbound + "-" + ubound + ")");
+                assert.ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (allowable range: " + lbound + "-" + ubound + ")");
                 break;
         }
       }
@@ -92,15 +96,17 @@ var UUIDTestCommon = {};
 
   ns.testV1AsString = function(generator) {
 
-    QUnit.test("regexp format tests", 1024, function() {
+    QUnit.test("regexp format tests", function(assert) {
+      assert.expect(1024);
       var reformat = /^[0-9a-f]{8}-[0-9a-f]{4}-1[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f][13579bdf][0-9a-f]{10}$/;
       for (var i = 0; i < 1024; i++) {
         var uuid = generator();
-        ok(reformat.test(uuid), reformat.source + " =~ " + uuid);
+        assert.ok(reformat.test(uuid), reformat.source + " =~ " + uuid);
       }
     });
 
-    QUnit.test("collision tests", 1, function() {
+    QUnit.test("collision tests", function(assert) {
+      assert.expect(1);
       var n = 16384, nerrors = 0, table = {};
       for (var i = 0; i < n; i++) {
         var uuid = generator();
@@ -110,36 +116,38 @@ var UUIDTestCommon = {};
           table[uuid] = true;
         }
       }
-      equal(nerrors, 0, "no collision among " + n + " UUIDs");
+      assert.equal(nerrors, 0, "no collision among " + n + " UUIDs");
     });
 
-    QUnit.test("reserved bit tests", 7, function() {
+    QUnit.test("reserved bit tests", function(assert) {
+      assert.expect(7);
       var n = 4096, uuids = generateUUIDs(generator, n), counts = ns.countEachBitsOne(uuids);
 
-      equal(counts[64], n, "bit 64: variant bit '1'");
-      equal(counts[65], 0, "bit 65: variant bit '0'");
+      assert.equal(counts[64], n, "bit 64: variant bit '1'");
+      assert.equal(counts[65], 0, "bit 65: variant bit '0'");
 
-      equal(counts[48], 0, "bit 48: version bit '0'");
-      equal(counts[49], 0, "bit 49: version bit '0'");
-      equal(counts[50], 0, "bit 50: version bit '0'");
-      equal(counts[51], n, "bit 51: version bit '1'");
+      assert.equal(counts[48], 0, "bit 48: version bit '0'");
+      assert.equal(counts[49], 0, "bit 49: version bit '0'");
+      assert.equal(counts[50], 0, "bit 50: version bit '0'");
+      assert.equal(counts[51], n, "bit 51: version bit '1'");
 
-      equal(counts[87], n, "bit 87: multicast bit '1'");
+      assert.equal(counts[87], n, "bit 87: multicast bit '1'");
     });
 
-    QUnit.test("timestamp tests", 1024, function() {
+    QUnit.test("timestamp tests", function(assert) {
+      assert.expect(1024);
       var now = new Date() - Date.UTC(1582, 9, 15, 0, 0, 0, 0);
       for (var i = 0; i < 1024; i++) {
         var uuid = generator();
         var hex = uuid.substr(15, 3) + uuid.substr(9, 4) + uuid.substr(0, 8);
         var diff = Math.abs(now - parseInt(hex, 16) / 10000);
-        ok(diff < 60 * 1000, "current timestamp - UUID timestamp < 1 minute: " + diff);
+        assert.ok(diff < 60 * 1000, "current timestamp - UUID timestamp < 1 minute: " + diff);
       }
     });
 
   };
 
-  ns.testObjectProperties = function(uuid) {
+  ns.testObjectProperties = function(assert, uuid) {
     var sizes = [32, 16, 16, 8, 8, 48];
     var names = ["timeLow", "timeMid", "timeHiAndVersion", "clockSeqHiAndReserved", "clockSeqLow", "node"];
     var ubounds = new Array(6);
@@ -149,44 +157,45 @@ var UUIDTestCommon = {};
     var patBit = /^(?:[01]{48}0(?:001|010|011|100|101)[01]{12}10[01]{62}|0{128})$/;
     var patHexND = /^(?:[0-9a-f]{12}[1-5][0-9a-f]{3}[89ab][0-9a-f]{15}|0{32})$/;
 
-    ok(uuid instanceof UUID, "object instanceof UUID");
+    assert.ok(uuid instanceof UUID, "object instanceof UUID");
 
-    ok((uuid.version === 1) || (uuid.version === 2) || (uuid.version === 3) || (uuid.version === 4) || (uuid.version === 5), "UUID#version in (1-5)");
-    ok(patHex.test(uuid.hexString), "UUID#hexString matches" + patHex);
-    ok(patBit.test(uuid.bitString), "UUID#bitString matches " + patBit);
-    ok(patHexND.test(uuid.hexNoDelim), "UUID#hexNoDelim matches " + patHexND);
+    assert.ok((uuid.version === 1) || (uuid.version === 2) || (uuid.version === 3) || (uuid.version === 4) || (uuid.version === 5), "UUID#version in (1-5)");
+    assert.ok(patHex.test(uuid.hexString), "UUID#hexString matches" + patHex);
+    assert.ok(patBit.test(uuid.bitString), "UUID#bitString matches " + patBit);
+    assert.ok(patHexND.test(uuid.hexNoDelim), "UUID#hexNoDelim matches " + patHexND);
 
-    strictEqual(uuid.hexString, String(uuid), "UUID#hexString === UUID#toString()");
-    strictEqual("urn:uuid:" + uuid.hexString, uuid.urn, "'urn:uuid:' + UUID#hexString === UUID#urn");
+    assert.strictEqual(uuid.hexString, String(uuid), "UUID#hexString === UUID#toString()");
+    assert.strictEqual("urn:uuid:" + uuid.hexString, uuid.urn, "'urn:uuid:' + UUID#hexString === UUID#urn");
 
-    strictEqual(uuid.bitFields.join(""), uuid.bitString, "joined bitFields equals bitString");
-    strictEqual(uuid.hexFields.join(""), uuid.hexNoDelim, "joined hexFields equals hexNoDelim");
-    strictEqual(uuid.hexFields.slice(0, 4).join("-") + uuid.hexFields.slice(4).join("-"), uuid.hexString, "joined hexFields equals hexString");
+    assert.strictEqual(uuid.bitFields.join(""), uuid.bitString, "joined bitFields equals bitString");
+    assert.strictEqual(uuid.hexFields.join(""), uuid.hexNoDelim, "joined hexFields equals hexNoDelim");
+    assert.strictEqual(uuid.hexFields.slice(0, 4).join("-") + uuid.hexFields.slice(4).join("-"), uuid.hexString, "joined hexFields equals hexString");
 
-    equal(uuid.intFields.length, 6, "length of intFields list");
-    equal(uuid.bitFields.length, 6, "length of bitFields list");
-    equal(uuid.hexFields.length, 6, "length of hexFields list");
+    assert.equal(uuid.intFields.length, 6, "length of intFields list");
+    assert.equal(uuid.bitFields.length, 6, "length of bitFields list");
+    assert.equal(uuid.hexFields.length, 6, "length of hexFields list");
     for (var j = 0; j < 6; j++) {
       var nm = names[j];
-      strictEqual(uuid.intFields[j], uuid.intFields[nm], "intFields[" + j + "] === intFields." + nm);
-      strictEqual(uuid.bitFields[j], uuid.bitFields[nm], "bitFields[" + j + "] === bitFields." + nm);
-      strictEqual(uuid.hexFields[j], uuid.hexFields[nm], "hexFields[" + j + "] === hexFields." + nm);
+      assert.strictEqual(uuid.intFields[j], uuid.intFields[nm], "intFields[" + j + "] === intFields." + nm);
+      assert.strictEqual(uuid.bitFields[j], uuid.bitFields[nm], "bitFields[" + j + "] === bitFields." + nm);
+      assert.strictEqual(uuid.hexFields[j], uuid.hexFields[nm], "hexFields[" + j + "] === hexFields." + nm);
 
-      ok(0 <= uuid.intFields[j] && uuid.intFields[j] < ubounds[j], "0 <= intFields." + nm + " < 2^" + sizes[j]);
-      equal(uuid.bitFields[j].length, sizes[j], "bitFields." + nm + ".length");
-      equal(uuid.hexFields[j].length, sizes[j] / 4, "hexFields." + nm + ".length");
+      assert.ok(0 <= uuid.intFields[j] && uuid.intFields[j] < ubounds[j], "0 <= intFields." + nm + " < 2^" + sizes[j]);
+      assert.equal(uuid.bitFields[j].length, sizes[j], "bitFields." + nm + ".length");
+      assert.equal(uuid.hexFields[j].length, sizes[j] / 4, "hexFields." + nm + ".length");
 
-      strictEqual(parseInt(uuid.bitFields[j], 2), uuid.intFields[j], "parseInt(bitFields." + nm + ", 2) === intFields." + nm);
-      strictEqual(parseInt(uuid.hexFields[j], 16), uuid.intFields[j], "parseInt(hexFields." + nm + ", 16) === intFields." + nm);
+      assert.strictEqual(parseInt(uuid.bitFields[j], 2), uuid.intFields[j], "parseInt(bitFields." + nm + ", 2) === intFields." + nm);
+      assert.strictEqual(parseInt(uuid.hexFields[j], 16), uuid.intFields[j], "parseInt(hexFields." + nm + ", 16) === intFields." + nm);
     }
 
-    ok(uuid.equals(uuid), "UUID#equals(self)");
-    notOk(uuid.equals(UUID.genV4()), "!UUID#equals(UUID.genV4())");
-    ok(uuid.equals(UUID.parse(uuid.hexString)), "UUID#equals(UUID.parse(UUID#hexString))");
-    ok(uuid.equals(UUID.parse(uuid.urn)), "UUID#equals(UUID.parse(UUID#urn))");
-    ok(uuid.hexString === UUID.parse(uuid.hexString).hexString, "UUID#hexString === UUID.parse(UUID#hexString)#hexString");
-    ok(uuid.hexString === UUID.parse(uuid.urn).hexString, "UUID#hexString === UUID.parse(UUID#urn)#hexString");
+    assert.ok(uuid.equals(uuid), "UUID#equals(self)");
+    assert.notOk(uuid.equals(UUID.genV4()), "!UUID#equals(UUID.genV4())");
+    assert.ok(uuid.equals(UUID.parse(uuid.hexString)), "UUID#equals(UUID.parse(UUID#hexString))");
+    assert.ok(uuid.equals(UUID.parse(uuid.urn)), "UUID#equals(UUID.parse(UUID#urn))");
+    assert.ok(uuid.hexString === UUID.parse(uuid.hexString).hexString, "UUID#hexString === UUID.parse(UUID#hexString)#hexString");
+    assert.ok(uuid.hexString === UUID.parse(uuid.urn).hexString, "UUID#hexString === UUID.parse(UUID#urn)#hexString");
   };
 
-})(UUIDTestCommon);
+})(QUnit, UUIDTestCommon);
+
 // vim: et ts=2 sw=2

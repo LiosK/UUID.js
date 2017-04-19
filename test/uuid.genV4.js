@@ -1,20 +1,20 @@
 QUnit.module("UUID.genV4() as object");
 
-(function() {
+(function(QUnit) {
   "use strict";
 
-  QUnit.test("basic object tests", function() {
+  QUnit.test("basic object tests", function(assert) {
     var n = 16;
 
     for (var i = 0; i < n; i++) {
       var uuid = UUID.genV4();
-      equal(uuid.version, 4, "version number field");
+      assert.equal(uuid.version, 4, "version number field");
 
-      UUIDTestCommon.testObjectProperties(uuid);
+      UUIDTestCommon.testObjectProperties(assert, uuid);
     }
   });
 
-})();
+})(QUnit);
 
 QUnit.module("UUID.genV4() as string");
 

@@ -1,9 +1,10 @@
 QUnit.module("UUID.parse()");
 
-(function() {
+(function(QUnit) {
   "use strict";
 
-  QUnit.test("pass tests", 15, function() {
+  QUnit.test("pass tests", function(assert) {
+    assert.expect(15);
     var passes = [
       { value: "7bfca344-bc10-11e5-af40-080027483c41" },
       { value: "8bfaf007-0545-4795-a10a-487b0f00d93f" },
@@ -21,12 +22,13 @@ QUnit.module("UUID.parse()");
     }
 
     for (var i = 0, len = passes.length; i < len; i++) {
-      var uuid = UUID.parse(passes[i].value)
-      equal(uuid.hexString, passes[i].canonical, "UUID.parse(\"" + passes[i].value + "\") -> " + uuid.hexString);
+      var uuid = UUID.parse(passes[i].value);
+      assert.equal(uuid.hexString, passes[i].canonical, "UUID.parse(\"" + passes[i].value + "\") -> " + uuid.hexString);
     }
   });
 
-  QUnit.test("fail tests", 8, function() {
+  QUnit.test("fail tests", function(assert) {
+    assert.expect(8);
     var fails = [
       "06536892-0g22-499d-8aaf-b0dd9cfa69a4",
       "864eh78f-0571-46jf-a1w4-538v0fdoacff",
@@ -39,10 +41,10 @@ QUnit.module("UUID.parse()");
     ];
 
     for (var i = 0, len = fails.length; i < len; i++) {
-      equal(UUID.parse(fails[i]), null, "UUID.parse failed: " + fails[i]);
+      assert.equal(UUID.parse(fails[i]), null, "UUID.parse failed: " + fails[i]);
     }
   });
 
-})();
-// vim: et ts=2 sw=2
+})(QUnit);
 
+// vim: et ts=2 sw=2
