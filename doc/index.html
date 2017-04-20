@@ -1,218 +1,254 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		
-		<title>JsDoc Reference - Index</title>
-		<meta name="generator" content="JsDoc Toolkit" />
-		
-		<style type="text/css">
-		/* default.css */
-body
-{
-	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
-	width: 800px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
 
-.header
-{
-	clear: both;
-	background-color: #ccc;
-	padding: 8px;
-}
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
 
-h1
-{
-	font-size: 150%;
-	font-weight: bold;
-	padding: 0;
-	margin: 1em 0 0 .3em;
-}
+<body>
 
-hr
-{
-	border: none 0;
-	border-top: 1px solid #7F8FB1;
-	height: 1px;
-}
+<div id="main">
 
-pre.code
-{
-	display: block;
-	padding: 8px;
-	border: 1px dashed #ccc;
-}
+    <h1 class="page-title">Home</h1>
 
-#index
-{
-	margin-top: 24px;
-	float: left;
-	width: 160px;
-	position: absolute;
-	left: 8px;
-	background-color: #F3F3F3;
-	padding: 8px;
-}
+    
 
-#content
-{
-	margin-left: 190px;
-	width: 600px;
-}
 
-.classList, .methodList, .propertyList
-{
-	list-style-type: none;
-	padding: 0;
-	margin: 0 0 0 8px;
-	font-family: arial, sans-serif;
-	font-size: 1em;
-	overflow: auto;
-}
 
-.classList li, .methodList li, .propertyList li
-{
-	padding: 0;
-	margin: 0 0 8px 0;
-}
+    
 
-.summaryTable { width: 100%; }
 
-h1.classTitle
-{
-	font-size:170%;
-	line-height:130%;
-}
+    <h3> </h3>
 
-h2 { font-size: 110%; }
-caption, div.sectionTitle
-{
-	background-color: #7F8FB1;
-	color: #fff;
-	font-size:130%;
-	text-align: left;
-	padding: 2px 6px 2px 6px;
-	border: 1px #7F8FB1 solid;
-}
 
-div.sectionTitle { margin-bottom: 8px; }
-.summaryTable thead { display: none; }
 
-.summaryTable td
-{
-	vertical-align: top;
-	padding: 4px;
-	border-bottom: 1px #7F8FB1 solid;
-	border-right: 1px #7F8FB1 solid;
-}
 
-/*col#summaryAttributes {}*/
-.summaryTable td.attributes
-{
-	border-left: 1px #7F8FB1 solid;
-	width: 140px;
-	text-align: right;
-}
 
-td.attributes, .fixedFont
-{
-	line-height: 15px;
-	color: #002EBE;
-	font-family: "Courier New",Courier,monospace;
-	font-size: 13px;
-}
 
-.summaryTable td.nameDescription
-{
-	text-align: left;
-	font-size: 13px;
-	line-height: 15px;
-}
 
-.summaryTable td.nameDescription, .description
-{
-	line-height: 15px;
-	padding: 4px;
-	padding-left: 4px;
-}
 
-.summaryTable { margin-bottom: 8px; }
 
-ul.inheritsList
-{
-	list-style: square;
-	margin-left: 20px;
-	padding-left: 0;
-}
 
-.detailList {
-	margin-left: 20px; 
-	line-height: 15px;
-}
-.detailList dt { margin-left: 20px; }
+    
 
-.detailList .heading
-{
-	font-weight: bold;
-	padding-bottom: 6px;
-	margin-left: 0;
-}
 
-.light, td.attributes, .light a:link, .light a:visited
-{
-	color: #777;
-	font-style: italic;
-}
 
-.fineprint
-{
-	text-align: right;
-	font-size: 10px;
-}
-		</style>
-	</head>
-	
-	<body>
-		<div id="header">
-</div>
-		
-		<div id="index">
-			<div align="center"><a href="index.html">Class Index</a>
-| <a href="files.html">File Index</a></div>
-<hr />
-<h2>Classes</h2>
-<ul class="classList">
-	
-	<li><i><a href="symbols/_global_.html">_global_</a></i></li>
-	
-	<li><a href="symbols/UUID.html">UUID</a></li>
-	
+
+    <section>
+        <article><h1>NAME</h1><p>UUID.js - The RFC-compliant UUID generator for JavaScript.</p>
+<h1>SYNOPSYS</h1><pre class="prettyprint source lang-javascript"><code>var uuid = UUID.generate();</code></pre><h1>DESCRIPTION</h1><p>UUID.js library generates an RFC 4122 compliant Universally Unique IDentifier (UUID).</p>
+<h1>FEATURES</h1><ul>
+<li>Supports Version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs).</li>
+<li>Provides an object-oriented interface, allowing users to output a UUID in several formats, compare UUIDs, and access the internal fields of a UUID.</li>
+<li>Adds random digits to compensate for the low (millisecond) timestamp resolution of JavaScript when generating Version 1 UUIDs, which requires 100-nanosecond resolution.</li>
+<li>Properly handles 32-bit <code>Math.random()</code> implementation of WebKit-based browsers when generating a large random integer.</li>
+<li>Tested by many test cases including format checks and statistical variance tests.</li>
 </ul>
-<hr />
-		</div>
-		
-		<div id="content">
-			<h1 class="classTitle">Class Index</h1>
-			
-			
-			<div>
-				<h2><a href="symbols/_global_.html">_global_</a></h2>
-				
-			</div>
-			<hr />
-			
-			<div>
-				<h2><a href="symbols/UUID.html">UUID</a></h2>
-				
-			</div>
-			<hr />
-			
-			
-		</div>
-		<div class="fineprint" style="clear:both">
-			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> 2.4.0 on Wed Apr 19 2017 17:08:52 GMT-0400 (EDT)
-		</div>
-	</body>
+<h1>INSTALL</h1><p>Download <code>src/uuid.js</code> or type <code>npm install uuidjs</code>.</p>
+<h1>USAGE EXAMPLES</h1><p>Load <code>src/uuid.js</code> or <code>require(&quot;uuidjs&quot;)</code>.</p>
+<pre class="prettyprint source lang-javascript"><code>// the simplest way to get an UUID (as a hexadecimal string)
+document.writeln(UUID.generate());  // &quot;0db9a5fa-f532-4736-89d6-8819c7f3ac7b&quot;
+
+
+// create a version 4 (random-numbers-based) UUID object
+var objV4 = UUID.genV4();
+
+// create a version 1 (time-based) UUID object
+var objV1 = UUID.genV1();
+
+// create an UUID object from a hexadecimal string
+var uuid = UUID.parse(&quot;a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;);
+
+
+// UUID object as a string
+document.writeln(uuid.toString());  // &quot;a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
+document.writeln(uuid.hexString);   // &quot;a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
+document.writeln(uuid.bitString);   // &quot;101000001110000 ... 1100110101000000&quot;
+document.writeln(uuid.urn);         // &quot;urn:uuid:a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
+document.writeln(uuid.hexNoDelim);  // &quot;a0e0f1308c2111df92d995795a3bcd40&quot;
+
+// compare UUID objects
+document.writeln(objV4.equals(objV1));  // false
+
+// show version numbers
+document.writeln(objV4.version);  // 4
+document.writeln(objV1.version);  // 1
+
+// get UUID field values in 3 different formats by 2 different accessors
+document.writeln(uuid.intFields.timeLow);               // 2699096368
+document.writeln(uuid.bitFields.timeMid);               // &quot;1000110000100001&quot;
+document.writeln(uuid.hexFields.timeHiAndVersion);      // &quot;11df&quot;
+document.writeln(uuid.intFields.clockSeqHiAndReserved); // 146
+document.writeln(uuid.bitFields.clockSeqLow);           // &quot;11011001&quot;
+document.writeln(uuid.hexFields.node);                  // &quot;95795a3bcd40&quot;
+
+document.writeln(uuid.intFields[0]);                    // 2699096368
+document.writeln(uuid.bitFields[1]);                    // &quot;1000110000100001&quot;
+document.writeln(uuid.hexFields[2]);                    // &quot;11df&quot;
+document.writeln(uuid.intFields[3]);                    // 146
+document.writeln(uuid.bitFields[4]);                    // &quot;11011001&quot;
+document.writeln(uuid.hexFields[5]);                    // &quot;95795a3bcd40&quot;
+
+
+// avoid conflicts with other libraries (noConflict mode)
+var arbitraryVarName = UUID;
+UUID = UUID.overwrittenUUID;  // restore original value</code></pre><h1>LICENSE</h1><p>This library is licensed under the MIT license.</p>
+<pre class="prettyprint source"><code>Copyright (c) 2010-2017 LiosK.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x63;&#111;&#x6e;&#x74;&#x61;&#x63;&#x74;&#x40;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#108;&#105;&#x6f;&#115;&#107;&#46;&#x6e;&#x65;&#x74;">&#x63;&#111;&#x6e;&#x74;&#x61;&#x63;&#x74;&#x40;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#108;&#105;&#x6f;&#115;&#107;&#46;&#x6e;&#x65;&#x74;</a></p>
+<h1>SEE ALSO</h1><ul>
+<li><a href="https://www.ietf.org/rfc/rfc4122.txt">RFC 4122</a></li>
+<li><a href="https://liosk.github.io/UUID.js/doc/symbols/UUID.html">API Document</a></li>
+<li><a href="https://liosk.github.io/UUID.js/test/test.uuid.js.html">Test cases: uuid.js</a></li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>uuid.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">UUID.js: The RFC-compliant UUID generator for JavaScript.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>v3.5.0-dev</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>LiosK</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li>The MIT License: Copyright (c) 2010-2017 LiosK.</li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="uuid.js.html">uuid.js</a>, <a href="uuid.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="UUID.html">UUID</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Apr 20 2017 19:39:18 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
 </html>

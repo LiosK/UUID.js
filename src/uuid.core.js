@@ -1,22 +1,19 @@
 /**
  * UUID.core.js: A small subset of UUID.js, the RFC-compliant UUID generator for JavaScript.
  *
- * @fileOverview
+ * @file
  * @author  LiosK
  * @version v3.5.0-dev
  * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
-/** @constructor */
+/** @namespace */
 var UUID;
 
 UUID = (function(overwrittenUUID) {
 "use strict";
 
 // Core Component {{{
-
-/** @lends UUID */
-function UUID() {}
 
 /**
  * The simplest function to get an UUID string.
@@ -37,6 +34,7 @@ UUID.generate = function() {
 
 /**
  * Returns an unsigned x-bit random integer.
+ * @private
  * @param {int} x A positive integer ranging from 0 to 53, inclusive.
  * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
@@ -48,6 +46,7 @@ UUID._getRandomInt = function(x) {
 
 /**
  * Converts an integer to a zero-filled hexadecimal string.
+ * @private
  * @param {int} num
  * @param {int} length
  * @returns {string}
@@ -67,7 +66,10 @@ UUID.overwrittenUUID = overwrittenUUID;
 
 // }}}
 
-// For nodejs
+// create local namespace
+function UUID() {}
+
+// for nodejs
 if (typeof module !== "undefined" && module && module.exports) {
   module.exports = UUID;
 }

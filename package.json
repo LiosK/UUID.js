@@ -1,6 +1,6 @@
 {
   "name": "uuidjs",
-  "version": "3.5.0-dev.2", "publishConfig": { "tag": "dev" },
+  "version": "3.5.0-dev.3", "publishConfig": { "tag": "dev" },
   "title": "UUID.js",
   "description": "The RFC-compliant UUID generator for JavaScript.",
   "main": "src/uuid.js",
@@ -9,7 +9,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "qunit test/test.nodejs.js"
+    "test": "qunit test/test.nodejs.js",
+    "jsdoc": "jsdoc -R ./README.md -d ./doc src/uuid.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
   },
   "homepage": "https://github.com/LiosK/UUID.js",
   "devDependencies": {
+    "jsdoc": "^3.4.3",
     "qunitjs": "^1.23.1"
   }
 }
