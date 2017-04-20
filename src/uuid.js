@@ -48,18 +48,6 @@ UUID._getRandomInt = function(x) {
   return NaN;
 };
 
-if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
-  UUID._getRandomInt = function(x) {
-    if (x < 0 || x > 53) { return NaN; }
-    var nums = crypto.getRandomValues(new Uint32Array(x <= 32 ? 1 : 2));
-    if (x <= 32) {
-      return nums[0] >>> 32 - x;
-    } else {
-      return nums[0] + (nums[1] >>> 64 - x) * 0x100000000;
-    }
-  };
-}
-
 /**
  * Converts an integer to a zero-filled hexadecimal string.
  * @param {int} num
@@ -71,6 +59,62 @@ UUID._hexAligner = function(num, length) {
   for (; i > 0; i >>>= 1, z += z) { if (i & 1) { str = z + str; } }
   return str;
 };
+
+/**
+ * Preserves the value of 'UUID' global variable set before the load of UUID.js.
+ * @since 3.2
+ * @type object
+ */
+UUID.overwrittenUUID = overwrittenUUID;
+
+// }}}
+
+// Advanced Random Number Generator Component {{{
+
+(function() {
+
+  var mathPRNG = UUID._getRandomInt;
+
+  /**
+   * Enables Math.random()-based random number generator instead of cryptographically safer options.
+   * @since v3.5.0
+   */
+  UUID.useMathRandom = function() {
+    UUID._getRandomInt = mathPRNG;
+  };
+
+  var crypto = null, cryptoPRNG = mathPRNG;
+  if (typeof window !== "undefined" && (crypto = window.crypto || window.msCrypto)) {
+    if (crypto.getRandomValues && typeof Uint32Array !== "undefined") {
+      // Web Cryptography API
+      cryptoPRNG = function(x) {
+        if (x < 0 || x > 53) { return NaN; }
+        var nums = crypto.getRandomValues(new Uint32Array(x <= 32 ? 1 : 2));
+        if (x <= 32) {
+          return nums[0] >>> 32 - x;
+        } else {
+          return nums[0] + (nums[1] >>> 64 - x) * 0x100000000;
+        }
+      };
+    }
+  } else if (typeof require !== "undefined" && (crypto = require("crypto"))) {
+    if (crypto.randomBytes) {
+      // nodejs
+      cryptoPRNG = function(x) {
+        if (x < 0 || x > 53) { return NaN; }
+        if (x <= 32) {
+          var buf = crypto.randomBytes(4);
+          return buf.readUInt32BE(0) >>> 32 - x;
+        } else {
+          var buf = crypto.randomBytes(8);
+          return buf.readUInt32BE(0) + (buf.readUInt32BE(4) >>> 64 - x) * 0x100000000;
+        }
+      };
+    }
+  }
+  UUID._getRandomInt = cryptoPRNG;
+
+})();
 
 // }}}
 
@@ -250,6 +294,7 @@ UUID.NIL = new UUID()._init(0, 0, 0, 0, 0, 0);
  * @since 3.0
  */
 UUID.genV1 = function() {
+  if (UUID._state == null) { UUID.resetState(); }
   var now = new Date().getTime(), st = UUID._state;
   if (now != st.timestamp) {
     if (now < st.timestamp) { st.sequence++; }
@@ -281,8 +326,16 @@ UUID.genV1 = function() {
  * @since 3.0
  */
 UUID.resetState = function() {
-  UUID._state = new UUID._state.constructor();
+  UUID._state = new UUIDState();
 };
+
+function UUIDState() {
+  var rand = UUID._getRandomInt;
+  this.timestamp = 0;
+  this.sequence = rand(14);
+  this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
+  this.tick = rand(4);  // timestamp fraction smaller than a millisecond
+}
 
 /**
  * Probability to advance the timestamp fraction: the ratio of tick movements to sequence increments.
@@ -294,13 +347,7 @@ UUID._tsRatio = 1 / 4;
  * Persistent state for UUID version 1.
  * @type UUIDState
  */
-UUID._state = new function UUIDState() {
-  var rand = UUID._getRandomInt;
-  this.timestamp = 0;
-  this.sequence = rand(14);
-  this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
-  this.tick = rand(4);  // timestamp fraction smaller than a millisecond
-};
+UUID._state = null;
 
 /**
  * @param {Date|int} time ECMAScript Date Object or milliseconds from 1970-01-01.
@@ -332,21 +379,10 @@ UUID.makeBackwardCompatible = function() {
 
 // }}}
 
-// Misc. Component {{{
-
-/**
- * Preserves the value of 'UUID' global variable set before the load of UUID.js.
- * @since 3.2
- * @type object
- */
-UUID.overwrittenUUID = overwrittenUUID;
-
 // For nodejs
 if (typeof module !== "undefined" && module && module.exports) {
   module.exports = UUID;
 }
-
-// }}}
 
 return UUID;
 

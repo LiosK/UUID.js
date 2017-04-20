@@ -48,18 +48,6 @@ UUID._getRandomInt = function(x) {
   return NaN;
 };
 
-if (typeof crypto === "object" && typeof crypto.getRandomValues === "function") {
-  UUID._getRandomInt = function(x) {
-    if (x < 0 || x > 53) { return NaN; }
-    var nums = crypto.getRandomValues(new Uint32Array(x <= 32 ? 1 : 2));
-    if (x <= 32) {
-      return nums[0] >>> 32 - x;
-    } else {
-      return nums[0] + (nums[1] >>> 64 - x) * 0x100000000;
-    }
-  };
-}
-
 /**
  * Converts an integer to a zero-filled hexadecimal string.
  * @param {int} num
@@ -72,10 +60,6 @@ UUID._hexAligner = function(num, length) {
   return str;
 };
 
-// }}}
-
-// Misc. Component {{{
-
 /**
  * Preserves the value of 'UUID' global variable set before the load of UUID.js.
  * @since 3.2
@@ -83,12 +67,12 @@ UUID._hexAligner = function(num, length) {
  */
 UUID.overwrittenUUID = overwrittenUUID;
 
+// }}}
+
 // For nodejs
 if (typeof module !== "undefined" && module && module.exports) {
   module.exports = UUID;
 }
-
-// }}}
 
 return UUID;
 
