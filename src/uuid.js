@@ -41,11 +41,9 @@ UUID.generate = function() {
  * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
 UUID._getRandomInt = function(x) {
-  if (x <   0) return NaN;
-  if (x <= 30) return (0 | Math.random() * (1 <<      x));
-  if (x <= 53) return (0 | Math.random() * (1 <<     30))
-                    + (0 | Math.random() * (1 << x - 30)) * (1 << 30);
-  return NaN;
+  if (x < 0 || x > 53) { return NaN; }
+  var n = 0 | Math.random() * 0x40000000; // 1 << 30
+  return x > 30 ? n + (0 | Math.random() * (1 << x - 30)) * 0x40000000 : n >>> 30 - x;
 };
 
 /**
@@ -89,12 +87,8 @@ UUID.overwrittenUUID = overwrittenUUID;
       // Web Cryptography API
       cryptoPRNG = function(x) {
         if (x < 0 || x > 53) { return NaN; }
-        var nums = crypto.getRandomValues(new Uint32Array(x <= 32 ? 1 : 2));
-        if (x <= 32) {
-          return nums[0] >>> 32 - x;
-        } else {
-          return nums[0] + (nums[1] >>> 64 - x) * 0x100000000;
-        }
+        var ns = crypto.getRandomValues(new Uint32Array(x > 32 ? 2 : 1));
+        return x > 32 ? ns[0] + (ns[1] >>> 64 - x) * 0x100000000 : ns[0] >>> 32 - x;
       };
     }
   } else if (typeof require !== "undefined" && (crypto = require("crypto"))) {
@@ -102,13 +96,8 @@ UUID.overwrittenUUID = overwrittenUUID;
       // nodejs
       cryptoPRNG = function(x) {
         if (x < 0 || x > 53) { return NaN; }
-        if (x <= 32) {
-          var buf = crypto.randomBytes(4);
-          return buf.readUInt32BE(0) >>> 32 - x;
-        } else {
-          var buf = crypto.randomBytes(8);
-          return buf.readUInt32BE(0) + (buf.readUInt32BE(4) >>> 64 - x) * 0x100000000;
-        }
+        var buf = crypto.randomBytes(x > 32 ? 8 : 4), n = buf.readUInt32BE(0);
+        return x > 32 ? n + (buf.readUInt32BE(1) >>> 64 - x) * 0x100000000 : n >>> 32 - x;
       };
     }
   }

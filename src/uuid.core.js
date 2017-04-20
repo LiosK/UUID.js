@@ -41,11 +41,9 @@ UUID.generate = function() {
  * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
 UUID._getRandomInt = function(x) {
-  if (x <   0) return NaN;
-  if (x <= 30) return (0 | Math.random() * (1 <<      x));
-  if (x <= 53) return (0 | Math.random() * (1 <<     30))
-                    + (0 | Math.random() * (1 << x - 30)) * (1 << 30);
-  return NaN;
+  if (x < 0 || x > 53) { return NaN; }
+  var n = 0 | Math.random() * 0x40000000; // 1 << 30
+  return x > 30 ? n + (0 | Math.random() * (1 << x - 30)) * 0x40000000 : n >>> 30 - x;
 };
 
 /**
