@@ -89,7 +89,7 @@ const testPRNG = function(prng, bit) {
     }
   }
 
-  // correlation (abbreviated test)
+  // correlation table (abbreviated test)
   for (let i = 0; i < bit; i++) {
     for (let j = i + 1; j < bit; j++) {
       let count = 0
