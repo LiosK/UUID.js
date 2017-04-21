@@ -1,6 +1,6 @@
 {
   "name": "uuidjs",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "title": "UUID.js",
   "description": "The RFC-compliant UUID generator for JavaScript.",
   "main": "src/uuid.js",
@@ -8,6 +8,7 @@
     "doc": "doc",
     "test": "test"
   },
+  "tonicExampleFilename": "example.js",
   "scripts": {
     "test": "qunit test/test.nodejs.js",
     "jsdoc": "jsdoc -R ./README.md -d ./doc src/uuid.js"
