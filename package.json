@@ -8,6 +8,7 @@
     "doc": "doc",
     "test": "test"
   },
+  "tonicExampleFilename": "example.js",
   "scripts": {
     "test": "qunit test/test.nodejs.js",
     "jsdoc": "jsdoc -R ./README.md -d ./doc src/uuid.js"
