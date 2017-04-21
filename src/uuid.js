@@ -97,7 +97,7 @@ UUID.overwrittenUUID = overwrittenUUID;
       cryptoPRNG = function(x) {
         if (x < 0 || x > 53) { return NaN; }
         var buf = crypto.randomBytes(x > 32 ? 8 : 4), n = buf.readUInt32BE(0);
-        return x > 32 ? n + (buf.readUInt32BE(1) >>> 64 - x) * 0x100000000 : n >>> 32 - x;
+        return x > 32 ? n + (buf.readUInt32BE(4) >>> 64 - x) * 0x100000000 : n >>> 32 - x;
       };
     }
   }
