@@ -26,7 +26,7 @@ Download `src/uuid.js` or type `npm install uuidjs`.
 
 # USAGE EXAMPLES
 
-Load `src/uuid.js` to get full functionality. If you only need `UUID.generate()` method, load `dist/uuid.core.js`.
+Load `src/uuid.js` or `require("uuidjs")`.
 
 ```javascript
 // the simplest way to get an UUID (as a hexadecimal string)
@@ -108,7 +108,6 @@ LiosK <contact@mail.liosk.net>
 
 # SEE ALSO
 
-* [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt)
-* [API Document](http://liosk.github.io/UUID.js/doc/symbols/UUID.html)
-* [Test cases: uuid.js](http://liosk.github.io/UUID.js/test/test.uuid.js.html)
-* [Test cases: uuid.core.js](http://liosk.github.io/UUID.js/test/test.uuid.core.js.html)
+* [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt)
+* [API Document](https://liosk.github.io/UUID.js/doc/)
+* [Test cases: uuid.js](https://liosk.github.io/UUID.js/test/test.uuid.js.html)
