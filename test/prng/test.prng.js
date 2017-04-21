@@ -37,6 +37,7 @@ const cryptoPRNG = (function() {
 
 })();
 
+let pass = 0, fail = 0
 
 const testPRNG = function(prng, bit) {
   const n = 10000
@@ -60,16 +61,17 @@ const testPRNG = function(prng, bit) {
 
   // binom dist 99.9% confidence interval
   const me = 3.290527 * Math.sqrt(0.5 * 0.5 / n)
-  const ub = n * (0.5 + me)
-  const lb = n * (0.5 - me)
-  const ci = "CI: " + lb + " - " + ub
-
+  const ub = n * (0.5 + me), lb = n * (0.5 - me)
+  const ci = "CI(99.9%): [" + Math.ceil(lb) + ", " + Math.floor(ub) + "]"
 
   // uniformity
   for (let i = 0; i < bit; i++) {
     const count = trans[i].reduce(function(x, y) { return x + y }, 0)
     if (count < lb || ub < count) {
-      console.log(test, "count(bit" + i + "): " + count, ci)
+      console.log("%s: count(bit%d): %d; %s", test, i, count, ci)
+      fail++
+    } else {
+      pass++
     }
   }
 
@@ -81,7 +83,10 @@ const testPRNG = function(prng, bit) {
         if (trans[i][k] === trans[j][k]) { count++ }
       }
       if (count < lb || ub < count) {
-        console.log(test, "count(bit" + i + " === bit" + j + "): " + count, ci)
+        console.log("%s: count(bit%d === bit%d): %d, %s", test, i, j, count, ci)
+        fail++
+      } else {
+        pass++
       }
     }
   }
@@ -99,9 +104,10 @@ if (!String.prototype.repeat) {
 }
 
 // main
+console.log("Begin testing (some should fail by design)")
 const bs = [ 4, 6, 8, 12, 14, 16, 32, 40, 48 ]
 bs.forEach(testPRNG.bind(null, mathPRNG))
 bs.forEach(testPRNG.bind(null, cryptoPRNG))
-console.log("Tests completed.")
+console.log("%d tests completed: pass %d, fail %d", pass + fail, pass, fail)
 
 // vim: et ts=2 sw=2
