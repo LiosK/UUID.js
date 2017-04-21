@@ -37,6 +37,20 @@ const cryptoPRNG = (function() {
 
 })();
 
+
+// for IE11
+if (!String.prototype.repeat) {
+  String.prototype.repeat = function(x) {
+    if (x < 0) { throw "negative value" }
+    const s = String(this)
+    let result = ""
+    for (let i = 0; i < x; i++) { result += s }
+    return result
+  }
+}
+
+
+// pass/fail counters
 let pass = 0, fail = 0
 
 const testPRNG = function(prng, bit) {
@@ -46,28 +60,28 @@ const testPRNG = function(prng, bit) {
   const ns = []
   for (let i = 0; i < n; i++) { ns[i] = prng(bit) }
 
-  const mat = ns.map(function(e) {
+  const bitMatrix = ns.map(function(e) {
     const x = e.toString(2)
     return (("0").repeat(bit - x.length) + x).split("").map(Number)
   })
 
-  const trans = []
+  const transposed = []
   for (let i = 0; i < bit; i++) {
-    trans[i] = []
+    transposed[i] = []
     for (let j = 0; j < n; j++) {
-      trans[i][j] = mat[j][i]
+      transposed[i][j] = bitMatrix[j][i]
     }
   }
 
   // binom dist 99.9% confidence interval
-  const me = 3.290527 * Math.sqrt(0.5 * 0.5 / n)
-  const ub = n * (0.5 + me), lb = n * (0.5 - me)
-  const ci = "CI(99.9%): [" + Math.ceil(lb) + ", " + Math.floor(ub) + "]"
+  const margin = 3.290527 * Math.sqrt(0.5 * 0.5 / n)
+  const ubound = n * (0.5 + margin), lbound = n * (0.5 - margin)
+  const ci = "CI(99.9%): [" + Math.ceil(lbound) + ", " + Math.floor(ubound) + "]"
 
   // uniformity
   for (let i = 0; i < bit; i++) {
-    const count = trans[i].reduce(function(x, y) { return x + y }, 0)
-    if (count < lb || ub < count) {
+    const count = transposed[i].reduce(function(x, y) { return x + y }, 0)
+    if (count < lbound || ubound < count) {
       console.log("%s: count(bit%d): %d; %s", test, i, count, ci)
       fail++
     } else {
@@ -80,9 +94,9 @@ const testPRNG = function(prng, bit) {
     for (let j = i + 1; j < bit; j++) {
       let count = 0
       for (let k = 0; k < n; k++) {
-        if (trans[i][k] === trans[j][k]) { count++ }
+        if (transposed[i][k] === transposed[j][k]) { count++ }
       }
-      if (count < lb || ub < count) {
+      if (count < lbound || ubound < count) {
         console.log("%s: count(bit%d === bit%d): %d, %s", test, i, j, count, ci)
         fail++
       } else {
@@ -90,18 +104,8 @@ const testPRNG = function(prng, bit) {
       }
     }
   }
-
 }
 
-if (!String.prototype.repeat) {
-  String.prototype.repeat = function(x) {
-    if (x < 0) { throw "negative value" }
-    const s = String(this)
-    let result = ""
-    for (let i = 0; i < x; i++) { result += s }
-    return result
-  }
-}
 
 // main
 console.log("Begin testing (some should fail by design)")
