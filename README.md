@@ -31,11 +31,9 @@ UUID.js is a JavaScript/ECMAScript library to generate RFC 4122 compliant Univer
 
 # INSTALL
 
-Download `src/uuid.js` or type `npm install uuidjs`.
+Download `src/uuid.js` or call `npm install uuidjs`.
 
-# USAGE EXAMPLES
-
-Load `src/uuid.js`.
+Then, load `src/uuid.js`.
 
 ```html
 <script src="src/uuid.js"></script>
@@ -46,6 +44,8 @@ Or, import `uuidjs`.
 ```javascript
 const UUID = require("uuidjs")
 ```
+
+# USAGE EXAMPLES
 
 `UUID.generate()` returns a version 4 UUID as a hexadecimal string.
 
@@ -96,7 +96,7 @@ console.log(uuid.bitFields[4]);                     // "11011001"
 console.log(uuid.hexFields[5]);                     // "95795a3bcd40"
 ```
 
-UUID.js supports the so-called noConflict mode to work around a namespace conflict.
+UUID.js supports the so-called noConflict mode to work around namespace conflicts.
 
 ```javascript
 // Avoid namespace conflicts with other libraries
@@ -107,29 +107,15 @@ console.log(arbitraryVarName.generate());   // "cb9a0283-a44c-4e7a-a5b0-9cd2876e
 
 # LICENSE
 
-This library is licensed under the MIT license.
+UUID.js is licensed under [the MIT license](https://opensource.org/licenses/MIT):
 
-```
 Copyright (c) 2010-2017 LiosK.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-```
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # AUTHOR
 
@@ -138,5 +124,6 @@ LiosK <contact@mail.liosk.net>
 # SEE ALSO
 
 * [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt)
-* [API Document](https://liosk.github.io/UUID.js/doc/)
-* [Test cases: uuid.js](https://liosk.github.io/UUID.js/test/test.uuid.js.html)
+* [GitHub Repository](https://github.com/LiosK/UUID.js)
+* [API Documentation](https://liosk.github.io/UUID.js/doc/)
+* [Run test cases on your browser](https://liosk.github.io/UUID.js/test/test.uuid.js.html)

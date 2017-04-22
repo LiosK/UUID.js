@@ -57,10 +57,10 @@ let uuid = UUID.generate()</code></pre><h1>DESCRIPTION</h1><p>UUID.js is a JavaS
 <li>Comes with a lot of test cases including format checks and statistical tests to maintain a high-quality code base</li>
 <li>Supports old browsers as well as modern browser and server environments, as kept compatible with ECMAScript 3rd edition</li>
 </ul>
-<h1>INSTALL</h1><p>Download <code>src/uuid.js</code> or type <code>npm install uuidjs</code>.</p>
-<h1>USAGE EXAMPLES</h1><p>Load <code>src/uuid.js</code>.</p>
+<h1>INSTALL</h1><p>Download <code>src/uuid.js</code> or call <code>npm install uuidjs</code>.</p>
+<p>Then, load <code>src/uuid.js</code>.</p>
 <pre class="prettyprint source lang-html"><code>&lt;script src=&quot;src/uuid.js&quot;>&lt;/script></code></pre><p>Or, import <code>uuidjs</code>.</p>
-<pre class="prettyprint source lang-javascript"><code>const UUID = require(&quot;uuidjs&quot;)</code></pre><p><code>UUID.generate()</code> returns a version 4 UUID as a hexadecimal string.</p>
+<pre class="prettyprint source lang-javascript"><code>const UUID = require(&quot;uuidjs&quot;)</code></pre><h1>USAGE EXAMPLES</h1><p><code>UUID.generate()</code> returns a version 4 UUID as a hexadecimal string.</p>
 <pre class="prettyprint source lang-javascript"><code>// Create a version 4 UUID as a hexadecimal string
 console.log(UUID.generate());   // fa84cf42-ffdf-4975-b42b-31ab5fb983eb</code></pre><p><code>UUID.genV4()</code>, <code>UUID.genV1()</code>, and <code>UUID.parse()</code> return a UUID object that has various fields and methods.</p>
 <pre class="prettyprint source lang-javascript"><code>// Create a version 4 (random number-based) UUID object
@@ -99,34 +99,21 @@ console.log(uuid.bitFields[1]);                     // &quot;1000110000100001&qu
 console.log(uuid.hexFields[2]);                     // &quot;11df&quot;
 console.log(uuid.intFields[3]);                     // 146
 console.log(uuid.bitFields[4]);                     // &quot;11011001&quot;
-console.log(uuid.hexFields[5]);                     // &quot;95795a3bcd40&quot;</code></pre><p>UUID.js supports the so-called noConflict mode to work around a namespace conflict.</p>
+console.log(uuid.hexFields[5]);                     // &quot;95795a3bcd40&quot;</code></pre><p>UUID.js supports the so-called noConflict mode to work around namespace conflicts.</p>
 <pre class="prettyprint source lang-javascript"><code>// Avoid namespace conflicts with other libraries
 var arbitraryVarName = UUID;
 UUID = UUID.overwrittenUUID;                // Restore the original value
-console.log(arbitraryVarName.generate());   // &quot;cb9a0283-a44c-4e7a-a5b0-9cd2876e952b&quot;</code></pre><h1>LICENSE</h1><p>This library is licensed under the MIT license.</p>
-<pre class="prettyprint source"><code>Copyright (c) 2010-2017 LiosK.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#99;&#111;&#x6e;&#x74;&#x61;&#99;&#116;&#x40;&#x6d;&#x61;&#105;&#x6c;&#46;&#x6c;&#105;&#111;&#x73;&#x6b;&#x2e;&#110;&#x65;&#x74;">&#99;&#111;&#x6e;&#x74;&#x61;&#99;&#116;&#x40;&#x6d;&#x61;&#105;&#x6c;&#46;&#x6c;&#105;&#111;&#x73;&#x6b;&#x2e;&#110;&#x65;&#x74;</a></p>
+console.log(arbitraryVarName.generate());   // &quot;cb9a0283-a44c-4e7a-a5b0-9cd2876e952b&quot;</code></pre><h1>LICENSE</h1><p>UUID.js is licensed under <a href="https://opensource.org/licenses/MIT">the MIT license</a>:</p>
+<p>Copyright (c) 2010-2017 LiosK.</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<h1>AUTHOR</h1><p>LiosK <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x63;&#111;&#x6e;&#116;&#97;&#99;&#x74;&#x40;&#109;&#97;&#x69;&#x6c;&#46;&#x6c;&#x69;&#x6f;&#x73;&#107;&#x2e;&#x6e;&#x65;&#x74;">&#x63;&#111;&#x6e;&#116;&#97;&#99;&#x74;&#x40;&#109;&#97;&#x69;&#x6c;&#46;&#x6c;&#x69;&#x6f;&#x73;&#107;&#x2e;&#x6e;&#x65;&#x74;</a></p>
 <h1>SEE ALSO</h1><ul>
 <li><a href="https://www.ietf.org/rfc/rfc4122.txt">RFC 4122</a></li>
-<li><a href="https://liosk.github.io/UUID.js/doc/">API Document</a></li>
-<li><a href="https://liosk.github.io/UUID.js/test/test.uuid.js.html">Test cases: uuid.js</a></li>
+<li><a href="https://github.com/LiosK/UUID.js">GitHub Repository</a></li>
+<li><a href="https://liosk.github.io/UUID.js/doc/">API Documentation</a></li>
+<li><a href="https://liosk.github.io/UUID.js/test/test.uuid.js.html">Run test cases on your browser</a></li>
 </ul></article>
     </section>
 
@@ -161,7 +148,7 @@ THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#109;&#x61;&#x69;&#x
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>v3.5.2</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>v3.5.3</li></ul></dd>
     
 
     
@@ -248,7 +235,7 @@ THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#109;&#x61;&#x69;&#x
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Apr 21 2017 23:51:30 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Apr 22 2017 14:17:33 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
