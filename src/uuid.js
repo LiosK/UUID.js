@@ -1,9 +1,9 @@
 /**
- * UUID.js: The RFC-compliant UUID generator for JavaScript.
+ * UUID.js - RFC-compliant UUID Generator for JavaScript
  *
  * @file
  * @author  LiosK
- * @version v3.5.1
+ * @version v3.5.2
  * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
@@ -16,8 +16,8 @@ UUID = (function(overwrittenUUID) {
 // Core Component {{{
 
 /**
- * The simplest function to get an UUID string.
- * @returns {string} A version 4 UUID string.
+ * Generates a version 4 UUID as a hexadecimal string.
+ * @returns {string} Hexadecimal UUID string.
  */
 UUID.generate = function() {
   var rand = UUID._getRandomInt, hex = UUID._hexAligner;
@@ -35,8 +35,8 @@ UUID.generate = function() {
 /**
  * Returns an unsigned x-bit random integer.
  * @private
- * @param {int} x A positive integer ranging from 0 to 53, inclusive.
- * @returns {int} An unsigned x-bit random integer (0 <= f(x) < 2^x).
+ * @param {int} x Positive integer ranging from 0 to 53, inclusive.
+ * @returns {int} Unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
 UUID._getRandomInt = function(x) {
   if (x < 0 || x > 53) { return NaN; }
@@ -58,7 +58,7 @@ UUID._hexAligner = function(num, length) {
 };
 
 /**
- * Preserves the value of 'UUID' global variable set before the load of UUID.js.
+ * Retains the value of 'UUID' global variable assigned before loading UUID.js.
  * @since 3.2
  * @type object
  */
@@ -110,7 +110,7 @@ UUID.overwrittenUUID = overwrittenUUID;
 // UUID Object Component {{{
 
 /**
- * Names of each UUID field.
+ * Names of UUID internal fields.
  * @type string[]
  * @constant
  * @since 3.0
@@ -119,7 +119,7 @@ UUID.FIELD_NAMES = ["timeLow", "timeMid", "timeHiAndVersion",
                     "clockSeqHiAndReserved", "clockSeqLow", "node"];
 
 /**
- * Sizes of each UUID field.
+ * Sizes of UUID internal fields.
  * @type int[]
  * @constant
  * @since 3.0
@@ -127,8 +127,8 @@ UUID.FIELD_NAMES = ["timeLow", "timeMid", "timeHiAndVersion",
 UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
 
 /**
- * Generates a version 4 {@link UUID}.
- * @returns {UUID} A version 4 {@link UUID} object.
+ * Creates a version 4 {@link UUID} object.
+ * @returns {UUID} Version 4 {@link UUID} object.
  * @since 3.0
  */
 UUID.genV4 = function() {
@@ -140,8 +140,8 @@ UUID.genV4 = function() {
 };
 
 /**
- * Converts hexadecimal UUID string to an {@link UUID} object.
- * @param {string} strId UUID hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+ * Converts a hexadecimal UUID string to a {@link UUID} object.
+ * @param {string} strId Hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
  * @returns {UUID} {@link UUID} object or null.
  * @since 3.0
  */
@@ -161,8 +161,9 @@ UUID.parse = function(strId) {
 };
 
 /**
- * Initializes {@link UUID} object.
+ * Initializes a {@link UUID} object.
  * @private
+ * @constructs UUID
  * @param {uint32} [timeLow=0] time_low field (octet 0-3).
  * @param {uint16} [timeMid=0] time_mid field (octet 4-5).
  * @param {uint16} [timeHiAndVersion=0] time_hi_and_version field (octet 6-7).
@@ -170,26 +171,25 @@ UUID.parse = function(strId) {
  * @param {uint8} [clockSeqLow=0] clock_seq_low field (octet 9).
  * @param {uint48} [node=0] node field (octet 10-15).
  * @returns {UUID} this.
- * @constructs UUID
  */
 UUID.prototype._init = function() {
   var names = UUID.FIELD_NAMES, sizes = UUID.FIELD_SIZES;
   var bin = UUID._binAligner, hex = UUID._hexAligner;
 
   /**
-   * List of UUID field values (as integer values).
+   * UUID internal field values as an array of integers.
    * @type int[]
    */
   this.intFields = new Array(6);
 
   /**
-   * List of UUID field values (as binary bit string values).
+   * UUID internal field values as an array of binary strings.
    * @type string[]
    */
   this.bitFields = new Array(6);
 
   /**
-   * List of UUID field values (as hexadecimal string values).
+   * UUID internal field values as an array of hexadecimal strings.
    * @type string[]
    */
   this.hexFields = new Array(6);
@@ -202,13 +202,13 @@ UUID.prototype._init = function() {
   }
 
   /**
-   * UUID version number defined in RFC 4122.
+   * UUID version number.
    * @type int
    */
   this.version = (this.intFields.timeHiAndVersion >> 12) & 0xF;
 
   /**
-   * 128-bit binary bit string representation.
+   * 128-bit binary string representation.
    * @type string
    */
   this.bitString = this.bitFields.join("");
@@ -221,14 +221,14 @@ UUID.prototype._init = function() {
   this.hexNoDelim = this.hexFields.join("");
 
   /**
-   * UUID hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * Hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
    * @type string
    */
   this.hexString = this.hexFields[0] + "-" + this.hexFields[1] + "-" + this.hexFields[2]
                  + "-" + this.hexFields[3] + this.hexFields[4] + "-" + this.hexFields[5];
 
   /**
-   * UUID string representation as a URN ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * URN string representation ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
    * @type string
    */
   this.urn = "urn:uuid:" + this.hexString;
@@ -250,7 +250,7 @@ UUID._binAligner = function(num, length) {
 };
 
 /**
- * Returns UUID string representation.
+ * Returns the hexadecimal string representation.
  * @returns {string} {@link UUID#hexString}.
  */
 UUID.prototype.toString = function() { return this.hexString; };
@@ -281,8 +281,8 @@ UUID.NIL = new UUID()._init(0, 0, 0, 0, 0, 0);
 // UUID Version 1 Component {{{
 
 /**
- * Generates a version 1 {@link UUID}.
- * @returns {UUID} A version 1 {@link UUID} object.
+ * Creates a version 1 {@link UUID} object.
+ * @returns {UUID} Version 1 {@link UUID} object.
  * @since 3.0
  */
 UUID.genV1 = function() {
@@ -314,7 +314,7 @@ UUID.genV1 = function() {
 };
 
 /**
- * Re-initializes version 1 UUID state.
+ * Re-initializes the internal state for version 1 UUID creation.
  * @since 3.0
  */
 UUID.resetState = function() {
@@ -337,7 +337,7 @@ function UUIDState() {
 UUID._tsRatio = 1 / 4;
 
 /**
- * Persistent state for UUID version 1.
+ * Persistent internal state for version 1 UUID creation.
  * @private
  * @type UUIDState
  */
@@ -362,7 +362,7 @@ UUID._getTimeFieldValues = function(time) {
 /**
  * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
  * @since 3.1
- * @deprecated Version 2.x. compatible interface is not recommended.
+ * @deprecated Version 2.x compatible interface is not recommended.
  */
 UUID.makeBackwardCompatible = function() {
   var f = UUID.generate;
