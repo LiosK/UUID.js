@@ -43,64 +43,67 @@
 
 
     <section>
-        <article><h1>NAME</h1><p>UUID.js - The RFC-compliant UUID generator for JavaScript.</p>
-<h1>SYNOPSYS</h1><pre class="prettyprint source lang-javascript"><code>var uuid = UUID.generate();</code></pre><h1>DESCRIPTION</h1><p>UUID.js library generates an RFC 4122 compliant Universally Unique IDentifier (UUID).</p>
+        <article><h1>NAME</h1><p>UUID.js - RFC-compliant UUID Generator for JavaScript</p>
+<h1>SYNOPSIS</h1><pre class="prettyprint source lang-html"><code>&lt;!-- HTML5 -->
+&lt;script src=&quot;src/uuid.js&quot;>&lt;/script>
+&lt;script> var uuid = UUID.generate(); &lt;/script></code></pre><pre class="prettyprint source lang-javascript"><code>// Node.js
+let UUID = require(&quot;uuidjs&quot;)
+let uuid = UUID.generate()</code></pre><h1>DESCRIPTION</h1><p>UUID.js is a JavaScript/ECMAScript library to generate RFC 4122 compliant Universally Unique IDentifiers (UUIDs). This library supports both version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs), and provides an object-oriented interface to print a generated or parsed UUID in a variety of forms.</p>
 <h1>FEATURES</h1><ul>
-<li>Supports Version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs).</li>
-<li>Provides an object-oriented interface, allowing users to output a UUID in several formats, compare UUIDs, and access the internal fields of a UUID.</li>
-<li>Adds random digits to compensate for the low (millisecond) timestamp resolution of JavaScript when generating Version 1 UUIDs, which requires 100-nanosecond resolution.</li>
-<li>Properly handles 32-bit <code>Math.random()</code> implementation of WebKit-based browsers when generating a large random integer.</li>
-<li>Tested by many test cases including format checks and statistical variance tests.</li>
+<li>Generates version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs)</li>
+<li>Provides an object-oriented interface to print various string representations of a generated or parsed UUID</li>
+<li>Utilizes a cryptographically secure pseudo-random number generator if available, whereas falling back to <code>Math.random()</code> otherwise</li>
+<li>Appends extra random bits to compensate for the lower timestamp resolution of JavaScript than that required for version 1 UUIDs</li>
+<li>Comes with a lot of test cases including format checks and statistical tests to maintain a high-quality code base</li>
+<li>Supports old browsers as well as modern browser and server environments, as kept compatible with ECMAScript 3rd edition</li>
 </ul>
 <h1>INSTALL</h1><p>Download <code>src/uuid.js</code> or type <code>npm install uuidjs</code>.</p>
-<h1>USAGE EXAMPLES</h1><p>Load <code>src/uuid.js</code> or <code>require(&quot;uuidjs&quot;)</code>.</p>
-<pre class="prettyprint source lang-javascript"><code>// the simplest way to get an UUID (as a hexadecimal string)
-document.writeln(UUID.generate());  // &quot;0db9a5fa-f532-4736-89d6-8819c7f3ac7b&quot;
-
-
-// create a version 4 (random-numbers-based) UUID object
+<h1>USAGE EXAMPLES</h1><p>Load <code>src/uuid.js</code>.</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;src/uuid.js&quot;>&lt;/script></code></pre><p>Or, import <code>uuidjs</code>.</p>
+<pre class="prettyprint source lang-javascript"><code>const UUID = require(&quot;uuidjs&quot;)</code></pre><p><code>UUID.generate()</code> returns a version 4 UUID as a hexadecimal string.</p>
+<pre class="prettyprint source lang-javascript"><code>// Create a version 4 UUID as a hexadecimal string
+console.log(UUID.generate());   // fa84cf42-ffdf-4975-b42b-31ab5fb983eb</code></pre><p><code>UUID.genV4()</code>, <code>UUID.genV1()</code>, and <code>UUID.parse()</code> return a UUID object that has various fields and methods.</p>
+<pre class="prettyprint source lang-javascript"><code>// Create a version 4 (random number-based) UUID object
 var objV4 = UUID.genV4();
 
-// create a version 1 (time-based) UUID object
+// Create a version 1 (time-based) UUID object
 var objV1 = UUID.genV1();
 
-// create an UUID object from a hexadecimal string
+// Create a UUID object from a hexadecimal string
 var uuid = UUID.parse(&quot;a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;);
 
+// Get string representations of a UUID object
+console.log(uuid.toString());   // &quot;a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
+console.log(uuid.hexString);    // &quot;a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
+console.log(uuid.hexNoDelim);   // &quot;a0e0f1308c2111df92d995795a3bcd40&quot;
+console.log(uuid.bitString);    // &quot;101000001110000 ... 1100110101000000&quot;
+console.log(uuid.urn);          // &quot;urn:uuid:a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
 
-// UUID object as a string
-document.writeln(uuid.toString());  // &quot;a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
-document.writeln(uuid.hexString);   // &quot;a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
-document.writeln(uuid.bitString);   // &quot;101000001110000 ... 1100110101000000&quot;
-document.writeln(uuid.urn);         // &quot;urn:uuid:a0e0f130-8c21-11df-92d9-95795a3bcd40&quot;
-document.writeln(uuid.hexNoDelim);  // &quot;a0e0f1308c2111df92d995795a3bcd40&quot;
+// Compare UUID objects
+console.log(objV4.equals(objV1));   // false
 
-// compare UUID objects
-document.writeln(objV4.equals(objV1));  // false
+// Get UUID version numbers
+console.log(objV4.version); // 4
+console.log(objV1.version); // 1
 
-// show version numbers
-document.writeln(objV4.version);  // 4
-document.writeln(objV1.version);  // 1
+// Get internal field values in 3 different forms via 2 different accessors
+console.log(uuid.intFields.timeLow);                // 2699096368
+console.log(uuid.bitFields.timeMid);                // &quot;1000110000100001&quot;
+console.log(uuid.hexFields.timeHiAndVersion);       // &quot;11df&quot;
+console.log(uuid.intFields.clockSeqHiAndReserved);  // 146
+console.log(uuid.bitFields.clockSeqLow);            // &quot;11011001&quot;
+console.log(uuid.hexFields.node);                   // &quot;95795a3bcd40&quot;
 
-// get UUID field values in 3 different formats by 2 different accessors
-document.writeln(uuid.intFields.timeLow);               // 2699096368
-document.writeln(uuid.bitFields.timeMid);               // &quot;1000110000100001&quot;
-document.writeln(uuid.hexFields.timeHiAndVersion);      // &quot;11df&quot;
-document.writeln(uuid.intFields.clockSeqHiAndReserved); // 146
-document.writeln(uuid.bitFields.clockSeqLow);           // &quot;11011001&quot;
-document.writeln(uuid.hexFields.node);                  // &quot;95795a3bcd40&quot;
-
-document.writeln(uuid.intFields[0]);                    // 2699096368
-document.writeln(uuid.bitFields[1]);                    // &quot;1000110000100001&quot;
-document.writeln(uuid.hexFields[2]);                    // &quot;11df&quot;
-document.writeln(uuid.intFields[3]);                    // 146
-document.writeln(uuid.bitFields[4]);                    // &quot;11011001&quot;
-document.writeln(uuid.hexFields[5]);                    // &quot;95795a3bcd40&quot;
-
-
-// avoid conflicts with other libraries (noConflict mode)
+console.log(uuid.intFields[0]);                     // 2699096368
+console.log(uuid.bitFields[1]);                     // &quot;1000110000100001&quot;
+console.log(uuid.hexFields[2]);                     // &quot;11df&quot;
+console.log(uuid.intFields[3]);                     // 146
+console.log(uuid.bitFields[4]);                     // &quot;11011001&quot;
+console.log(uuid.hexFields[5]);                     // &quot;95795a3bcd40&quot;</code></pre><p>UUID.js supports the so-called noConflict mode to work around a namespace conflict.</p>
+<pre class="prettyprint source lang-javascript"><code>// Avoid namespace conflicts with other libraries
 var arbitraryVarName = UUID;
-UUID = UUID.overwrittenUUID;  // restore original value</code></pre><h1>LICENSE</h1><p>This library is licensed under the MIT license.</p>
+UUID = UUID.overwrittenUUID;                // Restore the original value
+console.log(arbitraryVarName.generate());   // &quot;cb9a0283-a44c-4e7a-a5b0-9cd2876e952b&quot;</code></pre><h1>LICENSE</h1><p>This library is licensed under the MIT license.</p>
 <pre class="prettyprint source"><code>Copyright (c) 2010-2017 LiosK.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -119,7 +122,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x63;&#x6f;&#x6e;&#x74;&#x61;&#99;&#116;&#x40;&#109;&#97;&#105;&#x6c;&#46;&#x6c;&#x69;&#111;&#115;&#107;&#x2e;&#x6e;&#101;&#116;">&#x63;&#x6f;&#x6e;&#x74;&#x61;&#99;&#116;&#x40;&#109;&#97;&#105;&#x6c;&#46;&#x6c;&#x69;&#111;&#115;&#107;&#x2e;&#x6e;&#101;&#116;</a></p>
+THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#99;&#111;&#110;&#x74;&#97;&#99;&#x74;&#64;&#109;&#97;&#105;&#x6c;&#x2e;&#x6c;&#105;&#111;&#115;&#107;&#46;&#110;&#101;&#x74;">&#99;&#111;&#110;&#x74;&#97;&#99;&#x74;&#64;&#109;&#97;&#105;&#x6c;&#x2e;&#x6c;&#105;&#111;&#115;&#107;&#46;&#110;&#101;&#x74;</a></p>
 <h1>SEE ALSO</h1><ul>
 <li><a href="https://www.ietf.org/rfc/rfc4122.txt">RFC 4122</a></li>
 <li><a href="https://liosk.github.io/UUID.js/doc/">API Document</a></li>
@@ -148,7 +151,7 @@ THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#109;&#97;&#105;&#10
     <div class="container-overview">
     
         
-            <div class="description">UUID.js: The RFC-compliant UUID generator for JavaScript.</div>
+            <div class="description">UUID.js - RFC-compliant UUID Generator for JavaScript</div>
         
 
         
@@ -158,7 +161,7 @@ THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#109;&#97;&#105;&#10
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>v3.5.1</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>v3.5.2-dev</li></ul></dd>
     
 
     
@@ -245,7 +248,7 @@ THE SOFTWARE.</code></pre><h1>AUTHOR</h1><p>LiosK <a href="&#109;&#97;&#105;&#10
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Apr 21 2017 17:21:51 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Apr 21 2017 23:42:24 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
