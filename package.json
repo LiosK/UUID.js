@@ -12,7 +12,7 @@
   "scripts": {
     "test": "qunit test/test.nodejs.js",
     "jsdoc": "jsdoc -R ./README.md -d ./doc src/uuid.js",
-    "types": "jsdoc -t node_modules/tsd-jsdoc -d ./typings src/uuid.core.js && node typings/replace.js"
+    "types": "jsdoc -t node_modules/tsd-jsdoc -d ./dist src/uuid.core.js"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,5 @@
     "qunitjs": "^1.23.1",
     "tsd-jsdoc": "^1.0.1"
   },
-  "types": "typings/types.d.ts"
+  "types": "dist/types.d.ts"
 }
