@@ -7,7 +7,7 @@
  * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
-/** @namespace */
+/** @class */
 var UUID;
 
 UUID = (function(overwrittenUUID) {
