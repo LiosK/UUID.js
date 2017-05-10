@@ -42,7 +42,13 @@ Then, load `src/uuid.js`.
 Or, import `uuidjs`.
 
 ```javascript
-const UUID = require("uuidjs")
+const UUID = require("uuidjs");
+```
+
+You can import it in TypeScript, too:
+
+```typescript
+import {UUID} from "uuidjs";
 ```
 
 # USAGE EXAMPLES

@@ -7,7 +7,7 @@
  * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
-/** @namespace */
+/** @class */
 var UUID;
 
 UUID = (function(overwrittenUUID) {
@@ -35,8 +35,8 @@ UUID.generate = function() {
 /**
  * Returns an unsigned x-bit random integer.
  * @private
- * @param {int} x Positive integer ranging from 0 to 53, inclusive.
- * @returns {int} Unsigned x-bit random integer (0 <= f(x) < 2^x).
+ * @param {number} x Positive integer ranging from 0 to 53, inclusive.
+ * @returns {number} Unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
 UUID._getRandomInt = function(x) {
   if (x < 0 || x > 53) { return NaN; }
@@ -47,8 +47,8 @@ UUID._getRandomInt = function(x) {
 /**
  * Converts an integer to a zero-filled hexadecimal string.
  * @private
- * @param {int} num
- * @param {int} length
+ * @param {number} num
+ * @param {number} length
  * @returns {string}
  */
 UUID._hexAligner = function(num, length) {
@@ -60,7 +60,6 @@ UUID._hexAligner = function(num, length) {
 /**
  * Retains the value of 'UUID' global variable assigned before loading UUID.js.
  * @since 3.2
- * @type object
  */
 UUID.overwrittenUUID = overwrittenUUID;
 
