@@ -3,7 +3,7 @@
  *
  * @file
  * @author  LiosK
- * @version v3.5.3
+ * @version v3.5.4-dev
  * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
