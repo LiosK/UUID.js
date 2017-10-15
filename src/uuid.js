@@ -202,7 +202,7 @@ UUID.prototype._init = function() {
     var intValue = parseInt(arguments[i] || 0);
     this.intFields[i] = this.intFields[names[i]] = intValue;
     this.bitFields[i] = this.bitFields[names[i]] = bin(intValue, sizes[i]);
-    this.hexFields[i] = this.hexFields[names[i]] = hex(intValue, sizes[i] / 4);
+    this.hexFields[i] = this.hexFields[names[i]] = hex(intValue, sizes[i] >>> 2);
   }
 
   /**
