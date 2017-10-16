@@ -4,6 +4,7 @@
   "title": "UUID.js",
   "description": "RFC-compliant UUID Generator for JavaScript",
   "main": "src/uuid.js",
+  "types": "types/uuidjs/index.d.ts",
   "directories": {
     "doc": "doc",
     "test": "test"
