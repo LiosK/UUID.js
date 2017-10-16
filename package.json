@@ -12,7 +12,8 @@
   "tonicExampleFilename": "example.js",
   "scripts": {
     "test": "qunit test/test.nodejs.js",
-    "jsdoc": "jsdoc -R ./README.md -d ./doc src/uuid.js"
+    "test-ts": "tsc --strict --noEmit types/uuidjs/uuidjs-tests.ts",
+    "jsdoc": "jsdoc -R README.md -d doc src/uuid.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   "homepage": "https://github.com/LiosK/UUID.js",
   "devDependencies": {
     "jsdoc": "^3.5.5",
-    "qunitjs": "^2.4.0"
+    "qunitjs": "^2.4.0",
+    "typescript": "^2.5.3"
   }
 }
