@@ -131,5 +131,6 @@ LiosK <contact@mail.liosk.net>
 
 * [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt)
 * [GitHub Repository](https://github.com/LiosK/UUID.js)
+* [npm Package](https://www.npmjs.com/package/uuidjs)
 * [API Documentation](https://liosk.github.io/UUID.js/doc/)
 * [Run test cases on your browser](https://liosk.github.io/UUID.js/test/test.uuid.js.html)
