@@ -47,8 +47,10 @@
 <h1>SYNOPSIS</h1><pre class="prettyprint source lang-html"><code>&lt;!-- HTML5 -->
 &lt;script src=&quot;src/uuid.js&quot;>&lt;/script>
 &lt;script> var uuid = UUID.generate(); &lt;/script></code></pre><pre class="prettyprint source lang-javascript"><code>// Node.js
-let UUID = require(&quot;uuidjs&quot;)
-let uuid = UUID.generate()</code></pre><h1>DESCRIPTION</h1><p>UUID.js is a JavaScript/ECMAScript library to generate RFC 4122 compliant Universally Unique IDentifiers (UUIDs). This library supports both version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs), and provides an object-oriented interface to print a generated or parsed UUID in a variety of forms.</p>
+let UUID = require(&quot;uuidjs&quot;);
+let uuid = UUID.generate();</code></pre><pre class="prettyprint source lang-typescript"><code>// TypeScript
+import * as UUID from &quot;uuidjs&quot;;
+let uuid: string = UUID.generate();</code></pre><h1>DESCRIPTION</h1><p>UUID.js is a JavaScript/ECMAScript library to generate RFC 4122 compliant Universally Unique IDentifiers (UUIDs). This library supports both version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs), and provides an object-oriented interface to print a generated or parsed UUID in a variety of forms.</p>
 <h1>FEATURES</h1><ul>
 <li>Generates version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs)</li>
 <li>Provides an object-oriented interface to print various string representations of a generated or parsed UUID</li>
@@ -60,7 +62,7 @@ let uuid = UUID.generate()</code></pre><h1>DESCRIPTION</h1><p>UUID.js is a JavaS
 <h1>INSTALL</h1><p>Download <code>src/uuid.js</code> or call <code>npm install uuidjs</code>.</p>
 <p>Then, load <code>src/uuid.js</code>.</p>
 <pre class="prettyprint source lang-html"><code>&lt;script src=&quot;src/uuid.js&quot;>&lt;/script></code></pre><p>Or, import <code>uuidjs</code>.</p>
-<pre class="prettyprint source lang-javascript"><code>const UUID = require(&quot;uuidjs&quot;)</code></pre><h1>USAGE EXAMPLES</h1><p><code>UUID.generate()</code> returns a version 4 UUID as a hexadecimal string.</p>
+<pre class="prettyprint source lang-javascript"><code>const UUID = require(&quot;uuidjs&quot;);</code></pre><h1>USAGE EXAMPLES</h1><p><code>UUID.generate()</code> returns a version 4 UUID as a hexadecimal string.</p>
 <pre class="prettyprint source lang-javascript"><code>// Create a version 4 UUID as a hexadecimal string
 console.log(UUID.generate());   // fa84cf42-ffdf-4975-b42b-31ab5fb983eb</code></pre><p><code>UUID.genV4()</code>, <code>UUID.genV1()</code>, and <code>UUID.parse()</code> return a UUID object that has various fields and methods.</p>
 <pre class="prettyprint source lang-javascript"><code>// Create a version 4 (random number-based) UUID object
@@ -108,10 +110,11 @@ console.log(arbitraryVarName.generate());   // &quot;cb9a0283-a44c-4e7a-a5b0-9cd
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-<h1>AUTHOR</h1><p>LiosK <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x63;&#111;&#x6e;&#116;&#97;&#99;&#x74;&#x40;&#109;&#97;&#x69;&#x6c;&#46;&#x6c;&#x69;&#x6f;&#x73;&#107;&#x2e;&#x6e;&#x65;&#x74;">&#x63;&#111;&#x6e;&#116;&#97;&#99;&#x74;&#x40;&#109;&#97;&#x69;&#x6c;&#46;&#x6c;&#x69;&#x6f;&#x73;&#107;&#x2e;&#x6e;&#x65;&#x74;</a></p>
+<h1>AUTHOR</h1><p>LiosK <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x63;&#x6f;&#x6e;&#116;&#97;&#x63;&#x74;&#x40;&#109;&#97;&#105;&#108;&#x2e;&#x6c;&#105;&#111;&#x73;&#107;&#46;&#x6e;&#101;&#116;">&#x63;&#x6f;&#x6e;&#116;&#97;&#x63;&#x74;&#x40;&#109;&#97;&#105;&#108;&#x2e;&#x6c;&#105;&#111;&#x73;&#107;&#46;&#x6e;&#101;&#116;</a></p>
 <h1>SEE ALSO</h1><ul>
 <li><a href="https://www.ietf.org/rfc/rfc4122.txt">RFC 4122</a></li>
 <li><a href="https://github.com/LiosK/UUID.js">GitHub Repository</a></li>
+<li><a href="https://www.npmjs.com/package/uuidjs">npm Package</a></li>
 <li><a href="https://liosk.github.io/UUID.js/doc/">API Documentation</a></li>
 <li><a href="https://liosk.github.io/UUID.js/test/test.uuid.js.html">Run test cases on your browser</a></li>
 </ul></article>
@@ -148,7 +151,7 @@ console.log(arbitraryVarName.generate());   // &quot;cb9a0283-a44c-4e7a-a5b0-9cd
 
     
     <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>v3.5.3</li></ul></dd>
+    <dd class="tag-version"><ul class="dummy"><li>v3.6.0</li></ul></dd>
     
 
     
@@ -208,7 +211,9 @@ console.log(arbitraryVarName.generate());   // &quot;cb9a0283-a44c-4e7a-a5b0-9cd
 
     
 
-     
+    
+
+    
 
     
 
@@ -229,13 +234,13 @@ console.log(arbitraryVarName.generate());   // &quot;cb9a0283-a44c-4e7a-a5b0-9cd
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="UUID.html">UUID</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="UUID.html">UUID</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Apr 22 2017 14:17:33 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Oct 16 2017 06:15:32 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

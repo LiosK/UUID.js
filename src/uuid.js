@@ -3,11 +3,15 @@
  *
  * @file
  * @author  LiosK
- * @version v3.5.3
+ * @version v3.6.0
  * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
-/** @namespace */
+/**
+ * @class
+ * @classdesc {@link UUID} object.
+ * @hideconstructor
+ */
 var UUID;
 
 UUID = (function(overwrittenUUID) {
@@ -35,8 +39,8 @@ UUID.generate = function() {
 /**
  * Returns an unsigned x-bit random integer.
  * @private
- * @param {int} x Positive integer ranging from 0 to 53, inclusive.
- * @returns {int} Unsigned x-bit random integer (0 <= f(x) < 2^x).
+ * @param {number} x Unsigned integer ranging from 0 to 53, inclusive.
+ * @returns {number} Unsigned x-bit random integer (0 <= f(x) < 2^x).
  */
 UUID._getRandomInt = function(x) {
   if (x < 0 || x > 53) { return NaN; }
@@ -47,8 +51,8 @@ UUID._getRandomInt = function(x) {
 /**
  * Converts an integer to a zero-filled hexadecimal string.
  * @private
- * @param {int} num
- * @param {int} length
+ * @param {number} num
+ * @param {number} length
  * @returns {string}
  */
 UUID._hexAligner = function(num, length) {
@@ -60,7 +64,7 @@ UUID._hexAligner = function(num, length) {
 /**
  * Retains the value of 'UUID' global variable assigned before loading UUID.js.
  * @since 3.2
- * @type object
+ * @type {any}
  */
 UUID.overwrittenUUID = overwrittenUUID;
 
@@ -111,7 +115,7 @@ UUID.overwrittenUUID = overwrittenUUID;
 
 /**
  * Names of UUID internal fields.
- * @type string[]
+ * @type {string[]}
  * @constant
  * @since 3.0
  */
@@ -120,7 +124,7 @@ UUID.FIELD_NAMES = ["timeLow", "timeMid", "timeHiAndVersion",
 
 /**
  * Sizes of UUID internal fields.
- * @type int[]
+ * @type {number[]}
  * @constant
  * @since 3.0
  */
@@ -164,12 +168,12 @@ UUID.parse = function(strId) {
  * Initializes a {@link UUID} object.
  * @private
  * @constructs UUID
- * @param {uint32} [timeLow=0] time_low field (octet 0-3).
- * @param {uint16} [timeMid=0] time_mid field (octet 4-5).
- * @param {uint16} [timeHiAndVersion=0] time_hi_and_version field (octet 6-7).
- * @param {uint8} [clockSeqHiAndReserved=0] clock_seq_hi_and_reserved field (octet 8).
- * @param {uint8} [clockSeqLow=0] clock_seq_low field (octet 9).
- * @param {uint48} [node=0] node field (octet 10-15).
+ * @param {number} [timeLow=0] time_low field (octet 0-3, uint32).
+ * @param {number} [timeMid=0] time_mid field (octet 4-5, uint16).
+ * @param {number} [timeHiAndVersion=0] time_hi_and_version field (octet 6-7, uint16).
+ * @param {number} [clockSeqHiAndReserved=0] clock_seq_hi_and_reserved field (octet 8, uint8).
+ * @param {number} [clockSeqLow=0] clock_seq_low field (octet 9, uint8).
+ * @param {number} [node=0] node field (octet 10-15, uint48).
  * @returns {UUID} this.
  */
 UUID.prototype._init = function() {
@@ -178,19 +182,19 @@ UUID.prototype._init = function() {
 
   /**
    * UUID internal field values as an array of integers.
-   * @type int[]
+   * @type {number[]}
    */
   this.intFields = new Array(6);
 
   /**
    * UUID internal field values as an array of binary strings.
-   * @type string[]
+   * @type {string[]}
    */
   this.bitFields = new Array(6);
 
   /**
    * UUID internal field values as an array of hexadecimal strings.
-   * @type string[]
+   * @type {string[]}
    */
   this.hexFields = new Array(6);
 
@@ -198,38 +202,38 @@ UUID.prototype._init = function() {
     var intValue = parseInt(arguments[i] || 0);
     this.intFields[i] = this.intFields[names[i]] = intValue;
     this.bitFields[i] = this.bitFields[names[i]] = bin(intValue, sizes[i]);
-    this.hexFields[i] = this.hexFields[names[i]] = hex(intValue, sizes[i] / 4);
+    this.hexFields[i] = this.hexFields[names[i]] = hex(intValue, sizes[i] >>> 2);
   }
 
   /**
    * UUID version number.
-   * @type int
+   * @type {number}
    */
-  this.version = (this.intFields.timeHiAndVersion >> 12) & 0xF;
+  this.version = (this.intFields.timeHiAndVersion >>> 12) & 0xF;
 
   /**
    * 128-bit binary string representation.
-   * @type string
+   * @type {string}
    */
   this.bitString = this.bitFields.join("");
 
   /**
    * Non-delimited hexadecimal string representation ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").
-   * @type string
+   * @type {string}
    * @since v3.3.0
    */
   this.hexNoDelim = this.hexFields.join("");
 
   /**
    * Hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-   * @type string
+   * @type {string}
    */
   this.hexString = this.hexFields[0] + "-" + this.hexFields[1] + "-" + this.hexFields[2]
                  + "-" + this.hexFields[3] + this.hexFields[4] + "-" + this.hexFields[5];
 
   /**
    * URN string representation ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-   * @type string
+   * @type {string}
    */
   this.urn = "urn:uuid:" + this.hexString;
 
@@ -239,8 +243,8 @@ UUID.prototype._init = function() {
 /**
  * Converts an integer to a zero-filled binary string.
  * @private
- * @param {int} num
- * @param {int} length
+ * @param {number} num
+ * @param {number} length
  * @returns {string}
  */
 UUID._binAligner = function(num, length) {
@@ -258,7 +262,7 @@ UUID.prototype.toString = function() { return this.hexString; };
 /**
  * Tests if two {@link UUID} objects are equal.
  * @param {UUID} uuid
- * @returns {bool} True if two {@link UUID} objects are equal.
+ * @returns {boolean} True if two {@link UUID} objects are equal.
  */
 UUID.prototype.equals = function(uuid) {
   if (!(uuid instanceof UUID)) { return false; }
@@ -270,7 +274,7 @@ UUID.prototype.equals = function(uuid) {
 
 /**
  * Nil UUID object.
- * @type UUID
+ * @type {UUID}
  * @constant
  * @since v3.4.0
  */
@@ -332,21 +336,21 @@ function UUIDState() {
 /**
  * Probability to advance the timestamp fraction: the ratio of tick movements to sequence increments.
  * @private
- * @type float
+ * @type {number}
  */
 UUID._tsRatio = 1 / 4;
 
 /**
  * Persistent internal state for version 1 UUID creation.
  * @private
- * @type UUIDState
+ * @type {UUIDState}
  */
 UUID._state = null;
 
 /**
  * @private
- * @param {Date|int} time ECMAScript Date Object or milliseconds from 1970-01-01.
- * @returns {object}
+ * @param {Date|number} time ECMAScript Date Object or milliseconds from 1970-01-01.
+ * @returns {any}
  */
 UUID._getTimeFieldValues = function(time) {
   var ts = time - Date.UTC(1582, 9, 15);

@@ -12,8 +12,14 @@ UUID.js - RFC-compliant UUID Generator for JavaScript
 
 ```javascript
 // Node.js
-let UUID = require("uuidjs")
-let uuid = UUID.generate()
+let UUID = require("uuidjs");
+let uuid = UUID.generate();
+```
+
+```typescript
+// TypeScript
+import * as UUID from "uuidjs";
+let uuid: string = UUID.generate();
 ```
 
 # DESCRIPTION
@@ -42,7 +48,7 @@ Then, load `src/uuid.js`.
 Or, import `uuidjs`.
 
 ```javascript
-const UUID = require("uuidjs")
+const UUID = require("uuidjs");
 ```
 
 # USAGE EXAMPLES
@@ -125,5 +131,6 @@ LiosK <contact@mail.liosk.net>
 
 * [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt)
 * [GitHub Repository](https://github.com/LiosK/UUID.js)
+* [npm Package](https://www.npmjs.com/package/uuidjs)
 * [API Documentation](https://liosk.github.io/UUID.js/doc/)
 * [Run test cases on your browser](https://liosk.github.io/UUID.js/test/test.uuid.js.html)
