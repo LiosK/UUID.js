@@ -209,7 +209,7 @@ UUID.prototype._init = function() {
    * UUID version number.
    * @type {number}
    */
-  this.version = (this.intFields.timeHiAndVersion >> 12) & 0xF;
+  this.version = (this.intFields.timeHiAndVersion >>> 12) & 0xF;
 
   /**
    * 128-bit binary string representation.
