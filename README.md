@@ -19,7 +19,8 @@ let uuid = UUID.generate();
 ```typescript
 // TypeScript
 import * as UUID from "uuidjs";
-let uuid: string = UUID.generate();
+let str: string = UUID.generate();
+let obj: UUID.UUID = UUID.genV4();
 ```
 
 # DESCRIPTION
