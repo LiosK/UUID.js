@@ -7,7 +7,7 @@ const mathPRNG = function(x) {
   var n = 0 | Math.random() * 0x40000000; // 1 << 30
   return x > 30 ? n + (0 | Math.random() * (1 << x - 30)) * 0x40000000 : n >>> 30 - x;
 };
-mathPRNG.algo = "math"
+mathPRNG.engine = "math"
 
 const cryptoPRNG = (function() {
 
@@ -21,7 +21,7 @@ const cryptoPRNG = (function() {
         ns = crypto.getRandomValues(ns) || ns;
         return x > 32 ? ns[0] + (ns[1] >>> 64 - x) * 0x100000000 : ns[0] >>> 32 - x;
       };
-      cryptoPRNG.algo = "webcrypto"
+      cryptoPRNG.engine = "webcrypto"
     }
   } else if (typeof require !== "undefined" && (crypto = require("crypto"))) {
     if (crypto.randomBytes) {
@@ -31,7 +31,7 @@ const cryptoPRNG = (function() {
         var buf = crypto.randomBytes(x > 32 ? 8 : 4), n = buf.readUInt32BE(0);
         return x > 32 ? n + (buf.readUInt32BE(4) >>> 64 - x) * 0x100000000 : n >>> 32 - x;
       };
-      cryptoPRNG.algo = "nodejscrypto"
+      cryptoPRNG.engine = "nodejscrypto"
     }
   }
   return cryptoPRNG;
@@ -56,8 +56,14 @@ let pass = 0, fail = 0
 
 const testPRNG = function(prng, bit) {
   const n = 10000
-  const test = prng.algo + "(" + bit + ")"
+  const test = prng.engine + "(" + bit + ")"
 
+  // binom dist 99.9% confidence interval
+  const margin = 3.290527 * Math.sqrt(0.5 * 0.5 / n)
+  const ubound = n * (0.5 + margin), lbound = n * (0.5 - margin)
+  const ci = "CI(99.9%): [" + Math.ceil(lbound) + ", " + Math.floor(ubound) + "]"
+
+  // generate samples
   const ns = []
   for (let i = 0; i < n; i++) { ns[i] = prng(bit) }
 
@@ -73,11 +79,6 @@ const testPRNG = function(prng, bit) {
       transposed[i][j] = bitMatrix[j][i]
     }
   }
-
-  // binom dist 99.9% confidence interval
-  const margin = 3.290527 * Math.sqrt(0.5 * 0.5 / n)
-  const ubound = n * (0.5 + margin), lbound = n * (0.5 - margin)
-  const ci = "CI(99.9%): [" + Math.ceil(lbound) + ", " + Math.floor(ubound) + "]"
 
   // uniformity
   for (let i = 0; i < bit; i++) {
@@ -98,7 +99,7 @@ const testPRNG = function(prng, bit) {
         if (transposed[i][k] === transposed[j][k]) { count++ }
       }
       if (count < lbound || ubound < count) {
-        console.log("%s: count(bit%d === bit%d): %d, %s", test, i, j, count, ci)
+        console.log("%s: count(bit%d === bit%d): %d; %s", test, i, j, count, ci)
         fail++
       } else {
         pass++
@@ -111,8 +112,12 @@ const testPRNG = function(prng, bit) {
 // main
 console.log("Begin testing (some should fail by design)")
 const bs = [ 4, 6, 8, 12, 14, 16, 32, 40, 48 ]
+console.group("Engine: " + mathPRNG.engine)
 bs.forEach(testPRNG.bind(null, mathPRNG))
+console.groupEnd()
+console.group("Engine: " + cryptoPRNG.engine)
 bs.forEach(testPRNG.bind(null, cryptoPRNG))
+console.groupEnd()
 console.log("%d tests completed: pass %d, fail %d", pass + fail, pass, fail)
 
 // vim: et ts=2 sw=2
