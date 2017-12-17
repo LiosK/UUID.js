@@ -1,6 +1,6 @@
 "use strict;"
 
-// adapted from v3.5.0
+// adapted from v3.6.2
 
 const mathPRNG = function(x) {
   if (x < 0 || x > 53) { return NaN; }
@@ -17,7 +17,8 @@ const cryptoPRNG = (function() {
       // Web Cryptography API
       cryptoPRNG = function(x) {
         if (x < 0 || x > 53) { return NaN; }
-        var ns = crypto.getRandomValues(new Uint32Array(x > 32 ? 2 : 1));
+        var ns = new Uint32Array(x > 32 ? 2 : 1);
+        ns = crypto.getRandomValues(ns) || ns;
         return x > 32 ? ns[0] + (ns[1] >>> 64 - x) * 0x100000000 : ns[0] >>> 32 - x;
       };
       cryptoPRNG.algo = "webcrypto"

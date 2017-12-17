@@ -3,7 +3,7 @@
  *
  * @file
  * @author  LiosK
- * @version v3.6.1
+ * @version v3.6.2-rc.1
  * @license The MIT License: Copyright (c) 2010-2017 LiosK.
  */
 
@@ -91,7 +91,8 @@ UUID.overwrittenUUID = overwrittenUUID;
       // Web Cryptography API
       cryptoPRNG = function(x) {
         if (x < 0 || x > 53) { return NaN; }
-        var ns = crypto.getRandomValues(new Uint32Array(x > 32 ? 2 : 1));
+        var ns = new Uint32Array(x > 32 ? 2 : 1);
+        ns = crypto.getRandomValues(ns) || ns;
         return x > 32 ? ns[0] + (ns[1] >>> 64 - x) * 0x100000000 : ns[0] >>> 32 - x;
       };
     }

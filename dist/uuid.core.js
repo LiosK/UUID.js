@@ -1,5 +1,5 @@
 /*
- Version: v3.6.1
+ Version: v3.6.2-rc.1
  The MIT License: Copyright (c) 2010-2017 LiosK.
 */
 var UUID;
