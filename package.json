@@ -1,19 +1,19 @@
 {
   "name": "uuidjs",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "title": "UUID.js",
   "description": "RFC-compliant UUID Generator for JavaScript",
   "main": "src/uuid.js",
   "types": "types/uuidjs/index.d.ts",
   "directories": {
-    "doc": "doc",
+    "doc": "docs",
     "test": "test"
   },
   "tonicExampleFilename": "example.js",
   "scripts": {
     "test": "qunit test/nodejs.js",
     "test-ts": "tsc --strict --noEmit types/uuidjs/uuidjs-tests.ts",
-    "jsdoc": "jsdoc -R README.md -d doc src/uuid.js"
+    "jsdoc": "jsdoc -R README.md -d docs src/uuid.js"
   },
   "repository": {
     "type": "git",
