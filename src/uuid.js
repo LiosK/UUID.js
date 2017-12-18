@@ -366,7 +366,7 @@ UUID._getTimeFieldValues = function(time) {
 function UUID() {}
 
 // for nodejs
-if (typeof module !== "undefined" && module && module.exports) {
+if (typeof module === "object" && typeof module.exports === "object") {
   module.exports = UUID;
 }
 
@@ -374,4 +374,4 @@ return UUID;
 
 })(UUID);
 
-// vim: et ts=2 sw=2 fdm=marker fmr&
+// vim: fdm=marker fmr&
