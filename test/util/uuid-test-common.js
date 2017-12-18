@@ -198,4 +198,9 @@ var UUIDTestCommon = {};
 
 })(QUnit, UUIDTestCommon);
 
+// for nodejs
+if (typeof module === "object" && typeof module.exports === "object") {
+  module.exports = UUIDTestCommon;
+}
+
 // vim: et ts=2 sw=2
