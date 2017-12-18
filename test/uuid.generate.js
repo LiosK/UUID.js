@@ -1,7 +1,8 @@
-QUnit.module("UUID.generate()");
+QUnit.module("UUID.generate()", function() {
+  "use strict";
 
-UUIDTestCommon.testV4AsString(function() {
-  return UUID.generate();
+  UUIDTestCommon.testV4AsString(function() {
+    return UUID.generate();
+  });
+
 });
-
-// vim: et ts=2 sw=2

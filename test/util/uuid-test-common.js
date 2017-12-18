@@ -1,6 +1,6 @@
 var UUIDTestCommon = {};
 
-(function(QUnit, ns) {
+(function(ns) {
   "use strict";
 
   function generateUUIDs(generator, n) {
@@ -196,11 +196,9 @@ var UUIDTestCommon = {};
     assert.ok(uuid.hexString === UUID.parse(uuid.urn).hexString, "UUID#hexString === UUID.parse(UUID#urn)#hexString");
   };
 
-})(QUnit, UUIDTestCommon);
+})(UUIDTestCommon);
 
 // for nodejs
 if (typeof module === "object" && typeof module.exports === "object") {
   module.exports = UUIDTestCommon;
 }
-
-// vim: et ts=2 sw=2

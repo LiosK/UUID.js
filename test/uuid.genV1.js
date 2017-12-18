@@ -1,6 +1,4 @@
-QUnit.module("UUID.genV1() as object");
-
-(function(QUnit) {
+QUnit.module("UUID.genV1() as object", function() {
   "use strict";
 
   QUnit.test("basic object tests", function(assert) {
@@ -14,11 +12,10 @@ QUnit.module("UUID.genV1() as object");
     }
   });
 
-})(QUnit);
+});
 
-QUnit.module("UUID.genV1() as string");
 
-(function(QUnit) {
+QUnit.module("UUID.genV1() as string", function() {
   "use strict";
 
   var generator = function() {
@@ -60,11 +57,10 @@ QUnit.module("UUID.genV1() as string");
     }
   });
 
-})(QUnit);
+});
 
-QUnit.module("UUID.genV1() and UUID.resetState()");
 
-(function(QUnit) {
+QUnit.module("UUID.genV1() and UUID.resetState()", function() {
   "use strict";
 
   var generator = function() {
@@ -99,6 +95,4 @@ QUnit.module("UUID.genV1() and UUID.resetState()");
     }
   });
 
-})(QUnit);
-
-// vim: et ts=2 sw=2
+});
