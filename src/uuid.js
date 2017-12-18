@@ -3,7 +3,7 @@
  *
  * @file
  * @author  LiosK
- * @version v4.0.0
+ * @version v4.0.1
  * @license Apache License 2.0: Copyright (c) 2010-2017 LiosK
  */
 
@@ -366,7 +366,7 @@ UUID._getTimeFieldValues = function(time) {
 function UUID() {}
 
 // for nodejs
-if (typeof module !== "undefined" && module && module.exports) {
+if (typeof module === "object" && typeof module.exports === "object") {
   module.exports = UUID;
 }
 
@@ -374,4 +374,4 @@ return UUID;
 
 })(UUID);
 
-// vim: et ts=2 sw=2 fdm=marker fmr&
+// vim: fdm=marker fmr&

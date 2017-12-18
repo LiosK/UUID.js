@@ -1,6 +1,4 @@
-QUnit.module("UUID.genV4() as object");
-
-(function(QUnit) {
+QUnit.module("UUID.genV4() as object", function() {
   "use strict";
 
   QUnit.test("basic object tests", function(assert) {
@@ -14,12 +12,13 @@ QUnit.module("UUID.genV4() as object");
     }
   });
 
-})(QUnit);
-
-QUnit.module("UUID.genV4() as string");
-
-UUIDTestCommon.testV4AsString(function() {
-  return UUID.genV4().hexString;
 });
 
-// vim: et ts=2 sw=2
+QUnit.module("UUID.genV4() as string", function() {
+  "use strict";
+
+  UUIDTestCommon.testV4AsString(function() {
+    return UUID.genV4().hexString;
+  });
+
+});

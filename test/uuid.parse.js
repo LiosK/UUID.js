@@ -1,6 +1,4 @@
-QUnit.module("UUID.parse()");
-
-(function(QUnit) {
+QUnit.module("UUID.parse()", function() {
   "use strict";
 
   QUnit.test("pass tests", function(assert) {
@@ -45,6 +43,4 @@ QUnit.module("UUID.parse()");
     }
   });
 
-})(QUnit);
-
-// vim: et ts=2 sw=2
+});

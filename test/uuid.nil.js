@@ -1,6 +1,4 @@
-QUnit.module("UUID.NIL");
-
-(function(QUnit) {
+QUnit.module("UUID.NIL", function() {
   "use strict";
 
   QUnit.test("UUID.NIL holds the correct nil UUID object.", function(assert) {
@@ -9,6 +7,4 @@ QUnit.module("UUID.NIL");
     assert.ok(UUID.NIL.equals(UUID.parse("00000000-0000-0000-0000-000000000000")), 'UUID.NIL.equals(UUID.parse("00000000-0000-0000-0000-000000000000"))');
   });
 
-})(QUnit);
-
-// vim: et ts=2 sw=2
+});
