@@ -11,7 +11,7 @@
   },
   "tonicExampleFilename": "example.js",
   "scripts": {
-    "test": "qunit test/test.nodejs.js",
+    "test": "qunit test/nodejs.js",
     "test-ts": "tsc --strict --noEmit types/uuidjs/uuidjs-tests.ts",
     "jsdoc": "jsdoc -R README.md -d doc src/uuid.js"
   },

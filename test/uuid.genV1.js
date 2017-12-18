@@ -1,6 +1,4 @@
-QUnit.module("UUID.genV1() as object");
-
-(function(QUnit) {
+QUnit.module("UUID.genV1() as object", function() {
   "use strict";
 
   QUnit.test("basic object tests", function(assert) {
@@ -14,11 +12,10 @@ QUnit.module("UUID.genV1() as object");
     }
   });
 
-})(QUnit);
+});
 
-QUnit.module("UUID.genV1() as string");
 
-(function(QUnit) {
+QUnit.module("UUID.genV1() as string", function() {
   "use strict";
 
   var generator = function() {
@@ -60,11 +57,10 @@ QUnit.module("UUID.genV1() as string");
     }
   });
 
-})(QUnit);
+});
 
-QUnit.module("UUID.genV1() and UUID.resetState()");
 
-(function(QUnit) {
+QUnit.module("UUID.genV1() and UUID.resetState()", function() {
   "use strict";
 
   var generator = function() {
@@ -74,31 +70,30 @@ QUnit.module("UUID.genV1() and UUID.resetState()");
 
   UUIDTestCommon.testV1AsString(generator);
 
-  QUnit.test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", function(assert) {
+  QUnit.test("random bit neutrality tests (often fail by design)", function(assert) {
     assert.expect(64);
     var n = 4096, uuids = [];
     for (var i = 0; i < n; i++) { uuids[i] = generator(); }
     var counts = UUIDTestCommon.countEachBitsOne(uuids);
-    var mean = n * 0.5, sd = Math.sqrt(n * 0.5 * 0.5);  // binom dist
-    var lbound = mean - 4 * sd, ubound = mean + 4 * sd;
+    // binom dist middle 99.99% range
+    var margin = 3.890592 * Math.sqrt(0.5 * 0.5 / n);
+    var ubound = 0.5 + margin, lbound = 0.5 - margin;
 
     for (var i = 64; i < 128; i++) {
-      var c = counts[i];
+      var c = counts[i] / n;
       switch (i) {
           case 64:
           case 87:
-              assert.equal(c, n, "bit " + i + ": reserved bit '1'");
+              assert.equal(c, 1, "bit " + i + ": reserved bit '1'");
               break;
           case 65:
               assert.equal(c, 0, "bit " + i + ": reserved bit '0'");
               break;
           default:
-              assert.ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (allowable range: " + lbound + "-" + ubound + ")");
+              assert.ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (cutoff range: " + lbound + "-" + ubound + ")");
               break;
       }
     }
   });
 
-})(QUnit);
-
-// vim: et ts=2 sw=2
+});

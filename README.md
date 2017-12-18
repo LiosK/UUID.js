@@ -138,4 +138,4 @@ LiosK <contact@mail.liosk.net>
 * [GitHub Repository](https://github.com/LiosK/UUID.js)
 * [npm Package](https://www.npmjs.com/package/uuidjs)
 * [API Documentation](https://liosk.github.io/UUID.js/doc/)
-* [Run test cases on your browser](https://liosk.github.io/UUID.js/test/test.uuid.js.html)
+* [Run test cases on your browser](https://liosk.github.io/UUID.js/test/browser.html)

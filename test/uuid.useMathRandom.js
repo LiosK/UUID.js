@@ -1,9 +1,10 @@
-QUnit.module("UUID.useMathRandom()");
+QUnit.module("UUID.useMathRandom()", function() {
+  "use strict";
 
-UUID.useMathRandom();
+  UUID.useMathRandom();
 
-UUIDTestCommon.testV4AsString(function() {
-  return UUID.generate();
+  UUIDTestCommon.testV4AsString(function() {
+    return UUID.generate();
+  });
+
 });
-
-// vim: et ts=2 sw=2
