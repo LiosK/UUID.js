@@ -3,7 +3,7 @@
  *
  * @file
  * @author  LiosK
- * @version v4.0.0-rc
+ * @version v4.0.0
  * @license Apache License 2.0: Copyright (c) 2010-2017 LiosK
  */
 

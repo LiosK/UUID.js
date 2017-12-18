@@ -1,5 +1,5 @@
 /*
- Version: v4.0.0-rc
+ Version: v4.0.0
  Apache License 2.0: Copyright (c) 2010-2017 LiosK
 */
 var UUID;
