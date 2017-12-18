@@ -3,8 +3,8 @@
  *
  * @file
  * @author  LiosK
- * @version v3.6.2
- * @license The MIT License: Copyright (c) 2010-2017 LiosK.
+ * @version v4.0.0
+ * @license Apache License 2.0: Copyright (c) 2010-2017 LiosK
  */
 
 /**
@@ -358,23 +358,6 @@ UUID._getTimeFieldValues = function(time) {
   var hm = ((ts / 0x100000000) * 10000) & 0xFFFFFFF;
   return  { low: ((ts & 0xFFFFFFF) * 10000) % 0x100000000,
             mid: hm & 0xFFFF, hi: hm >>> 16, timestamp: ts };
-};
-
-// }}}
-
-// Backward Compatibility Component {{{
-
-/**
- * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
- * @since 3.1
- * @deprecated Version 2.x compatible interface is not recommended.
- */
-UUID.makeBackwardCompatible = function() {
-  var f = UUID.generate;
-  UUID.generate = function(o) {
-    return (o && o.version == 1) ? UUID.genV1().hexString : f.call(UUID);
-  };
-  UUID.makeBackwardCompatible = function() {};
 };
 
 // }}}
