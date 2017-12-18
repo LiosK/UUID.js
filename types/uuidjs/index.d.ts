@@ -24,9 +24,8 @@ interface UUID {
 export function resetState(): void;
 export function useMathRandom(): void;
 
-// Hide unnecessary and/or deprecated methods
+// Hide unnecessary methods
 export let overwrittenUUID: any;
-export function makeBackwardCompatible(): void;
 
 interface UUIDFields<T> extends Array<T> {
   timeLow: T;

@@ -38,7 +38,7 @@
   "homepage": "https://github.com/LiosK/UUID.js",
   "devDependencies": {
     "jsdoc": "^3.5.5",
-    "qunitjs": "^2.4.1",
+    "qunit": "^2.4.1",
     "typescript": "^2.6.2"
   }
 }
