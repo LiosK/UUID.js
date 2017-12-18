@@ -58,7 +58,7 @@ const testPRNG = function(prng, bit) {
   const n = 10000
   const test = prng.engine + "(" + bit + ")"
 
-  // binom dist 99.9% confidence interval
+  // binom dist middle 99.9% range
   const margin = 3.290527 * Math.sqrt(0.5 * 0.5 / n)
   const ubound = n * (0.5 + margin), lbound = n * (0.5 - margin)
   const ci = "CI(99.9%): [" + Math.ceil(lbound) + ", " + Math.floor(ubound) + "]"

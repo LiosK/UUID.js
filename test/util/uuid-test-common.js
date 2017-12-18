@@ -68,17 +68,18 @@ var UUIDTestCommon = {};
       assert.equal(counts[51], 0, "bit 51: version bit '0'");
     });
 
-    QUnit.test("mean +/- four-sigma tests for random bits (possible to fail in a certain low probability)", function(assert) {
+    QUnit.test("random bit neutrality tests (often fail by design)", function(assert) {
       assert.expect(128);
-      var mean = n * 0.5, sd = Math.sqrt(n * 0.5 * 0.5);  // binom dist
-      var lbound = mean - 4 * sd, ubound = mean + 4 * sd;
+      // binom dist middle 99.99% range
+      var margin = 3.890592 * Math.sqrt(0.5 * 0.5 / n);
+      var ubound = 0.5 + margin, lbound = 0.5 - margin;
 
       for (var i = 0; i < 128; i++) {
-        var c = counts[i];
+        var c = counts[i] / n;
         switch (i) {
             case 64:
             case 49:
-                assert.equal(c, n, "bit " + i + ": reserved bit '1'");
+                assert.equal(c, 1, "bit " + i + ": reserved bit '1'");
                 break;
             case 65:
             case 48:
@@ -87,7 +88,7 @@ var UUIDTestCommon = {};
                 assert.equal(c, 0, "bit " + i + ": reserved bit '0'");
                 break;
             default:
-                assert.ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (allowable range: " + lbound + "-" + ubound + ")");
+                assert.ok(lbound < c && c < ubound, "bit " + i + ": random bit " + c + " (cutoff range: " + lbound + "-" + ubound + ")");
                 break;
         }
       }
