@@ -3,8 +3,8 @@
  *
  * @file
  * @author  LiosK
- * @version v3.6.2
- * @license The MIT License: Copyright (c) 2010-2017 LiosK.
+ * @version v4.0.0-rc
+ * @license Apache License 2.0: Copyright (c) 2010-2017 LiosK
  */
 
 /**

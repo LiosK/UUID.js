@@ -20,7 +20,7 @@
   "authors": [
     "LiosK <contact@mail.liosk.net>"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "ignore": [
     "**/.*",
     "doc",
