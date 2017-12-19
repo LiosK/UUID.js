@@ -1,6 +1,6 @@
 {
   "name": "uuidjs",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "title": "UUID.js",
   "description": "RFC-compliant UUID Generator for JavaScript",
   "main": "src/uuid.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/LiosK/UUID.js.git"
+    "url": "https://github.com/LiosK/UUID.js.git"
   },
   "keywords": [
     "library",
