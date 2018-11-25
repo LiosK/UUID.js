@@ -23,6 +23,11 @@ let str: string = UUID.generate();
 let obj: UUID.UUID = UUID.genV4();
 ```
 
+```bash
+# Command-line
+npx uuidjs
+```
+
 # DESCRIPTION
 
 UUID.js is a JavaScript/ECMAScript library to generate RFC 4122 compliant Universally Unique IDentifiers (UUIDs). This library supports both version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs), and provides an object-oriented interface to print a generated or parsed UUID in a variety of forms.

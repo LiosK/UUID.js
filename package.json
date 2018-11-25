@@ -5,7 +5,11 @@
   "description": "RFC-compliant UUID Generator for JavaScript",
   "main": "src/uuid.js",
   "types": "types/uuidjs/index.d.ts",
+  "bin": {
+    "uuidjs": "bin/cli.js"
+  },
   "directories": {
+    "bin": "bin",
     "doc": "docs",
     "test": "test"
   },
