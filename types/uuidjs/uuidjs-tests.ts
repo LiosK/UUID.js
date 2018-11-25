@@ -1,4 +1,4 @@
-import * as UUID from 'uuidjs';
+import * as UUID from '../..';
 
 const putNum = (x: number) => { console.log(x + ': number') };
 const putStr = (x: string) => { console.log('"' + x + '": string') };

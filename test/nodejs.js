@@ -1,4 +1,4 @@
-global.UUID = require("uuidjs");
+global.UUID = require("..");
 global.UUIDTestCommon = require("./util/uuid-test-common.js");
 
 require("./uuid.generate.js");
