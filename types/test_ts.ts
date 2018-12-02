@@ -1,24 +1,24 @@
 import * as UUID from '..';
 type UUIDFields<T> = UUID.UUIDFields<T>;
 
-const putNum = (x: number) => { console.log(x + ': number') };
-const putStr = (x: string) => { console.log('"' + x + '": string') };
-const putBool = (x: boolean) => { console.log(x + ': boolean') };
+const putNum = (x: number) => console.log(`${x}: number`);
+const putStr = (x: string) => console.log(`"${x}": string`);
+const putBool = (x: boolean) => console.log(`${x}: boolean`);
 
 putStr(UUID.generate());
-let objV4: UUID.UUID = UUID.genV4();
-let objV1: UUID.UUID = UUID.genV1();
-let parsed: UUID.UUID = UUID.parse(objV4.toString());
+const objV4: UUID.UUID = UUID.genV4();
+const objV1: UUID.UUID = UUID.genV1();
+const parsed: UUID.UUID = UUID.parse(objV4.toString());
 
-let _FIELD_NAMES: Array<string> = UUID.FIELD_NAMES;
-let _FIELD_SIZES: Array<number> = UUID.FIELD_SIZES;
-let _NIL: UUID.UUID = UUID.NIL;
+const _FIELD_NAMES: Array<string> = UUID.FIELD_NAMES;
+const _FIELD_SIZES: Array<number> = UUID.FIELD_SIZES;
+const _NIL: UUID.UUID = UUID.NIL;
 
-let _intFields: UUIDFields<number> = objV4.intFields;
-let _bitFields: UUIDFields<string> = objV4.bitFields;
-let _hexFields: UUIDFields<string> = objV4.hexFields;
+const _intFields: UUIDFields<number> = objV4.intFields;
+const _bitFields: UUIDFields<string> = objV4.bitFields;
+const _hexFields: UUIDFields<string> = objV4.hexFields;
 
-for (let i: number = 0; i < 6; i++) {
+for (let i = 0; i < 6; i++) {
   putNum(_intFields[i]);
   putStr(_bitFields[i]);
   putStr(_hexFields[i]);
