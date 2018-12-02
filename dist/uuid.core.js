@@ -1,5 +1,6 @@
 /*
  Version: v4.2.0
+ Deprecated: No longer tested, documented, or maintained.
  Apache License 2.0: Copyright (c) 2010-2018 LiosK
 */
 var UUID;
