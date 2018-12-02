@@ -35,3 +35,32 @@ interface UUIDFields<T> extends Array<T> {
   clockSeqLow: T;
   node: T;
 }
+
+// Modern class-based definition
+export default class UUIDClass {
+  static generate(): string;
+
+  static genV4(): UUIDClass;
+  static genV1(): UUIDClass;
+  static parse(strId: string): UUIDClass;
+
+  static readonly FIELD_NAMES: string[];
+  static readonly FIELD_SIZES: number[];
+  static readonly NIL: UUIDClass;
+
+  readonly intFields: UUIDFields<number>;
+  readonly bitFields: UUIDFields<string>;
+  readonly hexFields: UUIDFields<string>;
+  readonly version: number;
+  readonly bitString: string;
+  readonly hexNoDelim: string;
+  readonly hexString: string;
+  readonly urn: string;
+  toString(): string;
+  equals(uuid: UUIDClass): boolean;
+
+  static resetState(): void;
+  static useMathRandom(): void;
+
+  static overwrittenUUID: any;
+}

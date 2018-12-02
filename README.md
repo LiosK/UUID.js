@@ -18,9 +18,9 @@ let uuid = UUID.generate();
 
 ```typescript
 // TypeScript
-import * as UUID from "uuidjs";
+import UUID from 'uuidjs';
 let str: string = UUID.generate();
-let obj: UUID.UUID = UUID.genV4();
+let obj: UUID = UUID.genV4();
 ```
 
 ```bash

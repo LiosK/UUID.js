@@ -1,4 +1,5 @@
-import * as UUID from '../..';
+import * as UUID from '..';
+type UUIDFields<T> = UUID.UUIDFields<T>;
 
 const putNum = (x: number) => { console.log(x + ': number') };
 const putStr = (x: string) => { console.log('"' + x + '": string') };
@@ -13,9 +14,9 @@ let _FIELD_NAMES: Array<string> = UUID.FIELD_NAMES;
 let _FIELD_SIZES: Array<number> = UUID.FIELD_SIZES;
 let _NIL: UUID.UUID = UUID.NIL;
 
-let _intFields: UUID.UUIDFields<number> = objV4.intFields;
-let _bitFields: UUID.UUIDFields<string> = objV4.bitFields;
-let _hexFields: UUID.UUIDFields<string> = objV4.hexFields;
+let _intFields: UUIDFields<number> = objV4.intFields;
+let _bitFields: UUIDFields<string> = objV4.bitFields;
+let _hexFields: UUIDFields<string> = objV4.hexFields;
 
 for (let i: number = 0; i < 6; i++) {
   putNum(_intFields[i]);

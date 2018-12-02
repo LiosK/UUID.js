@@ -4,7 +4,7 @@
   "title": "UUID.js",
   "description": "RFC-compliant UUID Generator for JavaScript",
   "main": "src/uuid.js",
-  "types": "types/uuidjs/index.d.ts",
+  "types": "types/uuid.d.ts",
   "bin": {
     "uuidjs": "bin/cli.js"
   },
@@ -18,7 +18,7 @@
     "jsdoc": "rm -rf docs && jsdoc -R README.md -d docs src/uuid.js",
     "prepare": "npm run test && npm run test-ts",
     "test": "qunit test/nodejs.js",
-    "test-ts": "tsc --strict --noEmit types/uuidjs/uuidjs-tests.ts"
+    "test-ts": "tsc --strict --noEmit types/*.ts"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,6 @@
   "devDependencies": {
     "jsdoc": "^3.5.5",
     "qunit": "^2.8.0",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2.1"
   }
 }
