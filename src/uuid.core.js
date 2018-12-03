@@ -3,7 +3,8 @@
  *
  * @file
  * @author  LiosK
- * @version v4.1.0
+ * @version v4.2.0
+ * @deprecated No longer tested, documented, or maintained.
  * @license Apache License 2.0: Copyright (c) 2010-2018 LiosK
  */
 
