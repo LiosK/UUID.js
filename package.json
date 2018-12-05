@@ -44,5 +44,8 @@
     "jsdoc": "^3.5.5",
     "qunit": "^2.8.0",
     "typescript": "^3.2.1"
+  },
+  "browser": {
+    "./src/uuid.js": "./src/uuid-browser.js"
   }
 }
