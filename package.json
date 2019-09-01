@@ -1,6 +1,6 @@
 {
   "name": "uuidjs",
-  "version": "4.2.3",
+  "version": "4.2.4",
   "title": "UUID.js",
   "description": "RFC-compliant UUID Generator for JavaScript",
   "main": "src/uuid.js",
@@ -41,9 +41,9 @@
   },
   "homepage": "https://github.com/LiosK/UUID.js",
   "devDependencies": {
-    "jsdoc": "^3.6.2",
+    "jsdoc": "^3.6.3",
     "qunit": "^2.9.2",
-    "typescript": "^3.5.2"
+    "typescript": "^3.6.2"
   },
   "browser": {
     "crypto": false
