@@ -119,7 +119,7 @@ console.log(arbitraryVarName.generate());   // "cb9a0283-a44c-4e7a-a5b0-9cd2876e
 
 # LICENSE
 
-Copyright (c) 2010-2019 LiosK
+Copyright (c) 2010-2020 LiosK
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
