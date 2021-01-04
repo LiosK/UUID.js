@@ -3,8 +3,8 @@
  *
  * @file
  * @author  LiosK
- * @version v4.2.5
- * @license Apache License 2.0: Copyright (c) 2010-2020 LiosK
+ * @version v4.2.7
+ * @license Apache License 2.0: Copyright (c) 2010-2021 LiosK
  */
 
 /**
