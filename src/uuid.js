@@ -3,7 +3,7 @@
  *
  * @file
  * @author  LiosK
- * @version v4.2.10
+ * @version v4.2.11
  * @license Apache License 2.0: Copyright (c) 2010-2022 LiosK
  */
 
@@ -296,12 +296,12 @@ UUID.genV1 = function() {
   if (now != st.timestamp) {
     if (now < st.timestamp) { st.sequence++; }
     st.timestamp = now;
-    st.tick = UUID._getRandomInt(4);
-  } else if (Math.random() < UUID._tsRatio && st.tick < 9984) {
-    // advance the timestamp fraction at a probability
-    // to compensate for the low timestamp resolution
-    st.tick += 1 + UUID._getRandomInt(4);
+    st.tick = UUID._getRandomInt(12); // up to 4095, allowing 5904 tick per msec
+  } else if (st.tick < 9992) {
+    // advance sub-millisecond fraction up to 9999 100-nanoseconds
+    st.tick += 1 + UUID._getRandomInt(3);
   } else {
+    // advance seq if tick overflows in remote chance
     st.sequence++;
   }
 
@@ -329,15 +329,16 @@ UUID.resetState = function() {
 function UUIDState() {
   var rand = UUID._getRandomInt;
   this.timestamp = 0;
+  this.tick = 0; // timestamp fraction smaller than a millisecond
   this.sequence = rand(14);
   this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
-  this.tick = rand(4);  // timestamp fraction smaller than a millisecond
 }
 
 /**
  * Probability to advance the timestamp fraction: the ratio of tick movements to sequence increments.
  * @private
  * @type {number}
+ * @deprecated This property is no longer used since v4.2.11.
  */
 UUID._tsRatio = 1 / 4;
 

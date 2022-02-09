@@ -25,20 +25,17 @@ QUnit.module("UUID.genV1() as string", function() {
   UUIDTestCommon.testV1AsString(generator);
 
   QUnit.test("clock sequence tests", function(assert) {
-    assert.expect(1024);
-    var nincrements = 0;
+    assert.expect(1023);
     var prev = parseInt(generator().substr(19, 4), 16) & 0x3FFF;
     for (var i = 1; i < 1024; i++) {
       var curr = parseInt(generator().substr(19, 4), 16) & 0x3FFF;
       var result = curr === prev;
       if (curr === ((prev + 1) & 0x3FFF)) {
         result = true;
-        nincrements++;
       }
       assert.ok(result, "proper clock sequence step: " + prev.toString(16) + " -> " + curr.toString(16));
       prev = curr;
     }
-    assert.notEqual(nincrements, 0, "clock sequences changed (possible to fail)");
   });
 
   QUnit.test("node identifier consistency tests", function(assert) {
