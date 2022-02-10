@@ -3,7 +3,7 @@
  *
  * @file
  * @author  LiosK
- * @version v4.2.11
+ * @version v4.3.0
  * @license Apache License 2.0: Copyright (c) 2010-2022 LiosK
  */
 
@@ -359,6 +359,45 @@ UUID._getTimeFieldValues = function(time) {
   var hm = ((ts / 0x100000000) * 10000) & 0xFFFFFFF;
   return  { low: ((ts & 0xFFFFFFF) * 10000) % 0x100000000,
             mid: hm & 0xFFFF, hi: hm >>> 16, timestamp: ts };
+};
+
+// }}}
+
+// UUID Version 6 Component {{{
+
+/**
+ * Creates a version 6 {@link UUID} object.
+ * @returns {UUID} Version 6 {@link UUID} object.
+ * @since v4.3.0
+ */
+UUID.genV6 = function() {
+  if (UUID._state == null) { UUID.resetState(); }
+  var now = new Date().getTime(), st = UUID._state;
+  if (now != st.timestamp) {
+    if (now < st.timestamp) { st.sequence++; }
+    st.timestamp = now;
+    st.tick = UUID._getRandomInt(12); // up to 4095, allowing 5904 tick per msec
+  } else if (st.tick < 9992) {
+    // advance sub-millisecond fraction up to 9999 100-nanoseconds
+    st.tick += 1 + UUID._getRandomInt(3);
+  } else {
+    // advance seq if tick overflows in remote chance
+    st.sequence++;
+  }
+
+  // format time fields
+  var ts = st.timestamp - Date.UTC(1582, 9, 15);
+  var th = Math.floor((ts / 0x10000000) * 10000) % 0x100000000;
+  var midlow = (((ts & 0xFFFFFFF) * 10000) & 0xFFFFFFF) + st.tick;
+  var tm = midlow >>> 12;
+  var tlav = (midlow & 0xFFF) | 0x6000;  // set version '0110'
+
+  // format clock sequence
+  st.sequence &= 0x3FFF;
+  var cshar = (st.sequence >>> 8) | 0x80; // set variant '10'
+  var csl = st.sequence & 0xFF;
+
+  return new UUID()._init(th, tm, tlav, cshar, csl, st.node);
 };
 
 // }}}

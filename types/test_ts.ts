@@ -8,6 +8,7 @@ const putBool = (x: boolean) => console.log(`${x}: boolean`);
 putStr(UUID.generate());
 const objV4: UUID.UUID = UUID.genV4();
 const objV1: UUID.UUID = UUID.genV1();
+const objV6: UUID.UUID = UUID.genV6();
 const parsed: UUID.UUID = UUID.parse(objV4.toString());
 
 const _FIELD_NAMES: Array<string> = UUID.FIELD_NAMES;

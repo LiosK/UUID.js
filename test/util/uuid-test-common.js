@@ -142,7 +142,60 @@ var UUIDTestCommon = {};
         var uuid = generator();
         var hex = uuid.substr(15, 3) + uuid.substr(9, 4) + uuid.substr(0, 8);
         var diff = Math.abs(now - parseInt(hex, 16) / 10000);
-        assert.ok(diff < 60 * 1000, "current timestamp - UUID timestamp < 1 minute: " + diff);
+        assert.ok(diff < 1000, "current timestamp - UUID timestamp < 1 second: " + diff);
+      }
+    });
+
+  };
+
+  ns.testV6AsString = function(generator) {
+
+    QUnit.test("regexp format tests", function(assert) {
+      assert.expect(1024);
+      var reformat = /^[0-9a-f]{8}-[0-9a-f]{4}-6[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f][13579bdf][0-9a-f]{10}$/;
+      for (var i = 0; i < 1024; i++) {
+        var uuid = generator();
+        assert.ok(reformat.test(uuid), reformat.source + " =~ " + uuid);
+      }
+    });
+
+    QUnit.test("collision tests", function(assert) {
+      assert.expect(1);
+      var n = 16384, nerrors = 0, table = {};
+      for (var i = 0; i < n; i++) {
+        var uuid = generator();
+        if (table.hasOwnProperty(uuid)) {
+          nerrors++;
+        } else {
+          table[uuid] = true;
+        }
+      }
+      assert.equal(nerrors, 0, "no collision among " + n + " UUIDs");
+    });
+
+    QUnit.test("reserved bit tests", function(assert) {
+      assert.expect(7);
+      var n = 4096, uuids = generateUUIDs(generator, n), counts = ns.countEachBitsOne(uuids);
+
+      assert.equal(counts[64], n, "bit 64: variant bit '1'");
+      assert.equal(counts[65], 0, "bit 65: variant bit '0'");
+
+      assert.equal(counts[48], 0, "bit 48: version bit '0'");
+      assert.equal(counts[49], n, "bit 49: version bit '1'");
+      assert.equal(counts[50], n, "bit 50: version bit '1'");
+      assert.equal(counts[51], 0, "bit 51: version bit '0'");
+
+      assert.equal(counts[87], n, "bit 87: multicast bit '1'");
+    });
+
+    QUnit.test("timestamp tests", function(assert) {
+      assert.expect(1024);
+      var now = new Date() - Date.UTC(1582, 9, 15, 0, 0, 0, 0);
+      for (var i = 0; i < 1024; i++) {
+        var uuid = generator();
+        var hex = uuid.substr(0, 8) + uuid.substr(9, 4) + uuid.substr(15, 3);
+        var diff = Math.abs(now - parseInt(hex, 16) / 10000);
+        assert.ok(diff < 1000, "current timestamp - UUID timestamp < 1 second: " + diff);
       }
     });
 
@@ -154,13 +207,14 @@ var UUIDTestCommon = {};
     var ubounds = new Array(6);
     for (var i = 0; i < 6; i++) { ubounds[i] = Math.pow(2, sizes[i]); }
 
-    var patHex = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|0{8}-0{4}-0{4}-0{4}-0{12})$/;
-    var patBit = /^(?:[01]{48}0(?:001|010|011|100|101)[01]{12}10[01]{62}|0{128})$/;
-    var patHexND = /^(?:[0-9a-f]{12}[1-5][0-9a-f]{3}[89ab][0-9a-f]{15}|0{32})$/;
+    var patHex = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|0{8}-0{4}-0{4}-0{4}-0{12})$/;
+    var patBit = /^(?:[01]{48}(?:0[01]{3}|1000)[01]{12}10[01]{62}|0{128})$/;
+    var patHexND = /^(?:[0-9a-f]{12}[1-8][0-9a-f]{3}[89ab][0-9a-f]{15}|0{32})$/;
 
     assert.ok(uuid instanceof UUID, "object instanceof UUID");
 
-    assert.ok((uuid.version === 1) || (uuid.version === 2) || (uuid.version === 3) || (uuid.version === 4) || (uuid.version === 5), "UUID#version in (1-5)");
+    assert.ok((uuid.version === 1) || (uuid.version === 2) || (uuid.version === 3) || (uuid.version === 4) || (uuid.version === 5) || (uuid.version === 6) || (uuid.version === 7) || (uuid.version === 8), "UUID#version in (1-8)");
+
     assert.ok(patHex.test(uuid.hexString), "UUID#hexString matches" + patHex);
     assert.ok(patBit.test(uuid.bitString), "UUID#bitString matches " + patBit);
     assert.ok(patHexND.test(uuid.hexNoDelim), "UUID#hexNoDelim matches " + patHexND);
