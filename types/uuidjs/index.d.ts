@@ -8,6 +8,9 @@ export function genV4(): UUID;
 export function genV1(): UUID;
 
 /** @deprecated Use class-based API */
+export function genV6(): UUID;
+
+/** @deprecated Use class-based API */
 export function parse(strId: string): UUID;
 
 /** @deprecated Use class-based API */
@@ -61,6 +64,11 @@ export default class UUIDClass {
 
   static genV4(): UUIDClass;
   static genV1(): UUIDClass;
+  /**
+   * @since v4.2.13
+   * @experimental
+   */
+  static genV6(): UUIDClass;
   static parse(strId: string): UUIDClass;
 
   static readonly FIELD_NAMES: string[];
