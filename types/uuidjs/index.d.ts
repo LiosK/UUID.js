@@ -1,51 +1,4 @@
-/** @deprecated Use class-based API */
-export function generate(): string;
-
-/** @deprecated Use class-based API */
-export function genV4(): UUID;
-
-/** @deprecated Use class-based API */
-export function genV1(): UUID;
-
-/** @deprecated Use class-based API */
-export function genV6(): UUID;
-
-/** @deprecated Use class-based API */
-export function parse(strId: string): UUID;
-
-/** @deprecated Use class-based API */
-export const FIELD_NAMES: string[];
-
-/** @deprecated Use class-based API */
-export const FIELD_SIZES: number[];
-
-/** @deprecated Use class-based API */
-export const NIL: UUID;
-
-/** @deprecated Use class-based API */
-interface UUID {
-  intFields: UUIDFields<number>;
-  bitFields: UUIDFields<string>;
-  hexFields: UUIDFields<string>;
-  version: number;
-  bitString: string;
-  hexNoDelim: string;
-  hexString: string;
-  urn: string;
-  toString(): string;
-  equals(uuid: UUID): boolean;
-}
-
-/** @deprecated Use class-based API */
-export function resetState(): void;
-
-/** @deprecated Use class-based API */
-export function useMathRandom(): void;
-
-/** @deprecated Use class-based API */
-export let overwrittenUUID: any;
-
-interface UUIDFields<T> extends Array<T> {
+export interface UUIDFields<T> extends Array<T> {
   timeLow: T;
   timeMid: T;
   timeHiAndVersion: T;
@@ -59,21 +12,21 @@ interface UUIDFields<T> extends Array<T> {
  *
  * @since v4.2.0
  */
-export default class UUIDClass {
+export default class UUID {
   static generate(): string;
 
-  static genV4(): UUIDClass;
-  static genV1(): UUIDClass;
+  static genV4(): UUID;
+  static genV1(): UUID;
   /**
    * @since v4.2.13
    * @experimental
    */
-  static genV6(): UUIDClass;
-  static parse(strId: string): UUIDClass;
+  static genV6(): UUID;
+  static parse(strId: string): UUID;
 
   static readonly FIELD_NAMES: string[];
   static readonly FIELD_SIZES: number[];
-  static readonly NIL: UUIDClass;
+  static readonly NIL: UUID;
 
   readonly intFields: UUIDFields<number>;
   readonly bitFields: UUIDFields<string>;
@@ -84,7 +37,7 @@ export default class UUIDClass {
   readonly hexString: string;
   readonly urn: string;
   toString(): string;
-  equals(uuid: UUIDClass): boolean;
+  equals(uuid: UUID): boolean;
 
   static resetState(): void;
   static useMathRandom(): void;
