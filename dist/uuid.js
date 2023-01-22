@@ -6,18 +6,19 @@
  * @version v4.2.13
  * @license Apache License 2.0: Copyright (c) 2010-2023 LiosK
  */
+var _a;
 /**
  * @class
  * @classdesc {@link UUID} object.
  * @hideconstructor
  */
-export const UUID = (function () {
+export class UUID {
     // Core Component {{{
     /**
      * Generates a version 4 UUID as a hexadecimal string.
      * @returns {string} Hexadecimal UUID string.
      */
-    UUID.generate = function () {
+    static generate() {
         var rand = UUID._getRandomInt, hex = UUID._hexAligner;
         return (hex(rand(32), 8) + // time_low
             "-" +
@@ -29,14 +30,14 @@ export const UUID = (function () {
             "-" +
             hex(rand(48), 12) // node
         );
-    };
+    }
     /**
      * Returns an unsigned x-bit random integer.
      * @private
      * @param {number} x Unsigned integer ranging from 0 to 53, inclusive.
      * @returns {number} Unsigned x-bit random integer (0 <= f(x) < 2^x).
      */
-    UUID._getRandomInt = function (x) {
+    static _getRandomInt(x) {
         if (x < 0 || x > 53) {
             return NaN;
         }
@@ -44,7 +45,7 @@ export const UUID = (function () {
         return x > 30
             ? n + (0 | (Math.random() * (1 << (x - 30)))) * 0x40000000
             : n >>> (30 - x);
-    };
+    }
     /**
      * Converts an integer to a zero-filled hexadecimal string.
      * @private
@@ -52,7 +53,7 @@ export const UUID = (function () {
      * @param {number} length
      * @returns {string}
      */
-    UUID._hexAligner = function (num, length) {
+    static _hexAligner(num, length) {
         var str = num.toString(16), i = length - str.length, z = "0";
         for (; i > 0; i >>>= 1, z += z) {
             if (i & 1) {
@@ -60,60 +61,21 @@ export const UUID = (function () {
             }
         }
         return str;
-    };
-    // }}}
-    // Advanced Random Number Generator Component {{{
-    UUID._mathPRNG = UUID._getRandomInt;
+    }
     /**
      * Enables Math.random()-based pseudorandom number generator instead of cryptographically safer options.
      * @since v3.5.0
      * @deprecated This method is provided only to work around performance drawbacks of the safer algorithms.
      */
-    UUID.useMathRandom = function () {
+    static useMathRandom() {
         UUID._getRandomInt = UUID._mathPRNG;
-    };
-    if (typeof crypto !== "undefined" && crypto.getRandomValues) {
-        // Web Cryptography API
-        UUID._getRandomInt = function (x) {
-            if (x < 0 || x > 53) {
-                return NaN;
-            }
-            var ns = new Uint32Array(x > 32 ? 2 : 1);
-            crypto.getRandomValues(ns);
-            return x > 32
-                ? ns[0] + (ns[1] >>> (64 - x)) * 0x100000000
-                : ns[0] >>> (32 - x);
-        };
     }
-    // }}}
-    // UUID Object Component {{{
-    /**
-     * Names of UUID internal fields.
-     * @type {string[]}
-     * @constant
-     * @since 3.0
-     */
-    UUID.FIELD_NAMES = [
-        "timeLow",
-        "timeMid",
-        "timeHiAndVersion",
-        "clockSeqHiAndReserved",
-        "clockSeqLow",
-        "node",
-    ];
-    /**
-     * Sizes of UUID internal fields.
-     * @type {number[]}
-     * @constant
-     * @since 3.0
-     */
-    UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
     /**
      * Creates a version 4 {@link UUID} object.
      * @returns {UUID} Version 4 {@link UUID} object.
      * @since 3.0
      */
-    UUID.genV4 = function () {
+    static genV4() {
         var rand = UUID._getRandomInt;
         return new UUID()._init(rand(32), // time_low
         rand(16), // time_mid
@@ -122,14 +84,14 @@ export const UUID = (function () {
         rand(8), // clock_seq_low
         rand(48) // node
         );
-    };
+    }
     /**
      * Converts a hexadecimal UUID string to a {@link UUID} object.
      * @param {string} strId Hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
      * @returns {UUID} {@link UUID} object or null.
      * @since 3.0
      */
-    UUID.parse = function (strId) {
+    static parse(strId) {
         var r, p = /^\s*(urn:uuid:|\{)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})(\})?\s*$/i;
         if ((r = p.exec(strId))) {
             var l = r[1] || "", t = r[8] || "";
@@ -140,7 +102,7 @@ export const UUID = (function () {
             }
         }
         return null;
-    };
+    }
     /**
      * Initializes a {@link UUID} object.
      * @private
@@ -153,7 +115,7 @@ export const UUID = (function () {
      * @param {number} [node=0] node field (octet 10-15, uint48).
      * @returns {UUID} this.
      */
-    UUID.prototype._init = function () {
+    _init() {
         var names = UUID.FIELD_NAMES, sizes = UUID.FIELD_SIZES;
         var bin = UUID._binAligner, hex = UUID._hexAligner;
         /**
@@ -214,7 +176,7 @@ export const UUID = (function () {
          */
         this.urn = "urn:uuid:" + this.hexString;
         return this;
-    };
+    }
     /**
      * Converts an integer to a zero-filled binary string.
      * @private
@@ -222,7 +184,7 @@ export const UUID = (function () {
      * @param {number} length
      * @returns {string}
      */
-    UUID._binAligner = function (num, length) {
+    static _binAligner(num, length) {
         var str = num.toString(2), i = length - str.length, z = "0";
         for (; i > 0; i >>>= 1, z += z) {
             if (i & 1) {
@@ -230,20 +192,20 @@ export const UUID = (function () {
             }
         }
         return str;
-    };
+    }
     /**
      * Returns the hexadecimal string representation.
      * @returns {string} {@link UUID#hexString}.
      */
-    UUID.prototype.toString = function () {
+    toString() {
         return this.hexString;
-    };
+    }
     /**
      * Tests if two {@link UUID} objects are equal.
      * @param {UUID} uuid
      * @returns {boolean} True if two {@link UUID} objects are equal.
      */
-    UUID.prototype.equals = function (uuid) {
+    equals(uuid) {
         if (!(uuid instanceof UUID)) {
             return false;
         }
@@ -253,14 +215,7 @@ export const UUID = (function () {
             }
         }
         return true;
-    };
-    /**
-     * Nil UUID object.
-     * @type {UUID}
-     * @constant
-     * @since v3.4.0
-     */
-    UUID.NIL = new UUID()._init(0, 0, 0, 0, 0, 0);
+    }
     // }}}
     // UUID Version 1 Component (1 of 2) {{{
     /**
@@ -268,7 +223,7 @@ export const UUID = (function () {
      * @returns {UUID} Version 1 {@link UUID} object.
      * @since 3.0
      */
-    UUID.genV1 = function () {
+    static genV1() {
         if (UUID._state == null) {
             UUID.resetState();
         }
@@ -297,26 +252,20 @@ export const UUID = (function () {
         var cshar = (st.sequence >>> 8) | 0x80; // set variant '10'
         var csl = st.sequence & 0xff;
         return new UUID()._init(tl, tf.mid, thav, cshar, csl, st.node);
-    };
+    }
     /**
      * Re-initializes the internal state for version 1 UUID creation.
      * @since 3.0
      */
-    UUID.resetState = function () {
+    static resetState() {
         UUID._state = new UUIDState();
-    };
-    /**
-     * Persistent internal state for version 1 UUID creation.
-     * @private
-     * @type {UUIDState}
-     */
-    UUID._state = null;
+    }
     /**
      * @private
      * @param {Date|number} time ECMAScript Date Object or milliseconds from 1970-01-01.
      * @returns {any}
      */
-    UUID._getTimeFieldValues = function (time) {
+    static _getTimeFieldValues(time) {
         var ts = time - Date.UTC(1582, 9, 15);
         var hm = ((ts / 0x100000000) * 10000) & 0xfffffff;
         return {
@@ -325,7 +274,7 @@ export const UUID = (function () {
             hi: hm >>> 16,
             timestamp: ts,
         };
-    };
+    }
     // }}}
     // UUID Version 6 Component {{{
     /**
@@ -336,7 +285,7 @@ export const UUID = (function () {
      * @since v4.2.13
      * @experimental
      */
-    UUID.genV6 = function () {
+    static genV6() {
         if (UUID._state == null) {
             UUID.resetState();
         }
@@ -367,19 +316,72 @@ export const UUID = (function () {
         var cshar = (st.sequence >>> 8) | 0x80; // set variant '10'
         var csl = st.sequence & 0xff;
         return new UUID()._init(th, tm, tlav, cshar, csl, st.node);
-    };
-    // }}}
-    // create local namespace
-    function UUID() { }
-    return UUID;
+    }
+}
+_a = UUID;
+// }}}
+// Advanced Random Number Generator Component {{{
+UUID._mathPRNG = UUID._getRandomInt;
+(() => {
+    if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+        // Web Cryptography API
+        _a._getRandomInt = (x) => {
+            if (x < 0 || x > 53) {
+                return NaN;
+            }
+            var ns = new Uint32Array(x > 32 ? 2 : 1);
+            crypto.getRandomValues(ns);
+            return x > 32
+                ? ns[0] + (ns[1] >>> (64 - x)) * 0x100000000
+                : ns[0] >>> (32 - x);
+        };
+    }
 })();
+// }}}
+// UUID Object Component {{{
+/**
+ * Names of UUID internal fields.
+ * @type {string[]}
+ * @constant
+ * @since 3.0
+ */
+UUID.FIELD_NAMES = [
+    "timeLow",
+    "timeMid",
+    "timeHiAndVersion",
+    "clockSeqHiAndReserved",
+    "clockSeqLow",
+    "node",
+];
+/**
+ * Sizes of UUID internal fields.
+ * @type {number[]}
+ * @constant
+ * @since 3.0
+ */
+UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
+/**
+ * Nil UUID object.
+ * @type {UUID}
+ * @constant
+ * @since v3.4.0
+ */
+UUID.NIL = new UUID()._init(0, 0, 0, 0, 0, 0);
+/**
+ * Persistent internal state for version 1 UUID creation.
+ * @private
+ * @type {UUIDState}
+ */
+UUID._state = null;
 // UUID Version 1 Component (2 of 2) {{{
-function UUIDState() {
-    var rand = UUID._getRandomInt;
-    this.timestamp = 0;
-    this.tick = 0; // timestamp fraction smaller than a millisecond
-    this.sequence = rand(14);
-    this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
+class UUIDState {
+    constructor() {
+        var rand = UUID._getRandomInt;
+        this.timestamp = 0;
+        this.tick = 0; // timestamp fraction smaller than a millisecond
+        this.sequence = rand(14);
+        this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
+    }
 }
 // }}}
 // vim: fdm=marker fmr&
