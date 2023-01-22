@@ -1,4 +1,4 @@
-import { UUID } from "../src/uuid.js";
+import { UUID } from "../dist/uuid.js";
 import { UUIDTestCommon } from "./util/uuid-test-common.js";
 
 QUnit.module("UUID.genV6() as object", function() {

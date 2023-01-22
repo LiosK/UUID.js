@@ -1,4 +1,4 @@
-import { UUID } from "../src/uuid.js";
+import { UUID } from "../dist/uuid.js";
 
 QUnit.module("UUID.NIL", function() {
 

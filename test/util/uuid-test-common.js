@@ -1,4 +1,4 @@
-import { UUID } from "../../src/uuid.js";
+import { UUID } from "../../dist/uuid.js";
 
 var UUIDTestCommon = {};
 
