@@ -19,7 +19,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "jsdoc": "rm -rf ./docs && jsdoc -R README.md -d docs ./dist/uuid.js",
-    "prepare": "npm run build; npm test && npm run test-ts",
+    "prepare": "npm run build && npm run test && npm run test-ts",
     "test": "qunit ./test/index.js",
     "test-ts": "tsc --strict --noEmit ./types/*.ts"
   },

@@ -122,21 +122,27 @@ export class UUID {
          * UUID internal field values as an array of integers.
          * @type {number[]}
          */
+        // @ts-ignore
         this.intFields = new Array(6);
         /**
          * UUID internal field values as an array of binary strings.
          * @type {string[]}
          */
+        // @ts-ignore
         this.bitFields = new Array(6);
         /**
          * UUID internal field values as an array of hexadecimal strings.
          * @type {string[]}
          */
+        // @ts-ignore
         this.hexFields = new Array(6);
         for (var i = 0; i < 6; i++) {
             var intValue = parseInt(arguments[i] || 0);
+            // @ts-ignore
             this.intFields[i] = this.intFields[names[i]] = intValue;
+            // @ts-ignore
             this.bitFields[i] = this.bitFields[names[i]] = bin(intValue, sizes[i]);
+            // @ts-ignore
             this.hexFields[i] = this.hexFields[names[i]] = hex(intValue, sizes[i] >>> 2);
         }
         /**
@@ -375,6 +381,7 @@ UUID._state = null;
 // UUID Version 1 Component (2 of 2) {{{
 class UUIDState {
     constructor() {
+        // @ts-ignore
         var rand = UUID._getRandomInt;
         this.timestamp = 0;
         this.tick = 0; // timestamp fraction smaller than a millisecond
