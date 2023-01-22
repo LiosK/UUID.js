@@ -19,7 +19,7 @@ export class UUID {
    * Generates a version 4 UUID as a hexadecimal string.
    * @returns {string} Hexadecimal UUID string.
    */
-  static generate() {
+  static generate(): string {
     var rand = UUID._getRandomInt,
       hex = UUID._hexAligner;
     return (
@@ -41,7 +41,7 @@ export class UUID {
    * @param {number} x Unsigned integer ranging from 0 to 53, inclusive.
    * @returns {number} Unsigned x-bit random integer (0 <= f(x) < 2^x).
    */
-  private static _getRandomInt(x) {
+  private static _getRandomInt(x: number): number {
     if (x < 0 || x > 53) {
       return NaN;
     }
@@ -58,7 +58,7 @@ export class UUID {
    * @param {number} length
    * @returns {string}
    */
-  private static _hexAligner(num, length) {
+  private static _hexAligner(num: number, length: number): string {
     var str = num.toString(16),
       i = length - str.length,
       z = "0";
@@ -81,7 +81,7 @@ export class UUID {
    * @since v3.5.0
    * @deprecated This method is provided only to work around performance drawbacks of the safer algorithms.
    */
-  static useMathRandom() {
+  static useMathRandom(): void {
     UUID._getRandomInt = UUID._mathPRNG;
   }
 
@@ -111,7 +111,7 @@ export class UUID {
    * @constant
    * @since 3.0
    */
-  static readonly FIELD_NAMES = [
+  static readonly FIELD_NAMES: readonly string[] = [
     "timeLow",
     "timeMid",
     "timeHiAndVersion",
@@ -126,14 +126,14 @@ export class UUID {
    * @constant
    * @since 3.0
    */
-  static readonly FIELD_SIZES = [32, 16, 16, 8, 8, 48];
+  static readonly FIELD_SIZES: readonly number[] = [32, 16, 16, 8, 8, 48];
 
   /**
    * Creates a version 4 {@link UUID} object.
    * @returns {UUID} Version 4 {@link UUID} object.
    * @since 3.0
    */
-  static genV4() {
+  static genV4(): UUID {
     var rand = UUID._getRandomInt;
     return new UUID()._init(
       rand(32), // time_low
@@ -151,7 +151,7 @@ export class UUID {
    * @returns {UUID} {@link UUID} object or null.
    * @since 3.0
    */
-  static parse(strId) {
+  static parse(strId: string): UUID | null {
     var r,
       p =
         /^\s*(urn:uuid:|\{)?([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{2})([0-9a-f]{2})-([0-9a-f]{12})(\})?\s*$/i;
@@ -176,6 +176,41 @@ export class UUID {
     return null;
   }
 
+  readonly intFields: readonly number[] & {
+    readonly timeLow: number;
+    readonly timeMid: number;
+    readonly timeHiAndVersion: number;
+    readonly clockSeqHiAndReserved: number;
+    readonly clockSeqLow: number;
+    readonly node: number;
+  };
+
+  readonly bitFields: readonly string[] & {
+    readonly timeLow: string;
+    readonly timeMid: string;
+    readonly timeHiAndVersion: string;
+    readonly clockSeqHiAndReserved: string;
+    readonly clockSeqLow: string;
+    readonly node: string;
+  };
+
+  readonly hexFields: readonly string[] & {
+    readonly timeLow: string;
+    readonly timeMid: string;
+    readonly timeHiAndVersion: string;
+    readonly clockSeqHiAndReserved: string;
+    readonly clockSeqLow: string;
+    readonly node: string;
+  };
+
+  readonly version: number;
+  readonly bitString: string;
+  readonly hexNoDelim: string;
+  readonly hexString: string;
+  readonly urn: string;
+
+  private constructor() {}
+
   /**
    * Initializes a {@link UUID} object.
    * @private
@@ -188,7 +223,14 @@ export class UUID {
    * @param {number} [node=0] node field (octet 10-15, uint48).
    * @returns {UUID} this.
    */
-  private _init() {
+  private _init(
+    _timeLow: number,
+    _timeMid: number,
+    _timeHiAndVersion: number,
+    _clockSeqHiAndReserved: number,
+    _clockSeqLow: number,
+    _node: number
+  ): this {
     var names = UUID.FIELD_NAMES,
       sizes = UUID.FIELD_SIZES;
     var bin = UUID._binAligner,
@@ -273,7 +315,7 @@ export class UUID {
    * @param {number} length
    * @returns {string}
    */
-  private static _binAligner(num, length) {
+  private static _binAligner(num: number, length: number): string {
     var str = num.toString(2),
       i = length - str.length,
       z = "0";
@@ -289,7 +331,7 @@ export class UUID {
    * Returns the hexadecimal string representation.
    * @returns {string} {@link UUID#hexString}.
    */
-  toString() {
+  toString(): string {
     return this.hexString;
   }
 
@@ -298,7 +340,7 @@ export class UUID {
    * @param {UUID} uuid
    * @returns {boolean} True if two {@link UUID} objects are equal.
    */
-  equals(uuid) {
+  equals(uuid: UUID): boolean {
     if (!(uuid instanceof UUID)) {
       return false;
     }
@@ -316,7 +358,7 @@ export class UUID {
    * @constant
    * @since v3.4.0
    */
-  static readonly NIL = new UUID()._init(0, 0, 0, 0, 0, 0);
+  static readonly NIL: UUID = new UUID()._init(0, 0, 0, 0, 0, 0);
 
   // }}}
 
@@ -327,7 +369,7 @@ export class UUID {
    * @returns {UUID} Version 1 {@link UUID} object.
    * @since 3.0
    */
-  static genV1() {
+  static genV1(): UUID {
     if (UUID._state == null) {
       UUID.resetState();
     }
@@ -364,7 +406,7 @@ export class UUID {
    * Re-initializes the internal state for version 1 UUID creation.
    * @since 3.0
    */
-  static resetState() {
+  static resetState(): void {
     UUID._state = new UUIDState();
   }
 
@@ -373,14 +415,19 @@ export class UUID {
    * @private
    * @type {UUIDState}
    */
-  private static _state = null;
+  private static _state: UUIDState | null = null;
 
   /**
    * @private
    * @param {Date|number} time ECMAScript Date Object or milliseconds from 1970-01-01.
    * @returns {any}
    */
-  private static _getTimeFieldValues(time) {
+  private static _getTimeFieldValues(time: number): {
+    low: number;
+    mid: number;
+    hi: number;
+    timestamp: number;
+  } {
     var ts = time - Date.UTC(1582, 9, 15);
     var hm = ((ts / 0x100000000) * 10000) & 0xfffffff;
     return {
@@ -403,7 +450,7 @@ export class UUID {
    * @since v4.2.13
    * @experimental
    */
-  static genV6() {
+  static genV6(): UUID {
     if (UUID._state == null) {
       UUID.resetState();
     }
@@ -444,6 +491,10 @@ export class UUID {
 // UUID Version 1 Component (2 of 2) {{{
 
 class UUIDState {
+  timestamp: number;
+  tick: number;
+  sequence: number;
+  node: number;
   constructor() {
     var rand = UUID._getRandomInt;
     this.timestamp = 0;

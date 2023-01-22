@@ -103,6 +103,7 @@ export class UUID {
         }
         return null;
     }
+    constructor() { }
     /**
      * Initializes a {@link UUID} object.
      * @private
@@ -115,7 +116,7 @@ export class UUID {
      * @param {number} [node=0] node field (octet 10-15, uint48).
      * @returns {UUID} this.
      */
-    _init() {
+    _init(_timeLow, _timeMid, _timeHiAndVersion, _clockSeqHiAndReserved, _clockSeqLow, _node) {
         var names = UUID.FIELD_NAMES, sizes = UUID.FIELD_SIZES;
         var bin = UUID._binAligner, hex = UUID._hexAligner;
         /**

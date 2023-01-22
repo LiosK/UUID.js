@@ -1,4 +1,13 @@
-import { UUID, UUIDFields } from "..";
+import { UUID } from "..";
+
+interface UUIDFields<T> extends ReadonlyArray<T> {
+  readonly timeLow: T;
+  readonly timeMid: T;
+  readonly timeHiAndVersion: T;
+  readonly clockSeqHiAndReserved: T;
+  readonly clockSeqLow: T;
+  readonly node: T;
+}
 
 const putNum = (x: number) => console.log(`${x}: number`);
 const putStr = (x: string) => console.log(`"${x}": string`);

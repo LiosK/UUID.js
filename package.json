@@ -6,7 +6,7 @@
   "type": "module",
   "main": "dist/uuid.js",
   "exports": "./dist/uuid.js",
-  "types": "./types/uuidjs/index.d.ts",
+  "types": "./dist/uuid.d.ts",
   "bin": {
     "uuidjs": "./bin/cli.js"
   },
