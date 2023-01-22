@@ -78,54 +78,30 @@ UUID = (function () {
 
   // Advanced Random Number Generator Component {{{
 
-  (function () {
-    var mathPRNG = UUID._getRandomInt;
+  UUID._mathPRNG = UUID._getRandomInt;
 
-    /**
-     * Enables Math.random()-based pseudorandom number generator instead of cryptographically safer options.
-     * @since v3.5.0
-     * @deprecated This method is provided only to work around performance drawbacks of the safer algorithms.
-     */
-    UUID.useMathRandom = function () {
-      UUID._getRandomInt = mathPRNG;
+  /**
+   * Enables Math.random()-based pseudorandom number generator instead of cryptographically safer options.
+   * @since v3.5.0
+   * @deprecated This method is provided only to work around performance drawbacks of the safer algorithms.
+   */
+  UUID.useMathRandom = function () {
+    UUID._getRandomInt = UUID._mathPRNG;
+  };
+
+  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+    // Web Cryptography API
+    UUID._getRandomInt = function (x) {
+      if (x < 0 || x > 53) {
+        return NaN;
+      }
+      var ns = new Uint32Array(x > 32 ? 2 : 1);
+      crypto.getRandomValues(ns);
+      return x > 32
+        ? ns[0] + (ns[1] >>> (64 - x)) * 0x100000000
+        : ns[0] >>> (32 - x);
     };
-
-    var crypto = null,
-      cryptoPRNG = mathPRNG;
-    if (
-      typeof window !== "undefined" &&
-      (crypto = window.crypto || window.msCrypto)
-    ) {
-      if (crypto.getRandomValues && typeof Uint32Array !== "undefined") {
-        // Web Cryptography API
-        cryptoPRNG = function (x) {
-          if (x < 0 || x > 53) {
-            return NaN;
-          }
-          var ns = new Uint32Array(x > 32 ? 2 : 1);
-          ns = crypto.getRandomValues(ns) || ns;
-          return x > 32
-            ? ns[0] + (ns[1] >>> (64 - x)) * 0x100000000
-            : ns[0] >>> (32 - x);
-        };
-      }
-    } else if (typeof require !== "undefined" && (crypto = require("crypto"))) {
-      if (crypto.randomBytes) {
-        // nodejs
-        cryptoPRNG = function (x) {
-          if (x < 0 || x > 53) {
-            return NaN;
-          }
-          var buf = crypto.randomBytes(x > 32 ? 8 : 4),
-            n = buf.readUInt32BE(0);
-          return x > 32
-            ? n + (buf.readUInt32BE(4) >>> (64 - x)) * 0x100000000
-            : n >>> (32 - x);
-        };
-      }
-    }
-    UUID._getRandomInt = cryptoPRNG;
-  })();
+  }
 
   // }}}
 
