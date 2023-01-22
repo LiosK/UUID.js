@@ -9,10 +9,10 @@ putStr(UUID.generate());
 const objV4: UUID = UUID.genV4();
 const objV1: UUID = UUID.genV1();
 const objV6: UUID = UUID.genV6();
-const parsed: UUID = UUID.parse(objV4.toString());
+const parsed: UUID | null = UUID.parse(objV4.toString());
 
-const _FIELD_NAMES: Array<string> = UUID.FIELD_NAMES;
-const _FIELD_SIZES: Array<number> = UUID.FIELD_SIZES;
+const _FIELD_NAMES: readonly string[] = UUID.FIELD_NAMES;
+const _FIELD_SIZES: readonly number[] = UUID.FIELD_SIZES;
 const _NIL: UUID = UUID.NIL;
 
 const _intFields: UUIDFields<number> = objV4.intFields;

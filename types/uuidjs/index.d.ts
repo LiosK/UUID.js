@@ -1,10 +1,10 @@
-export interface UUIDFields<T> extends Array<T> {
-  timeLow: T;
-  timeMid: T;
-  timeHiAndVersion: T;
-  clockSeqHiAndReserved: T;
-  clockSeqLow: T;
-  node: T;
+export interface UUIDFields<T> extends ReadonlyArray<T> {
+  readonly timeLow: T;
+  readonly timeMid: T;
+  readonly timeHiAndVersion: T;
+  readonly clockSeqHiAndReserved: T;
+  readonly clockSeqLow: T;
+  readonly node: T;
 }
 
 /**
@@ -13,6 +13,8 @@ export interface UUIDFields<T> extends Array<T> {
  * @since v4.2.0
  */
 export default class UUID {
+  private constructor();
+
   static generate(): string;
 
   static genV4(): UUID;
@@ -22,10 +24,10 @@ export default class UUID {
    * @experimental
    */
   static genV6(): UUID;
-  static parse(strId: string): UUID;
+  static parse(strId: string): UUID | null;
 
-  static readonly FIELD_NAMES: string[];
-  static readonly FIELD_SIZES: number[];
+  static readonly FIELD_NAMES: readonly string[];
+  static readonly FIELD_SIZES: readonly number[];
   static readonly NIL: UUID;
 
   readonly intFields: UUIDFields<number>;
