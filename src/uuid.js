@@ -379,14 +379,6 @@ UUID = (function () {
   }
 
   /**
-   * Probability to advance the timestamp fraction: the ratio of tick movements to sequence increments.
-   * @private
-   * @type {number}
-   * @deprecated This property is no longer used since v4.2.11.
-   */
-  UUID._tsRatio = 1 / 4;
-
-  /**
    * Persistent internal state for version 1 UUID creation.
    * @private
    * @type {UUIDState}
