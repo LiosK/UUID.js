@@ -14,7 +14,7 @@
  */
 var UUID;
 
-UUID = (function (overwrittenUUID) {
+UUID = (function () {
   "use strict";
 
   // Core Component {{{
@@ -73,13 +73,6 @@ UUID = (function (overwrittenUUID) {
     }
     return str;
   };
-
-  /**
-   * Retains the value of 'UUID' global variable assigned before loading UUID.js.
-   * @since 3.2
-   * @type {any}
-   */
-  UUID.overwrittenUUID = overwrittenUUID;
 
   // }}}
 
@@ -498,6 +491,6 @@ UUID = (function (overwrittenUUID) {
   }
 
   return UUID;
-})(UUID);
+})();
 
 // vim: fdm=marker fmr&

@@ -43,7 +43,4 @@ export default class UUID {
 
   static resetState(): void;
   static useMathRandom(): void;
-
-  // Hide unnecessary methods
-  static overwrittenUUID: any;
 }

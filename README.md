@@ -120,16 +120,6 @@ console.log(uuid.bitFields[4]);                     // "11011001"
 console.log(uuid.hexFields[5]);                     // "95795a3bcd40"
 ```
 
-UUID.js supports the so-called noConflict mode to work around namespace
-conflicts.
-
-```javascript
-// Avoid namespace conflicts with other libraries
-var arbitraryVarName = UUID;
-UUID = UUID.overwrittenUUID;                // Restore the original value
-console.log(arbitraryVarName.generate());   // "cb9a0283-a44c-4e7a-a5b0-9cd2876e952b"
-```
-
 ## License
 
 Copyright (c) 2010-2023 LiosK
