@@ -318,7 +318,7 @@ export const UUID = (function () {
 
   // }}}
 
-  // UUID Version 1 Component {{{
+  // UUID Version 1 Component (1 of 2) {{{
 
   /**
    * Creates a version 1 {@link UUID} object.
@@ -365,14 +365,6 @@ export const UUID = (function () {
   UUID.resetState = function () {
     UUID._state = new UUIDState();
   };
-
-  function UUIDState() {
-    var rand = UUID._getRandomInt;
-    this.timestamp = 0;
-    this.tick = 0; // timestamp fraction smaller than a millisecond
-    this.sequence = rand(14);
-    this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
-  }
 
   /**
    * Persistent internal state for version 1 UUID creation.
@@ -451,5 +443,17 @@ export const UUID = (function () {
 
   return UUID;
 })();
+
+// UUID Version 1 Component (2 of 2) {{{
+
+function UUIDState() {
+  var rand = UUID._getRandomInt;
+  this.timestamp = 0;
+  this.tick = 0; // timestamp fraction smaller than a millisecond
+  this.sequence = rand(14);
+  this.node = (rand(8) | 1) * 0x10000000000 + rand(40); // set multicast bit '1'
+}
+
+// }}}
 
 // vim: fdm=marker fmr&
