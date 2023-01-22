@@ -12,11 +12,7 @@
  * @classdesc {@link UUID} object.
  * @hideconstructor
  */
-var UUID;
-
-UUID = (function () {
-  "use strict";
-
+export const UUID = (function () {
   // Core Component {{{
 
   /**
@@ -452,11 +448,6 @@ UUID = (function () {
 
   // create local namespace
   function UUID() {}
-
-  // for nodejs
-  if (typeof module === "object" && typeof module.exports === "object") {
-    module.exports = UUID;
-  }
 
   return UUID;
 })();

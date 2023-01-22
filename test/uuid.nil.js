@@ -1,5 +1,6 @@
+import { UUID } from "../src/uuid.js";
+
 QUnit.module("UUID.NIL", function() {
-  "use strict";
 
   QUnit.test("UUID.NIL holds the correct nil UUID object.", function(assert) {
     assert.expect(2);

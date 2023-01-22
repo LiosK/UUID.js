@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 
-console.log(require('..').generate());
+import { UUID } from "uuidjs";
+console.log(UUID.generate());

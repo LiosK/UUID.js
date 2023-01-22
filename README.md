@@ -7,21 +7,23 @@
 
 ```html
 <!-- HTML5 -->
-<script src="src/uuid.js"></script>
-<script> var uuid = UUID.generate(); </script>
+<script type="module">
+  import { UUID } from "https://unpkg.com/uuidjs@^5";
+  const uuid = UUID.generate();
+</script>
 ```
 
 ```javascript
 // Node.js
-let UUID = require("uuidjs");
-let uuid = UUID.generate();
+import { UUID } from "uuidjs";
+const uuid = UUID.generate();
 ```
 
 ```typescript
 // TypeScript
-import UUID from "uuidjs";
-let str: string = UUID.generate();
-let obj: UUID = UUID.genV4();
+import { UUID } from "uuidjs";
+const str: string = UUID.generate();
+const obj: UUID = UUID.genV4();
 ```
 
 ```bash
@@ -49,26 +51,16 @@ variety of forms.
   JavaScript than that required for version 1 UUIDs
 - Comes with a lot of test cases including format checks and statistical tests
   to maintain a high-quality code base
-- Supports old browsers as well as modern browser and server environments, as
-  kept compatible with ECMAScript 3rd edition
-
-## Install
-
-Download `src/uuid.js` or call `npm install uuidjs`.
-
-Then, load `src/uuid.js`.
-
-```html
-<script src="src/uuid.js"></script>
-```
-
-Or, import `uuidjs`.
-
-```javascript
-const UUID = require("uuidjs");
-```
 
 ## Usage Examples
+
+Import `UUID` class:
+
+```javascript
+import { UUID } from "uuidjs";
+// or on browsers:
+// import { UUID } from "https://unpkg.com/uuidjs@^5";
+```
 
 `UUID.generate()` returns a version 4 UUID as a hexadecimal string.
 
@@ -82,13 +74,13 @@ various fields and methods.
 
 ```javascript
 // Create a version 4 (random number-based) UUID object
-var objV4 = UUID.genV4();
+const objV4 = UUID.genV4();
 
 // Create a version 1 (time-based) UUID object
-var objV1 = UUID.genV1();
+const objV1 = UUID.genV1();
 
 // Create a UUID object from a hexadecimal string
-var uuid = UUID.parse("a0e0f130-8c21-11df-92d9-95795a3bcd40");
+const uuid = UUID.parse("a0e0f130-8c21-11df-92d9-95795a3bcd40");
 
 // Get string representations of a UUID object
 console.log(uuid.toString());   // "a0e0f130-8c21-11df-92d9-95795a3bcd40"
@@ -145,4 +137,4 @@ LiosK <contact@mail.liosk.net>
 - [GitHub Repository](https://github.com/LiosK/UUID.js)
 - [npm Package](https://www.npmjs.com/package/uuidjs)
 - [API Documentation](https://liosk.github.io/UUID.js/docs/)
-- [Run test cases on your browser](https://liosk.github.io/UUID.js/test/browser.html)
+- [Run test cases on your browser](https://liosk.github.io/UUID.js/test/)

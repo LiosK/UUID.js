@@ -7,12 +7,7 @@ export interface UUIDFields<T> extends ReadonlyArray<T> {
   readonly node: T;
 }
 
-/**
- * Modern class-based definition
- *
- * @since v4.2.0
- */
-export default class UUID {
+export class UUID {
   private constructor();
 
   static generate(): string;

@@ -1,5 +1,6 @@
+import { UUID } from "../src/uuid.js";
+
 QUnit.module("UUID.parse()", function() {
-  "use strict";
 
   QUnit.test("pass tests", function(assert) {
     assert.expect(15);

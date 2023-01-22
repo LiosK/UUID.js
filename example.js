@@ -1,4 +1,4 @@
-const UUID = require("uuidjs");
+import { UUID } from "uuidjs";
 
 // Generate UUID string
 console.log(UUID.generate());

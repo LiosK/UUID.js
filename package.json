@@ -3,21 +3,24 @@
   "version": "4.2.13",
   "title": "UUID.js",
   "description": "RFC-compliant UUID Generator for JavaScript",
+  "type": "module",
   "main": "src/uuid.js",
-  "types": "types/uuidjs/index.d.ts",
+  "exports": "./src/uuid.js",
+  "types": "./types/uuidjs/index.d.ts",
   "bin": {
-    "uuidjs": "bin/cli.js"
+    "uuidjs": "./bin/cli.js"
   },
   "directories": {
     "bin": "bin",
     "test": "test"
   },
+  "sideEffects": false,
   "runkitExampleFilename": "example.js",
   "scripts": {
     "jsdoc": "rm -rf docs && jsdoc -R README.md -d docs src/uuid.js",
     "prepare": "npm run test && npm run test-ts",
-    "test": "qunit test/nodejs.js",
-    "test-ts": "tsc --strict --noEmit types/*.ts"
+    "test": "qunit ./test/index.js",
+    "test-ts": "tsc --strict --noEmit ./types/*.ts"
   },
   "repository": {
     "type": "git",
