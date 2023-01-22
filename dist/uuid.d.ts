@@ -95,7 +95,6 @@ export declare class UUID {
     readonly hexNoDelim: string;
     readonly hexString: string;
     readonly urn: string;
-    private constructor();
     /**
      * Initializes a {@link UUID} object.
      * @private
@@ -108,7 +107,7 @@ export declare class UUID {
      * @param {number} [node=0] node field (octet 10-15, uint48).
      * @returns {UUID} this.
      */
-    private _init;
+    private constructor();
     /**
      * Converts an integer to a zero-filled binary string.
      * @private

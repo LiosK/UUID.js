@@ -135,7 +135,7 @@ export class UUID {
    */
   static genV4(): UUID {
     var rand = UUID._getRandomInt;
-    return new UUID()._init(
+    return new UUID(
       rand(32), // time_low
       rand(16), // time_mid
       0x4000 | rand(12), // time_hi_and_version
@@ -163,7 +163,7 @@ export class UUID {
         (l === "{" && t === "}") ||
         (l.toLowerCase() === "urn:uuid:" && t === "")
       ) {
-        return new UUID()._init(
+        return new UUID(
           parseInt(r[2], 16),
           parseInt(r[3], 16),
           parseInt(r[4], 16),
@@ -209,8 +209,6 @@ export class UUID {
   readonly hexString: string;
   readonly urn: string;
 
-  private constructor() {}
-
   /**
    * Initializes a {@link UUID} object.
    * @private
@@ -223,14 +221,14 @@ export class UUID {
    * @param {number} [node=0] node field (octet 10-15, uint48).
    * @returns {UUID} this.
    */
-  private _init(
+  private constructor(
     _timeLow: number,
     _timeMid: number,
     _timeHiAndVersion: number,
     _clockSeqHiAndReserved: number,
     _clockSeqLow: number,
     _node: number
-  ): this {
+  ) {
     var names = UUID.FIELD_NAMES,
       sizes = UUID.FIELD_SIZES;
     var bin = UUID._binAligner,
@@ -304,8 +302,6 @@ export class UUID {
      * @type {string}
      */
     this.urn = "urn:uuid:" + this.hexString;
-
-    return this;
   }
 
   /**
@@ -358,7 +354,7 @@ export class UUID {
    * @constant
    * @since v3.4.0
    */
-  static readonly NIL: UUID = new UUID()._init(0, 0, 0, 0, 0, 0);
+  static readonly NIL: UUID = new UUID(0, 0, 0, 0, 0, 0);
 
   // }}}
 
@@ -371,7 +367,7 @@ export class UUID {
    */
   static genV1(): UUID {
     if (UUID._state == null) {
-      UUID.resetState();
+      UUID._state = new UUIDState();
     }
     var now = new Date().getTime(),
       st = UUID._state;
@@ -399,7 +395,7 @@ export class UUID {
     var cshar = (st.sequence >>> 8) | 0x80; // set variant '10'
     var csl = st.sequence & 0xff;
 
-    return new UUID()._init(tl, tf.mid, thav, cshar, csl, st.node);
+    return new UUID(tl, tf.mid, thav, cshar, csl, st.node);
   }
 
   /**
@@ -452,7 +448,7 @@ export class UUID {
    */
   static genV6(): UUID {
     if (UUID._state == null) {
-      UUID.resetState();
+      UUID._state = new UUIDState();
     }
     var now = new Date().getTime(),
       st = UUID._state;
@@ -482,7 +478,7 @@ export class UUID {
     var cshar = (st.sequence >>> 8) | 0x80; // set variant '10'
     var csl = st.sequence & 0xff;
 
-    return new UUID()._init(th, tm, tlav, cshar, csl, st.node);
+    return new UUID(th, tm, tlav, cshar, csl, st.node);
   }
 
   // }}}
