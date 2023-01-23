@@ -1,23 +1,21 @@
 /**
  * UUID.js - RFC-compliant UUID Generator for JavaScript
  *
- * @file
  * @author  LiosK
  * @version v4.2.13
  * @license Apache License 2.0: Copyright (c) 2010-2023 LiosK
+ * @packageDocumentation
  */
 
 /**
- * @class
- * @classdesc {@link UUID} object.
- * @hideconstructor
+ * UUID object.
  */
 export class UUID {
   // Core Component {{{
 
   /**
    * Generates a version 4 UUID as a hexadecimal string.
-   * @returns {string} Hexadecimal UUID string.
+   * @returns Hexadecimal UUID string.
    */
   static generate(): string {
     var rand = UUID._getRandomInt,
@@ -37,9 +35,8 @@ export class UUID {
 
   /**
    * Returns an unsigned x-bit random integer.
-   * @private
-   * @param {number} x Unsigned integer ranging from 0 to 53, inclusive.
-   * @returns {number} Unsigned x-bit random integer (0 <= f(x) < 2^x).
+   * @param x - Unsigned integer ranging from 0 to 53, inclusive.
+   * @returns Unsigned x-bit random integer (0 <= f(x) < 2^x).
    */
   private static _getRandomInt(x: number): number {
     if (x < 0 || x > 53) {
@@ -53,10 +50,6 @@ export class UUID {
 
   /**
    * Converts an integer to a zero-filled hexadecimal string.
-   * @private
-   * @param {number} num
-   * @param {number} length
-   * @returns {string}
    */
   private static _hexAligner(num: number, length: number): string {
     var str = num.toString(16),
@@ -107,8 +100,6 @@ export class UUID {
 
   /**
    * Names of UUID internal fields.
-   * @type {string[]}
-   * @constant
    * @since 3.0
    */
   static readonly FIELD_NAMES: readonly string[] = [
@@ -122,15 +113,13 @@ export class UUID {
 
   /**
    * Sizes of UUID internal fields.
-   * @type {number[]}
-   * @constant
    * @since 3.0
    */
   static readonly FIELD_SIZES: readonly number[] = [32, 16, 16, 8, 8, 48];
 
   /**
-   * Creates a version 4 {@link UUID} object.
-   * @returns {UUID} Version 4 {@link UUID} object.
+   * Creates a version 4 UUID object.
+   * @returns Version 4 UUID object.
    * @since 3.0
    */
   static genV4(): UUID {
@@ -146,9 +135,9 @@ export class UUID {
   }
 
   /**
-   * Converts a hexadecimal UUID string to a {@link UUID} object.
-   * @param {string} strId Hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-   * @returns {UUID} {@link UUID} object or null.
+   * Converts a hexadecimal UUID string to a UUID object.
+   * @param strId - Hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * @returns UUID object or null.
    * @since 3.0
    */
   static parse(strId: string): UUID | null {
@@ -176,6 +165,9 @@ export class UUID {
     return null;
   }
 
+  /**
+   * UUID internal field values as an array of integers.
+   */
   readonly intFields: readonly number[] & {
     readonly timeLow: number;
     readonly timeMid: number;
@@ -185,6 +177,9 @@ export class UUID {
     readonly node: number;
   };
 
+  /**
+   * UUID internal field values as an array of binary strings.
+   */
   readonly bitFields: readonly string[] & {
     readonly timeLow: string;
     readonly timeMid: string;
@@ -194,6 +189,9 @@ export class UUID {
     readonly node: string;
   };
 
+  /**
+   * UUID internal field values as an array of hexadecimal strings.
+   */
   readonly hexFields: readonly string[] & {
     readonly timeLow: string;
     readonly timeMid: string;
@@ -203,23 +201,40 @@ export class UUID {
     readonly node: string;
   };
 
+  /**
+   * UUID version number.
+   */
   readonly version: number;
+
+  /**
+   * 128-bit binary string representation.
+   */
   readonly bitString: string;
+
+  /**
+   * Non-delimited hexadecimal string representation ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").
+   * @since v3.3.0
+   */
   readonly hexNoDelim: string;
+
+  /**
+   * Hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   */
   readonly hexString: string;
+
+  /**
+   * URN string representation ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   */
   readonly urn: string;
 
   /**
-   * Initializes a {@link UUID} object.
-   * @private
-   * @constructs UUID
-   * @param {number} [timeLow=0] time_low field (octet 0-3, uint32).
-   * @param {number} [timeMid=0] time_mid field (octet 4-5, uint16).
-   * @param {number} [timeHiAndVersion=0] time_hi_and_version field (octet 6-7, uint16).
-   * @param {number} [clockSeqHiAndReserved=0] clock_seq_hi_and_reserved field (octet 8, uint8).
-   * @param {number} [clockSeqLow=0] clock_seq_low field (octet 9, uint8).
-   * @param {number} [node=0] node field (octet 10-15, uint48).
-   * @returns {UUID} this.
+   * Initializes the UUID object.
+   * @param _timeLow - time_low field (octet 0-3, uint32).
+   * @param _timeMid - time_mid field (octet 4-5, uint16).
+   * @param _timeHiAndVersion - time_hi_and_version field (octet 6-7, uint16).
+   * @param _clockSeqHiAndReserved - clock_seq_hi_and_reserved field (octet 8, uint8).
+   * @param _clockSeqLow - clock_seq_low field (octet 9, uint8).
+   * @param _node - node field (octet 10-15, uint48).
    */
   private constructor(
     _timeLow: number,
@@ -234,24 +249,10 @@ export class UUID {
     var bin = UUID._binAligner,
       hex = UUID._hexAligner;
 
-    /**
-     * UUID internal field values as an array of integers.
-     * @type {number[]}
-     */
     // @ts-ignore
     this.intFields = new Array(6);
-
-    /**
-     * UUID internal field values as an array of binary strings.
-     * @type {string[]}
-     */
     // @ts-ignore
     this.bitFields = new Array(6);
-
-    /**
-     * UUID internal field values as an array of hexadecimal strings.
-     * @type {string[]}
-     */
     // @ts-ignore
     this.hexFields = new Array(6);
 
@@ -268,29 +269,12 @@ export class UUID {
       );
     }
 
-    /**
-     * UUID version number.
-     * @type {number}
-     */
     this.version = (this.intFields.timeHiAndVersion >>> 12) & 0xf;
 
-    /**
-     * 128-bit binary string representation.
-     * @type {string}
-     */
     this.bitString = this.bitFields.join("");
 
-    /**
-     * Non-delimited hexadecimal string representation ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").
-     * @type {string}
-     * @since v3.3.0
-     */
     this.hexNoDelim = this.hexFields.join("");
 
-    /**
-     * Hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-     * @type {string}
-     */
     this.hexString =
       this.hexFields[0] +
       "-" +
@@ -303,19 +287,11 @@ export class UUID {
       "-" +
       this.hexFields[5];
 
-    /**
-     * URN string representation ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-     * @type {string}
-     */
     this.urn = "urn:uuid:" + this.hexString;
   }
 
   /**
    * Converts an integer to a zero-filled binary string.
-   * @private
-   * @param {number} num
-   * @param {number} length
-   * @returns {string}
    */
   private static _binAligner(num: number, length: number): string {
     var str = num.toString(2),
@@ -331,16 +307,15 @@ export class UUID {
 
   /**
    * Returns the hexadecimal string representation.
-   * @returns {string} {@link UUID#hexString}.
+   * @returns {@link UUID#hexString}.
    */
   toString(): string {
     return this.hexString;
   }
 
   /**
-   * Tests if two {@link UUID} objects are equal.
-   * @param {UUID} uuid
-   * @returns {boolean} True if two {@link UUID} objects are equal.
+   * Tests if two UUID objects are equal.
+   * @returns True if two UUID objects are equal.
    */
   equals(uuid: UUID): boolean {
     if (!(uuid instanceof UUID)) {
@@ -356,8 +331,6 @@ export class UUID {
 
   /**
    * Nil UUID object.
-   * @type {UUID}
-   * @constant
    * @since v3.4.0
    */
   static readonly NIL: UUID = new UUID(0, 0, 0, 0, 0, 0);
@@ -367,8 +340,8 @@ export class UUID {
   // UUID Version 1 Component (1 of 2) {{{
 
   /**
-   * Creates a version 1 {@link UUID} object.
-   * @returns {UUID} Version 1 {@link UUID} object.
+   * Creates a version 1 UUID object.
+   * @returns Version 1 UUID object.
    * @since 3.0
    */
   static genV1(): UUID {
@@ -414,15 +387,11 @@ export class UUID {
 
   /**
    * Persistent internal state for version 1 UUID creation.
-   * @private
-   * @type {UUIDState}
    */
   private static _state: UUIDState | null = null;
 
   /**
-   * @private
-   * @param {Date|number} time ECMAScript Date Object or milliseconds from 1970-01-01.
-   * @returns {any}
+   * @param time - Milliseconds elapsed since 1970-01-01.
    */
   private static _getTimeFieldValues(time: number): {
     low: number;
@@ -445,10 +414,10 @@ export class UUID {
   // UUID Version 6 Component {{{
 
   /**
-   * Creates a version 6 {@link UUID} object. This function is experimentally
-   * provided based on the draft RFC and may be changed or removed in the future
-   * without conforming to semantic versioning requirements.
-   * @returns {UUID} Version 6 {@link UUID} object.
+   * Creates a version 6 UUID object. This function is experimentally provided
+   * based on the draft RFC and may be changed or removed in the future without
+   * conforming to semantic versioning requirements.
+   * @returns Version 6 UUID object.
    * @since v4.2.13
    * @experimental
    */
