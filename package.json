@@ -10,6 +10,10 @@
   "bin": {
     "uuidjs": "./bin/cli.js"
   },
+  "files": [
+    "dist",
+    "example.js"
+  ],
   "directories": {
     "bin": "bin",
     "test": "test"
