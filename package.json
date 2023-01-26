@@ -18,8 +18,8 @@
   "runkitExampleFilename": "example.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "jsdoc": "rm -rf ./docs && jsdoc -R README.md -d docs ./dist/uuid.js",
-    "prepare": "npm run build && npm run test",
+    "doc": "rm -rf ./docs && typedoc ./src/uuid.ts --gitRevision \"v$npm_package_version\"",
+    "prepare": "npm run build && npm run test && npm run doc",
     "test": "qunit ./test/index.js"
   },
   "repository": {
@@ -44,8 +44,8 @@
   },
   "homepage": "https://github.com/LiosK/UUID.js",
   "devDependencies": {
-    "jsdoc": "^4.0.0",
-    "qunit": "^2.19.3",
+    "qunit": "^2.19.4",
+    "typedoc": "^0.23.24",
     "typescript": "^4.9.4"
   }
 }
