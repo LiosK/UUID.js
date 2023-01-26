@@ -8,16 +8,12 @@
   "exports": "./dist/uuid.js",
   "types": "./dist/uuid.d.ts",
   "bin": {
-    "uuidjs": "./bin/cli.js"
+    "uuidjs": "./dist/cli.js"
   },
   "files": [
     "dist",
     "example.js"
   ],
-  "directories": {
-    "bin": "bin",
-    "test": "test"
-  },
   "sideEffects": false,
   "runkitExampleFilename": "example.js",
   "scripts": {
