@@ -1,5 +1,7 @@
+import { UUID } from "../dist/uuid.js";
+import { UUIDTestCommon } from "./util/uuid-test-common.js";
+
 QUnit.module("UUID.genV1() as object", function() {
-  "use strict";
 
   QUnit.test("basic object tests", function(assert) {
     var n = 16;
@@ -16,7 +18,6 @@ QUnit.module("UUID.genV1() as object", function() {
 
 
 QUnit.module("UUID.genV1() as string", function() {
-  "use strict";
 
   var generator = function() {
     return UUID.genV1().hexString;
@@ -58,7 +59,6 @@ QUnit.module("UUID.genV1() as string", function() {
 
 
 QUnit.module("UUID.genV1() and UUID.resetState()", function() {
-  "use strict";
 
   var generator = function() {
     UUID.resetState();

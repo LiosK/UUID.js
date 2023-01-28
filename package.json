@@ -1,23 +1,26 @@
 {
   "name": "uuidjs",
-  "version": "4.2.13",
+  "version": "5.0.0",
   "title": "UUID.js",
   "description": "RFC-compliant UUID Generator for JavaScript",
-  "main": "src/uuid.js",
-  "types": "types/uuidjs/index.d.ts",
+  "type": "module",
+  "main": "dist/uuid.js",
+  "exports": "./dist/uuid.js",
+  "types": "./dist/uuid.d.ts",
   "bin": {
-    "uuidjs": "bin/cli.js"
+    "uuidjs": "./dist/cli.js"
   },
-  "directories": {
-    "bin": "bin",
-    "test": "test"
-  },
+  "files": [
+    "dist",
+    "example.js"
+  ],
+  "sideEffects": false,
   "runkitExampleFilename": "example.js",
   "scripts": {
-    "jsdoc": "rm -rf docs && jsdoc -R README.md -d docs src/uuid.js",
-    "prepare": "npm run test && npm run test-ts",
-    "test": "qunit test/nodejs.js",
-    "test-ts": "tsc --strict --noEmit types/*.ts"
+    "build": "rm -rf ./dist && tsc",
+    "doc": "rm -rf ./docs && typedoc ./src/uuid.ts --gitRevision \"v$npm_package_version\"",
+    "prepare": "npm run build && npm run test && npm run doc",
+    "test": "qunit ./test/index.js"
   },
   "repository": {
     "type": "git",
@@ -41,11 +44,8 @@
   },
   "homepage": "https://github.com/LiosK/UUID.js",
   "devDependencies": {
-    "jsdoc": "^4.0.0",
-    "qunit": "^2.19.3",
+    "qunit": "^2.19.4",
+    "typedoc": "^0.23.24",
     "typescript": "^4.9.4"
-  },
-  "browser": {
-    "crypto": false
   }
 }

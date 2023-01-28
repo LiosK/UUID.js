@@ -1,7 +1,8 @@
+import { UUID } from "../../dist/uuid.js";
+
 var UUIDTestCommon = {};
 
 (function(ns) {
-  "use strict";
 
   function generateUUIDs(generator, n) {
     var uuids = [];
@@ -253,7 +254,4 @@ var UUIDTestCommon = {};
 
 })(UUIDTestCommon);
 
-// for nodejs
-if (typeof module === "object" && typeof module.exports === "object") {
-  module.exports = UUIDTestCommon;
-}
+export { UUIDTestCommon };

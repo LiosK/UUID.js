@@ -1,5 +1,7 @@
+import { UUID } from "../dist/uuid.js";
+import { UUIDTestCommon } from "./util/uuid-test-common.js";
+
 QUnit.module("UUID.useMathRandom()", function() {
-  "use strict";
 
   UUID.useMathRandom();
 
