@@ -1,6 +1,6 @@
 {
   "name": "uuidjs",
-  "version": "4.2.13",
+  "version": "5.0.0",
   "title": "UUID.js",
   "description": "RFC-compliant UUID Generator for JavaScript",
   "type": "module",

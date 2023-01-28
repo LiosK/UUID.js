@@ -2,7 +2,7 @@
  * UUID.js - RFC-compliant UUID Generator for JavaScript
  *
  * @author  LiosK
- * @version v4.2.13
+ * @version v5.0.0
  * @license Apache License 2.0: Copyright (c) 2010-2023 LiosK
  * @packageDocumentation
  */
