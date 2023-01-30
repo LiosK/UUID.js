@@ -11,6 +11,7 @@
     "uuidjs": "./dist/cli.js"
   },
   "files": [
+    "CHANGELOG.md",
     "dist",
     "example.js"
   ],

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- CHANGELOG.md to NPM package
+
 ## v5.0.0 - 2023-01-28
 
 ### Breaking changes
