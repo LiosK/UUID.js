@@ -2,19 +2,19 @@
  * UUID.js - RFC-compliant UUID Generator for JavaScript
  *
  * @author  LiosK
- * @version v5.0.0
+ * @version v5.0.1
  * @license Apache License 2.0: Copyright (c) 2010-2023 LiosK
  * @packageDocumentation
  */
 var _a;
 /**
- * UUID object.
+ * The UUID object type.
  */
-export class UUID {
+class UUID {
     // Core Component {{{
     /**
      * Generates a version 4 UUID as a hexadecimal string.
-     * @returns Hexadecimal UUID string.
+     * @returns The hexadecimal UUID string.
      */
     static generate() {
         var rand = UUID._getRandomInt, hex = UUID._hexAligner;
@@ -30,9 +30,9 @@ export class UUID {
         );
     }
     /**
-     * Returns an unsigned x-bit random integer.
-     * @param x - Unsigned integer ranging from 0 to 53, inclusive.
-     * @returns Unsigned x-bit random integer (0 <= f(x) < 2^x).
+     * Returns an unsigned `x`-bit random integer.
+     * @param x - An unsigned integer ranging from 0 to 53, inclusive.
+     * @returns An unsigned `x`-bit random integer (`0 <= f(x) < 2^x`).
      */
     static _getRandomInt(x) {
         if (x < 0 || x > 53) {
@@ -65,7 +65,7 @@ export class UUID {
     }
     /**
      * Creates a version 4 UUID object.
-     * @returns Version 4 UUID object.
+     * @returns A version 4 UUID object.
      * @since 3.0
      */
     static genV4() {
@@ -80,8 +80,8 @@ export class UUID {
     }
     /**
      * Converts a hexadecimal UUID string to a UUID object.
-     * @param strId - Hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-     * @returns UUID object or null.
+     * @param strId - A hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+     * @returns The UUID object or `null`.
      * @since 3.0
      */
     static parse(strId) {
@@ -98,12 +98,12 @@ export class UUID {
     }
     /**
      * Initializes the UUID object.
-     * @param _timeLow - time_low field (octet 0-3, uint32).
-     * @param _timeMid - time_mid field (octet 4-5, uint16).
-     * @param _timeHiAndVersion - time_hi_and_version field (octet 6-7, uint16).
-     * @param _clockSeqHiAndReserved - clock_seq_hi_and_reserved field (octet 8, uint8).
-     * @param _clockSeqLow - clock_seq_low field (octet 9, uint8).
-     * @param _node - node field (octet 10-15, uint48).
+     * @param _timeLow - The time_low field (octet 0-3, uint32).
+     * @param _timeMid - The time_mid field (octet 4-5, uint16).
+     * @param _timeHiAndVersion - The time_hi_and_version field (octet 6-7, uint16).
+     * @param _clockSeqHiAndReserved - The clock_seq_hi_and_reserved field (octet 8, uint8).
+     * @param _clockSeqLow - The clock_seq_low field (octet 9, uint8).
+     * @param _node - The node field (octet 10-15, uint48).
      */
     constructor(_timeLow, _timeMid, _timeHiAndVersion, _clockSeqHiAndReserved, _clockSeqLow, _node) {
         var names = UUID.FIELD_NAMES, sizes = UUID.FIELD_SIZES;
@@ -160,7 +160,7 @@ export class UUID {
     }
     /**
      * Tests if two UUID objects are equal.
-     * @returns True if two UUID objects are equal.
+     * @returns `true` if two UUID objects are equal.
      */
     equals(uuid) {
         if (!(uuid instanceof UUID)) {
@@ -177,7 +177,7 @@ export class UUID {
     // UUID Version 1 Component (1 of 2) {{{
     /**
      * Creates a version 1 UUID object.
-     * @returns Version 1 UUID object.
+     * @returns A version 1 UUID object.
      * @since 3.0
      */
     static genV1() {
@@ -218,7 +218,7 @@ export class UUID {
         UUID._state = new UUIDState();
     }
     /**
-     * @param time - Milliseconds elapsed since 1970-01-01.
+     * @param time - The number of milliseconds elapsed since 1970-01-01.
      */
     static _getTimeFieldValues(time) {
         var ts = time - Date.UTC(1582, 9, 15);
@@ -236,7 +236,7 @@ export class UUID {
      * Creates a version 6 UUID object. This function is experimentally provided
      * based on the draft RFC and may be changed or removed in the future without
      * conforming to semantic versioning requirements.
-     * @returns Version 6 UUID object.
+     * @returns A version 6 UUID object.
      * @since v4.2.13
      * @experimental
      */
@@ -295,7 +295,7 @@ UUID._mathPRNG = UUID._getRandomInt;
 // }}}
 // UUID Object Component {{{
 /**
- * Names of UUID internal fields.
+ * The names of UUID internal fields.
  * @since 3.0
  */
 UUID.FIELD_NAMES = [
@@ -307,19 +307,20 @@ UUID.FIELD_NAMES = [
     "node",
 ];
 /**
- * Sizes of UUID internal fields.
+ * The sizes of UUID internal fields.
  * @since 3.0
  */
 UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
 /**
- * Nil UUID object.
+ * A nil UUID object.
  * @since v3.4.0
  */
 UUID.NIL = new UUID(0, 0, 0, 0, 0, 0);
 /**
- * Persistent internal state for version 1 UUID creation.
+ * The persistent internal state for version 1 UUID creation.
  */
 UUID._state = null;
+export { UUID };
 // UUID Version 1 Component (2 of 2) {{{
 class UUIDState {
     constructor() {

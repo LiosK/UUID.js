@@ -1,5 +1,16 @@
 # Changelog
 
+## v5.0.1 - 2023-03-30
+
+### Added
+
+- CHANGELOG.md to NPM package
+
+### Maintenance
+
+- Updated TypeScript to 5.0
+- Refined doc comment style
+
 ## v5.0.0 - 2023-01-28
 
 ### Breaking changes
