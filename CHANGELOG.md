@@ -9,6 +9,7 @@
 ### Maintenance
 
 - Updated TypeScript to 5.0
+- Refined doc comment style
 
 ## v5.0.0 - 2023-01-28
 

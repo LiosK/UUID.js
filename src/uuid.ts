@@ -8,14 +8,14 @@
  */
 
 /**
- * UUID object.
+ * The UUID object type.
  */
 export class UUID {
   // Core Component {{{
 
   /**
    * Generates a version 4 UUID as a hexadecimal string.
-   * @returns Hexadecimal UUID string.
+   * @returns The hexadecimal UUID string.
    */
   static generate(): string {
     var rand = UUID._getRandomInt,
@@ -34,9 +34,9 @@ export class UUID {
   }
 
   /**
-   * Returns an unsigned x-bit random integer.
-   * @param x - Unsigned integer ranging from 0 to 53, inclusive.
-   * @returns Unsigned x-bit random integer (0 <= f(x) < 2^x).
+   * Returns an unsigned `x`-bit random integer.
+   * @param x - An unsigned integer ranging from 0 to 53, inclusive.
+   * @returns An unsigned `x`-bit random integer (`0 <= f(x) < 2^x`).
    */
   private static _getRandomInt(x: number): number {
     if (x < 0 || x > 53) {
@@ -99,7 +99,7 @@ export class UUID {
   // UUID Object Component {{{
 
   /**
-   * Names of UUID internal fields.
+   * The names of UUID internal fields.
    * @since 3.0
    */
   static readonly FIELD_NAMES: readonly string[] = [
@@ -112,14 +112,14 @@ export class UUID {
   ];
 
   /**
-   * Sizes of UUID internal fields.
+   * The sizes of UUID internal fields.
    * @since 3.0
    */
   static readonly FIELD_SIZES: readonly number[] = [32, 16, 16, 8, 8, 48];
 
   /**
    * Creates a version 4 UUID object.
-   * @returns Version 4 UUID object.
+   * @returns A version 4 UUID object.
    * @since 3.0
    */
   static genV4(): UUID {
@@ -136,8 +136,8 @@ export class UUID {
 
   /**
    * Converts a hexadecimal UUID string to a UUID object.
-   * @param strId - Hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
-   * @returns UUID object or null.
+   * @param strId - A hexadecimal UUID string ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * @returns The UUID object or `null`.
    * @since 3.0
    */
   static parse(strId: string): UUID | null {
@@ -166,7 +166,7 @@ export class UUID {
   }
 
   /**
-   * UUID internal field values as an array of integers.
+   * The UUID internal field values as an array of integers.
    */
   readonly intFields: readonly number[] & {
     readonly timeLow: number;
@@ -178,7 +178,7 @@ export class UUID {
   };
 
   /**
-   * UUID internal field values as an array of binary strings.
+   * The UUID internal field values as an array of binary strings.
    */
   readonly bitFields: readonly string[] & {
     readonly timeLow: string;
@@ -190,7 +190,7 @@ export class UUID {
   };
 
   /**
-   * UUID internal field values as an array of hexadecimal strings.
+   * The UUID internal field values as an array of hexadecimal strings.
    */
   readonly hexFields: readonly string[] & {
     readonly timeLow: string;
@@ -202,39 +202,39 @@ export class UUID {
   };
 
   /**
-   * UUID version number.
+   * The UUID version number.
    */
   readonly version: number;
 
   /**
-   * 128-bit binary string representation.
+   * The 128-bit binary string representation.
    */
   readonly bitString: string;
 
   /**
-   * Non-delimited hexadecimal string representation ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").
+   * The non-delimited hexadecimal string representation ("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").
    * @since v3.3.0
    */
   readonly hexNoDelim: string;
 
   /**
-   * Hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * The hexadecimal string representation ("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
    */
   readonly hexString: string;
 
   /**
-   * URN string representation ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
+   * The URN string representation ("urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx").
    */
   readonly urn: string;
 
   /**
    * Initializes the UUID object.
-   * @param _timeLow - time_low field (octet 0-3, uint32).
-   * @param _timeMid - time_mid field (octet 4-5, uint16).
-   * @param _timeHiAndVersion - time_hi_and_version field (octet 6-7, uint16).
-   * @param _clockSeqHiAndReserved - clock_seq_hi_and_reserved field (octet 8, uint8).
-   * @param _clockSeqLow - clock_seq_low field (octet 9, uint8).
-   * @param _node - node field (octet 10-15, uint48).
+   * @param _timeLow - The time_low field (octet 0-3, uint32).
+   * @param _timeMid - The time_mid field (octet 4-5, uint16).
+   * @param _timeHiAndVersion - The time_hi_and_version field (octet 6-7, uint16).
+   * @param _clockSeqHiAndReserved - The clock_seq_hi_and_reserved field (octet 8, uint8).
+   * @param _clockSeqLow - The clock_seq_low field (octet 9, uint8).
+   * @param _node - The node field (octet 10-15, uint48).
    */
   private constructor(
     _timeLow: number,
@@ -315,7 +315,7 @@ export class UUID {
 
   /**
    * Tests if two UUID objects are equal.
-   * @returns True if two UUID objects are equal.
+   * @returns `true` if two UUID objects are equal.
    */
   equals(uuid: UUID): boolean {
     if (!(uuid instanceof UUID)) {
@@ -330,7 +330,7 @@ export class UUID {
   }
 
   /**
-   * Nil UUID object.
+   * A nil UUID object.
    * @since v3.4.0
    */
   static readonly NIL: UUID = new UUID(0, 0, 0, 0, 0, 0);
@@ -341,7 +341,7 @@ export class UUID {
 
   /**
    * Creates a version 1 UUID object.
-   * @returns Version 1 UUID object.
+   * @returns A version 1 UUID object.
    * @since 3.0
    */
   static genV1(): UUID {
@@ -386,12 +386,12 @@ export class UUID {
   }
 
   /**
-   * Persistent internal state for version 1 UUID creation.
+   * The persistent internal state for version 1 UUID creation.
    */
   private static _state: UUIDState | null = null;
 
   /**
-   * @param time - Milliseconds elapsed since 1970-01-01.
+   * @param time - The number of milliseconds elapsed since 1970-01-01.
    */
   private static _getTimeFieldValues(time: number): {
     low: number;
@@ -417,7 +417,7 @@ export class UUID {
    * Creates a version 6 UUID object. This function is experimentally provided
    * based on the draft RFC and may be changed or removed in the future without
    * conforming to semantic versioning requirements.
-   * @returns Version 6 UUID object.
+   * @returns A version 6 UUID object.
    * @since v4.2.13
    * @experimental
    */
