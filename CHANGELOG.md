@@ -6,6 +6,10 @@
 
 - CHANGELOG.md to NPM package
 
+### Maintenance
+
+- Updated TypeScript to 5.0
+
 ## v5.0.0 - 2023-01-28
 
 ### Breaking changes
