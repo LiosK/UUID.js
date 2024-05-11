@@ -33,22 +33,22 @@ npx uuidjs
 
 ## Description
 
-UUID.js is a JavaScript/ECMAScript library to generate RFC 4122 compliant
-Universally Unique IDentifiers (UUIDs). This library supports both version 4
-UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs), and
+UUID.js is a JavaScript/ECMAScript library to generate RFC 9562 compliant
+Universally Unique IDentifiers (UUIDs). This library supports both UUIDv4
+(random number-based UUIDs) and UUIDv1 (Gregorian time-based UUIDs). It also
 provides an object-oriented interface to print a generated or parsed UUID in a
 variety of forms.
 
 ## Features
 
-- Generates version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs
-  (time-based UUIDs)
+- Generates UUIDv4 (random number-based UUIDs) and UUIDv1 (Gregorian time-based
+  UUIDs)
 - Provides an object-oriented interface to print various string representations
   of a generated or parsed UUID
 - Utilizes a cryptographically secure pseudo-random number generator if
   available, whereas falling back to `Math.random()` otherwise
 - Appends extra random bits to compensate for the lower timestamp resolution of
-  JavaScript than that required for version 1 UUIDs
+  JavaScript than that required for UUIDv1
 - Comes with a lot of test cases including format checks and statistical tests
   to maintain a high-quality code base
 
@@ -62,10 +62,10 @@ import { UUID } from "uuidjs";
 // import { UUID } from "https://unpkg.com/uuidjs@^5";
 ```
 
-`UUID.generate()` returns a version 4 UUID as a hexadecimal string.
+`UUID.generate()` returns a UUIDv4 as a hexadecimal string.
 
 ```javascript
-// Create a version 4 UUID as a hexadecimal string
+// Create a UUIDv4 as a hexadecimal string
 console.log(UUID.generate());   // fa84cf42-ffdf-4975-b42b-31ab5fb983eb
 ```
 
@@ -73,10 +73,10 @@ console.log(UUID.generate());   // fa84cf42-ffdf-4975-b42b-31ab5fb983eb
 various fields and methods.
 
 ```javascript
-// Create a version 4 (random number-based) UUID object
+// Create a UUIDv4 (random number-based UUID) object
 const objV4 = UUID.genV4();
 
-// Create a version 1 (time-based) UUID object
+// Create a UUIDv1 (Gregorian time-based UUID) object
 const objV1 = UUID.genV1();
 
 // Create a UUID object from a hexadecimal string
@@ -133,7 +133,7 @@ LiosK <contact@mail.liosk.net>
 
 ## See Also
 
-- [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt)
+- [RFC 9562](https://www.rfc-editor.org/rfc/rfc9562)
 - [GitHub Repository](https://github.com/LiosK/UUID.js)
 - [npm Package](https://www.npmjs.com/package/uuidjs)
 - [API Documentation](https://liosk.github.io/UUID.js/docs/)

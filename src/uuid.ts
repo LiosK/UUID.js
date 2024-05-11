@@ -14,7 +14,7 @@ export class UUID {
   // Core Component {{{
 
   /**
-   * Generates a version 4 UUID as a hexadecimal string.
+   * Generates a UUIDv4 as a hexadecimal string.
    * @returns The hexadecimal UUID string.
    */
   static generate(): string {
@@ -118,8 +118,8 @@ export class UUID {
   static readonly FIELD_SIZES: readonly number[] = [32, 16, 16, 8, 8, 48];
 
   /**
-   * Creates a version 4 UUID object.
-   * @returns A version 4 UUID object.
+   * Creates a UUIDv4 object.
+   * @returns A UUIDv4 object.
    * @since 3.0
    */
   static genV4(): UUID {
@@ -337,11 +337,11 @@ export class UUID {
 
   // }}}
 
-  // UUID Version 1 Component (1 of 2) {{{
+  // UUIDv1 Component (1 of 2) {{{
 
   /**
-   * Creates a version 1 UUID object.
-   * @returns A version 1 UUID object.
+   * Creates a UUIDv1 object.
+   * @returns A UUIDv1 object.
    * @since 3.0
    */
   static genV1(): UUID {
@@ -378,7 +378,7 @@ export class UUID {
   }
 
   /**
-   * Re-initializes the internal state for version 1 UUID creation.
+   * Re-initializes the internal state for UUIDv1 creation.
    * @since 3.0
    */
   static resetState(): void {
@@ -386,7 +386,7 @@ export class UUID {
   }
 
   /**
-   * The persistent internal state for version 1 UUID creation.
+   * The persistent internal state for UUIDv1 creation.
    */
   private static _state: UUIDState | null = null;
 
@@ -411,13 +411,13 @@ export class UUID {
 
   // }}}
 
-  // UUID Version 6 Component {{{
+  // UUIDv6 Component {{{
 
   /**
-   * Creates a version 6 UUID object. This function is experimentally provided
-   * based on the draft RFC and may be changed or removed in the future without
+   * Creates a UUIDv6 object. This function is experimentally provided based on
+   * the draft RFC and may be changed or removed in the future without
    * conforming to semantic versioning requirements.
-   * @returns A version 6 UUID object.
+   * @returns A UUIDv6 object.
    * @since v4.2.13
    * @experimental
    */
@@ -459,7 +459,7 @@ export class UUID {
   // }}}
 }
 
-// UUID Version 1 Component (2 of 2) {{{
+// UUIDv1 Component (2 of 2) {{{
 
 class UUIDState {
   timestamp: number;
