@@ -1,5 +1,11 @@
 # Changelog
 
+## v5.1.0 - unreleased
+
+- Marked `UUID.genV6()` as stable
+- Updated documents with RFC 9562 verbiage
+- Updated dev dependencies
+
 ## v5.0.1 - 2023-03-30
 
 ### Added
