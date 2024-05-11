@@ -100,6 +100,9 @@ export class UUID {
 
   /**
    * The names of UUID internal fields.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    * @since 3.0
    */
   static readonly FIELD_NAMES: readonly string[] = [
@@ -113,6 +116,9 @@ export class UUID {
 
   /**
    * The sizes of UUID internal fields.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    * @since 3.0
    */
   static readonly FIELD_SIZES: readonly number[] = [32, 16, 16, 8, 8, 48];
@@ -167,6 +173,9 @@ export class UUID {
 
   /**
    * The UUID internal field values as an array of integers.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    */
   readonly intFields: readonly number[] & {
     readonly timeLow: number;
@@ -179,6 +188,9 @@ export class UUID {
 
   /**
    * The UUID internal field values as an array of binary strings.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    */
   readonly bitFields: readonly string[] & {
     readonly timeLow: string;
@@ -191,6 +203,9 @@ export class UUID {
 
   /**
    * The UUID internal field values as an array of hexadecimal strings.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    */
   readonly hexFields: readonly string[] & {
     readonly timeLow: string;

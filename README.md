@@ -95,21 +95,6 @@ console.log(objV4.equals(objV1));   // false
 // Get UUID version numbers
 console.log(objV4.version); // 4
 console.log(objV1.version); // 1
-
-// Get internal field values in 3 different forms via 2 different accessors
-console.log(uuid.intFields.timeLow);                // 2699096368
-console.log(uuid.bitFields.timeMid);                // "1000110000100001"
-console.log(uuid.hexFields.timeHiAndVersion);       // "11df"
-console.log(uuid.intFields.clockSeqHiAndReserved);  // 146
-console.log(uuid.bitFields.clockSeqLow);            // "11011001"
-console.log(uuid.hexFields.node);                   // "95795a3bcd40"
-
-console.log(uuid.intFields[0]);                     // 2699096368
-console.log(uuid.bitFields[1]);                     // "1000110000100001"
-console.log(uuid.hexFields[2]);                     // "11df"
-console.log(uuid.intFields[3]);                     // 146
-console.log(uuid.bitFields[4]);                     // "11011001"
-console.log(uuid.hexFields[5]);                     // "95795a3bcd40"
 ```
 
 ## License
