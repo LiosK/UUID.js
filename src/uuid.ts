@@ -393,7 +393,7 @@ export class UUID {
   }
 
   /**
-   * Re-initializes the internal state for UUIDv1 creation.
+   * Re-initializes the internal state for UUIDv1 and UUIDv6 creation.
    * @since 3.0
    */
   static resetState(): void {
@@ -401,7 +401,7 @@ export class UUID {
   }
 
   /**
-   * The persistent internal state for UUIDv1 creation.
+   * The persistent internal state for UUIDv1 and UUIDv6 creation.
    */
   private static _state: UUIDState | null = null;
 
@@ -429,12 +429,9 @@ export class UUID {
   // UUIDv6 Component {{{
 
   /**
-   * Creates a UUIDv6 object. This function is experimentally provided based on
-   * the draft RFC and may be changed or removed in the future without
-   * conforming to semantic versioning requirements.
+   * Creates a UUIDv6 object.
    * @returns A UUIDv6 object.
    * @since v4.2.13
-   * @experimental
    */
   static genV6(): UUID {
     if (UUID._state == null) {

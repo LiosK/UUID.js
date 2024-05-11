@@ -34,21 +34,21 @@ npx uuidjs
 ## Description
 
 UUID.js is a JavaScript/ECMAScript library to generate RFC 9562 compliant
-Universally Unique IDentifiers (UUIDs). This library supports both UUIDv4
-(random number-based UUIDs) and UUIDv1 (Gregorian time-based UUIDs). It also
-provides an object-oriented interface to print a generated or parsed UUID in a
-variety of forms.
+Universally Unique IDentifiers (UUIDs). This library supports UUIDv4 (random
+number-based UUIDs), UUIDv1 (Gregorian time-based UUIDs), and UUIDv6 (Reordered
+Gregorian time-based UUIDs). It also provides an object-oriented interface to
+print a generated or parsed UUID in a variety of forms.
 
 ## Features
 
-- Generates UUIDv4 (random number-based UUIDs) and UUIDv1 (Gregorian time-based
-  UUIDs)
+- Generates UUIDv4 (random number-based UUIDs), UUIDv1 (Gregorian time-based
+  UUIDs), and UUIDv6 (Reordered Gregorian time-based UUIDs)
 - Provides an object-oriented interface to print various string representations
   of a generated or parsed UUID
 - Utilizes a cryptographically secure pseudo-random number generator if
   available, whereas falling back to `Math.random()` otherwise
 - Appends extra random bits to compensate for the lower timestamp resolution of
-  JavaScript than that required for UUIDv1
+  JavaScript than that required for UUIDv1 and UUIDv6
 - Comes with a lot of test cases including format checks and statistical tests
   to maintain a high-quality code base
 
@@ -69,8 +69,8 @@ import { UUID } from "uuidjs";
 console.log(UUID.generate());   // fa84cf42-ffdf-4975-b42b-31ab5fb983eb
 ```
 
-`UUID.genV4()`, `UUID.genV1()`, and `UUID.parse()` return a UUID object that has
-various fields and methods.
+`UUID.genV4()`, `UUID.genV1()`, `UUID.genV6()`, and `UUID.parse()` return a UUID
+object that has various fields and methods.
 
 ```javascript
 // Create a UUIDv4 (random number-based UUID) object
@@ -78,6 +78,9 @@ const objV4 = UUID.genV4();
 
 // Create a UUIDv1 (Gregorian time-based UUID) object
 const objV1 = UUID.genV1();
+
+// Create a UUIDv6 (Reordered Gregorian time-based UUID) object
+const objV6 = UUID.genV6();
 
 // Create a UUID object from a hexadecimal string
 const uuid = UUID.parse("a0e0f130-8c21-11df-92d9-95795a3bcd40");
@@ -95,6 +98,7 @@ console.log(objV4.equals(objV1));   // false
 // Get UUID version numbers
 console.log(objV4.version); // 4
 console.log(objV1.version); // 1
+console.log(objV6.version); // 6
 ```
 
 ## License
