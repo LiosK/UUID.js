@@ -130,7 +130,7 @@ export class UUID {
       0x4000 | rand(12), // time_hi_and_version
       0x80 | rand(6), // clock_seq_hi_and_reserved
       rand(8), // clock_seq_low
-      rand(48) // node
+      rand(48), // node
     );
   }
 
@@ -158,7 +158,7 @@ export class UUID {
           parseInt(r[4], 16),
           parseInt(r[5], 16),
           parseInt(r[6], 16),
-          parseInt(r[7], 16)
+          parseInt(r[7], 16),
         );
       }
     }
@@ -242,7 +242,7 @@ export class UUID {
     _timeHiAndVersion: number,
     _clockSeqHiAndReserved: number,
     _clockSeqLow: number,
-    _node: number
+    _node: number,
   ) {
     var names = UUID.FIELD_NAMES,
       sizes = UUID.FIELD_SIZES;
@@ -265,7 +265,7 @@ export class UUID {
       // @ts-ignore
       this.hexFields[i] = this.hexFields[names[i]] = hex(
         intValue,
-        sizes[i] >>> 2
+        sizes[i] >>> 2,
       );
     }
 
