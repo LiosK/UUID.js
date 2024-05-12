@@ -31,7 +31,7 @@ npx uuidjs
 
 ## Description
 
-UUID.js is a JavaScript/ECMAScript library to generate RFC 4122 compliant
+UUID.js is a JavaScript/ECMAScript library to generate RFC 4122/9562 compliant
 Universally Unique IDentifiers (UUIDs). This library supports both version 4
 UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs), and
 provides an object-oriented interface to print a generated or parsed UUID in a
@@ -132,7 +132,7 @@ console.log(arbitraryVarName.generate());   // "cb9a0283-a44c-4e7a-a5b0-9cd2876e
 
 ## License
 
-Copyright (c) 2010-2023 LiosK
+Copyright (c) 2010-2024 LiosK
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -151,7 +151,7 @@ LiosK <contact@mail.liosk.net>
 
 ## See Also
 
-- [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt)
+- [RFC 9562](https://www.rfc-editor.org/rfc/rfc9562)
 - [GitHub Repository](https://github.com/LiosK/UUID.js)
 - [npm Package](https://www.npmjs.com/package/uuidjs)
 - [API Documentation](https://liosk.github.io/UUID.js/docs/)

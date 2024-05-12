@@ -66,7 +66,6 @@ export default class UUIDClass {
   static genV1(): UUIDClass;
   /**
    * @since v4.2.13
-   * @experimental
    */
   static genV6(): UUIDClass;
   static parse(strId: string): UUIDClass;

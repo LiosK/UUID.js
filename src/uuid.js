@@ -3,8 +3,8 @@
  *
  * @file
  * @author  LiosK
- * @version v4.2.13
- * @license Apache License 2.0: Copyright (c) 2010-2023 LiosK
+ * @version v4.2.14
+ * @license Apache License 2.0: Copyright (c) 2010-2024 LiosK
  */
 
 /**
@@ -366,12 +366,9 @@ UUID._getTimeFieldValues = function(time) {
 // UUID Version 6 Component {{{
 
 /**
- * Creates a version 6 {@link UUID} object. This function is experimentally
- * provided based on the draft RFC and may be changed or removed in the future
- * without conforming to semantic versioning requirements.
+ * Creates a version 6 {@link UUID} object.
  * @returns {UUID} Version 6 {@link UUID} object.
  * @since v4.2.13
- * @experimental
  */
 UUID.genV6 = function() {
   if (UUID._state == null) { UUID.resetState(); }
