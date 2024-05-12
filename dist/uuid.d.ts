@@ -2,8 +2,8 @@
  * UUID.js - RFC-compliant UUID Generator for JavaScript
  *
  * @author  LiosK
- * @version v5.0.1
- * @license Apache License 2.0: Copyright (c) 2010-2023 LiosK
+ * @version v5.1.0
+ * @license Apache License 2.0: Copyright (c) 2010-2024 LiosK
  * @packageDocumentation
  */
 /**
@@ -11,7 +11,7 @@
  */
 export declare class UUID {
     /**
-     * Generates a version 4 UUID as a hexadecimal string.
+     * Generates a UUIDv4 as a hexadecimal string.
      * @returns The hexadecimal UUID string.
      */
     static generate(): string;
@@ -34,17 +34,23 @@ export declare class UUID {
     static useMathRandom(): void;
     /**
      * The names of UUID internal fields.
+     *
+     * Note that these internal fields from the obsolete RFC 4122 are no longer
+     * used in the current RFC 9562.
      * @since 3.0
      */
     static readonly FIELD_NAMES: readonly string[];
     /**
      * The sizes of UUID internal fields.
+     *
+     * Note that these internal fields from the obsolete RFC 4122 are no longer
+     * used in the current RFC 9562.
      * @since 3.0
      */
     static readonly FIELD_SIZES: readonly number[];
     /**
-     * Creates a version 4 UUID object.
-     * @returns A version 4 UUID object.
+     * Creates a UUIDv4 object.
+     * @returns A UUIDv4 object.
      * @since 3.0
      */
     static genV4(): UUID;
@@ -57,6 +63,9 @@ export declare class UUID {
     static parse(strId: string): UUID | null;
     /**
      * The UUID internal field values as an array of integers.
+     *
+     * Note that these internal fields from the obsolete RFC 4122 are no longer
+     * used in the current RFC 9562.
      */
     readonly intFields: readonly number[] & {
         readonly timeLow: number;
@@ -68,6 +77,9 @@ export declare class UUID {
     };
     /**
      * The UUID internal field values as an array of binary strings.
+     *
+     * Note that these internal fields from the obsolete RFC 4122 are no longer
+     * used in the current RFC 9562.
      */
     readonly bitFields: readonly string[] & {
         readonly timeLow: string;
@@ -79,6 +91,9 @@ export declare class UUID {
     };
     /**
      * The UUID internal field values as an array of hexadecimal strings.
+     *
+     * Note that these internal fields from the obsolete RFC 4122 are no longer
+     * used in the current RFC 9562.
      */
     readonly hexFields: readonly string[] & {
         readonly timeLow: string;
@@ -139,18 +154,18 @@ export declare class UUID {
      */
     static readonly NIL: UUID;
     /**
-     * Creates a version 1 UUID object.
-     * @returns A version 1 UUID object.
+     * Creates a UUIDv1 object.
+     * @returns A UUIDv1 object.
      * @since 3.0
      */
     static genV1(): UUID;
     /**
-     * Re-initializes the internal state for version 1 UUID creation.
+     * Re-initializes the internal state for UUIDv1 and UUIDv6 creation.
      * @since 3.0
      */
     static resetState(): void;
     /**
-     * The persistent internal state for version 1 UUID creation.
+     * The persistent internal state for UUIDv1 and UUIDv6 creation.
      */
     private static _state;
     /**
@@ -158,12 +173,9 @@ export declare class UUID {
      */
     private static _getTimeFieldValues;
     /**
-     * Creates a version 6 UUID object. This function is experimentally provided
-     * based on the draft RFC and may be changed or removed in the future without
-     * conforming to semantic versioning requirements.
-     * @returns A version 6 UUID object.
+     * Creates a UUIDv6 object.
+     * @returns A UUIDv6 object.
      * @since v4.2.13
-     * @experimental
      */
     static genV6(): UUID;
 }

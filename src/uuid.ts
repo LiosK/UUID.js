@@ -2,8 +2,8 @@
  * UUID.js - RFC-compliant UUID Generator for JavaScript
  *
  * @author  LiosK
- * @version v5.0.1
- * @license Apache License 2.0: Copyright (c) 2010-2023 LiosK
+ * @version v5.1.0
+ * @license Apache License 2.0: Copyright (c) 2010-2024 LiosK
  * @packageDocumentation
  */
 
@@ -14,7 +14,7 @@ export class UUID {
   // Core Component {{{
 
   /**
-   * Generates a version 4 UUID as a hexadecimal string.
+   * Generates a UUIDv4 as a hexadecimal string.
    * @returns The hexadecimal UUID string.
    */
   static generate(): string {
@@ -100,6 +100,9 @@ export class UUID {
 
   /**
    * The names of UUID internal fields.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    * @since 3.0
    */
   static readonly FIELD_NAMES: readonly string[] = [
@@ -113,13 +116,16 @@ export class UUID {
 
   /**
    * The sizes of UUID internal fields.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    * @since 3.0
    */
   static readonly FIELD_SIZES: readonly number[] = [32, 16, 16, 8, 8, 48];
 
   /**
-   * Creates a version 4 UUID object.
-   * @returns A version 4 UUID object.
+   * Creates a UUIDv4 object.
+   * @returns A UUIDv4 object.
    * @since 3.0
    */
   static genV4(): UUID {
@@ -130,7 +136,7 @@ export class UUID {
       0x4000 | rand(12), // time_hi_and_version
       0x80 | rand(6), // clock_seq_hi_and_reserved
       rand(8), // clock_seq_low
-      rand(48) // node
+      rand(48), // node
     );
   }
 
@@ -158,7 +164,7 @@ export class UUID {
           parseInt(r[4], 16),
           parseInt(r[5], 16),
           parseInt(r[6], 16),
-          parseInt(r[7], 16)
+          parseInt(r[7], 16),
         );
       }
     }
@@ -167,6 +173,9 @@ export class UUID {
 
   /**
    * The UUID internal field values as an array of integers.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    */
   readonly intFields: readonly number[] & {
     readonly timeLow: number;
@@ -179,6 +188,9 @@ export class UUID {
 
   /**
    * The UUID internal field values as an array of binary strings.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    */
   readonly bitFields: readonly string[] & {
     readonly timeLow: string;
@@ -191,6 +203,9 @@ export class UUID {
 
   /**
    * The UUID internal field values as an array of hexadecimal strings.
+   *
+   * Note that these internal fields from the obsolete RFC 4122 are no longer
+   * used in the current RFC 9562.
    */
   readonly hexFields: readonly string[] & {
     readonly timeLow: string;
@@ -242,7 +257,7 @@ export class UUID {
     _timeHiAndVersion: number,
     _clockSeqHiAndReserved: number,
     _clockSeqLow: number,
-    _node: number
+    _node: number,
   ) {
     var names = UUID.FIELD_NAMES,
       sizes = UUID.FIELD_SIZES;
@@ -265,7 +280,7 @@ export class UUID {
       // @ts-ignore
       this.hexFields[i] = this.hexFields[names[i]] = hex(
         intValue,
-        sizes[i] >>> 2
+        sizes[i] >>> 2,
       );
     }
 
@@ -337,11 +352,11 @@ export class UUID {
 
   // }}}
 
-  // UUID Version 1 Component (1 of 2) {{{
+  // UUIDv1 Component (1 of 2) {{{
 
   /**
-   * Creates a version 1 UUID object.
-   * @returns A version 1 UUID object.
+   * Creates a UUIDv1 object.
+   * @returns A UUIDv1 object.
    * @since 3.0
    */
   static genV1(): UUID {
@@ -378,7 +393,7 @@ export class UUID {
   }
 
   /**
-   * Re-initializes the internal state for version 1 UUID creation.
+   * Re-initializes the internal state for UUIDv1 and UUIDv6 creation.
    * @since 3.0
    */
   static resetState(): void {
@@ -386,7 +401,7 @@ export class UUID {
   }
 
   /**
-   * The persistent internal state for version 1 UUID creation.
+   * The persistent internal state for UUIDv1 and UUIDv6 creation.
    */
   private static _state: UUIDState | null = null;
 
@@ -411,15 +426,12 @@ export class UUID {
 
   // }}}
 
-  // UUID Version 6 Component {{{
+  // UUIDv6 Component {{{
 
   /**
-   * Creates a version 6 UUID object. This function is experimentally provided
-   * based on the draft RFC and may be changed or removed in the future without
-   * conforming to semantic versioning requirements.
-   * @returns A version 6 UUID object.
+   * Creates a UUIDv6 object.
+   * @returns A UUIDv6 object.
    * @since v4.2.13
-   * @experimental
    */
   static genV6(): UUID {
     if (UUID._state == null) {
@@ -459,7 +471,7 @@ export class UUID {
   // }}}
 }
 
-// UUID Version 1 Component (2 of 2) {{{
+// UUIDv1 Component (2 of 2) {{{
 
 class UUIDState {
   timestamp: number;

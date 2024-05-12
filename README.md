@@ -33,22 +33,22 @@ npx uuidjs
 
 ## Description
 
-UUID.js is a JavaScript/ECMAScript library to generate RFC 4122 compliant
-Universally Unique IDentifiers (UUIDs). This library supports both version 4
-UUIDs (UUIDs from random numbers) and version 1 UUIDs (time-based UUIDs), and
-provides an object-oriented interface to print a generated or parsed UUID in a
-variety of forms.
+UUID.js is a JavaScript/ECMAScript library to generate RFC 9562 compliant
+Universally Unique IDentifiers (UUIDs). This library supports UUIDv4 (random
+number-based UUIDs), UUIDv1 (Gregorian time-based UUIDs), and UUIDv6 (Reordered
+Gregorian time-based UUIDs). It also provides an object-oriented interface to
+print a generated or parsed UUID in a variety of forms.
 
 ## Features
 
-- Generates version 4 UUIDs (UUIDs from random numbers) and version 1 UUIDs
-  (time-based UUIDs)
+- Generates UUIDv4 (random number-based UUIDs), UUIDv1 (Gregorian time-based
+  UUIDs), and UUIDv6 (Reordered Gregorian time-based UUIDs)
 - Provides an object-oriented interface to print various string representations
   of a generated or parsed UUID
 - Utilizes a cryptographically secure pseudo-random number generator if
   available, whereas falling back to `Math.random()` otherwise
 - Appends extra random bits to compensate for the lower timestamp resolution of
-  JavaScript than that required for version 1 UUIDs
+  JavaScript than that required for UUIDv1 and UUIDv6
 - Comes with a lot of test cases including format checks and statistical tests
   to maintain a high-quality code base
 
@@ -62,22 +62,25 @@ import { UUID } from "uuidjs";
 // import { UUID } from "https://unpkg.com/uuidjs@^5";
 ```
 
-`UUID.generate()` returns a version 4 UUID as a hexadecimal string.
+`UUID.generate()` returns a UUIDv4 as a hexadecimal string.
 
 ```javascript
-// Create a version 4 UUID as a hexadecimal string
+// Create a UUIDv4 as a hexadecimal string
 console.log(UUID.generate());   // fa84cf42-ffdf-4975-b42b-31ab5fb983eb
 ```
 
-`UUID.genV4()`, `UUID.genV1()`, and `UUID.parse()` return a UUID object that has
-various fields and methods.
+`UUID.genV4()`, `UUID.genV1()`, `UUID.genV6()`, and `UUID.parse()` return a UUID
+object that has various fields and methods.
 
 ```javascript
-// Create a version 4 (random number-based) UUID object
+// Create a UUIDv4 (random number-based UUID) object
 const objV4 = UUID.genV4();
 
-// Create a version 1 (time-based) UUID object
+// Create a UUIDv1 (Gregorian time-based UUID) object
 const objV1 = UUID.genV1();
+
+// Create a UUIDv6 (Reordered Gregorian time-based UUID) object
+const objV6 = UUID.genV6();
 
 // Create a UUID object from a hexadecimal string
 const uuid = UUID.parse("a0e0f130-8c21-11df-92d9-95795a3bcd40");
@@ -95,26 +98,12 @@ console.log(objV4.equals(objV1));   // false
 // Get UUID version numbers
 console.log(objV4.version); // 4
 console.log(objV1.version); // 1
-
-// Get internal field values in 3 different forms via 2 different accessors
-console.log(uuid.intFields.timeLow);                // 2699096368
-console.log(uuid.bitFields.timeMid);                // "1000110000100001"
-console.log(uuid.hexFields.timeHiAndVersion);       // "11df"
-console.log(uuid.intFields.clockSeqHiAndReserved);  // 146
-console.log(uuid.bitFields.clockSeqLow);            // "11011001"
-console.log(uuid.hexFields.node);                   // "95795a3bcd40"
-
-console.log(uuid.intFields[0]);                     // 2699096368
-console.log(uuid.bitFields[1]);                     // "1000110000100001"
-console.log(uuid.hexFields[2]);                     // "11df"
-console.log(uuid.intFields[3]);                     // 146
-console.log(uuid.bitFields[4]);                     // "11011001"
-console.log(uuid.hexFields[5]);                     // "95795a3bcd40"
+console.log(objV6.version); // 6
 ```
 
 ## License
 
-Copyright (c) 2010-2023 LiosK
+Copyright (c) 2010-2024 LiosK
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -133,7 +122,7 @@ LiosK <contact@mail.liosk.net>
 
 ## See Also
 
-- [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt)
+- [RFC 9562](https://www.rfc-editor.org/rfc/rfc9562)
 - [GitHub Repository](https://github.com/LiosK/UUID.js)
 - [npm Package](https://www.npmjs.com/package/uuidjs)
 - [API Documentation](https://liosk.github.io/UUID.js/docs/)
