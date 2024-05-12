@@ -1,6 +1,6 @@
 # Changelog
 
-## v5.1.0 - unreleased
+## v5.1.0 - 2024-05-12
 
 - Marked `UUID.genV6()` as stable
 - Updated documents with RFC 9562 verbiage
@@ -87,7 +87,7 @@ type declarations than those in v4:
 - `UUID#bitFields`
 - `UUID#hexFields`
 
-## v4.2.13 - 2023-01-09
+## v4.2.14
 
 Last version that:
 

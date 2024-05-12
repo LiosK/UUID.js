@@ -2,22 +2,22 @@
  * UUID.js - RFC-compliant UUID Generator for JavaScript
  *
  * @author  LiosK
- * @version v5.0.1
- * @license Apache License 2.0: Copyright (c) 2010-2023 LiosK
+ * @version v5.1.0
+ * @license Apache License 2.0: Copyright (c) 2010-2024 LiosK
  * @packageDocumentation
  */
 var _a;
 /**
  * The UUID object type.
  */
-class UUID {
+export class UUID {
     // Core Component {{{
     /**
-     * Generates a version 4 UUID as a hexadecimal string.
+     * Generates a UUIDv4 as a hexadecimal string.
      * @returns The hexadecimal UUID string.
      */
     static generate() {
-        var rand = UUID._getRandomInt, hex = UUID._hexAligner;
+        var rand = _a._getRandomInt, hex = _a._hexAligner;
         return (hex(rand(32), 8) + // time_low
             "-" +
             hex(rand(16), 4) + // time_mid
@@ -61,22 +61,21 @@ class UUID {
      * @deprecated This method is provided only to work around performance drawbacks of the safer algorithms.
      */
     static useMathRandom() {
-        UUID._getRandomInt = UUID._mathPRNG;
+        _a._getRandomInt = _a._mathPRNG;
     }
     /**
-     * Creates a version 4 UUID object.
-     * @returns A version 4 UUID object.
+     * Creates a UUIDv4 object.
+     * @returns A UUIDv4 object.
      * @since 3.0
      */
     static genV4() {
-        var rand = UUID._getRandomInt;
-        return new UUID(rand(32), // time_low
+        var rand = _a._getRandomInt;
+        return new _a(rand(32), // time_low
         rand(16), // time_mid
         0x4000 | rand(12), // time_hi_and_version
         0x80 | rand(6), // clock_seq_hi_and_reserved
         rand(8), // clock_seq_low
-        rand(48) // node
-        );
+        rand(48));
     }
     /**
      * Converts a hexadecimal UUID string to a UUID object.
@@ -91,7 +90,7 @@ class UUID {
             if (l + t === "" ||
                 (l === "{" && t === "}") ||
                 (l.toLowerCase() === "urn:uuid:" && t === "")) {
-                return new UUID(parseInt(r[2], 16), parseInt(r[3], 16), parseInt(r[4], 16), parseInt(r[5], 16), parseInt(r[6], 16), parseInt(r[7], 16));
+                return new _a(parseInt(r[2], 16), parseInt(r[3], 16), parseInt(r[4], 16), parseInt(r[5], 16), parseInt(r[6], 16), parseInt(r[7], 16));
             }
         }
         return null;
@@ -106,8 +105,8 @@ class UUID {
      * @param _node - The node field (octet 10-15, uint48).
      */
     constructor(_timeLow, _timeMid, _timeHiAndVersion, _clockSeqHiAndReserved, _clockSeqLow, _node) {
-        var names = UUID.FIELD_NAMES, sizes = UUID.FIELD_SIZES;
-        var bin = UUID._binAligner, hex = UUID._hexAligner;
+        var names = _a.FIELD_NAMES, sizes = _a.FIELD_SIZES;
+        var bin = _a._binAligner, hex = _a._hexAligner;
         // @ts-ignore
         this.intFields = new Array(6);
         // @ts-ignore
@@ -163,7 +162,7 @@ class UUID {
      * @returns `true` if two UUID objects are equal.
      */
     equals(uuid) {
-        if (!(uuid instanceof UUID)) {
+        if (!(uuid instanceof _a)) {
             return false;
         }
         for (var i = 0; i < 6; i++) {
@@ -174,48 +173,48 @@ class UUID {
         return true;
     }
     // }}}
-    // UUID Version 1 Component (1 of 2) {{{
+    // UUIDv1 Component (1 of 2) {{{
     /**
-     * Creates a version 1 UUID object.
-     * @returns A version 1 UUID object.
+     * Creates a UUIDv1 object.
+     * @returns A UUIDv1 object.
      * @since 3.0
      */
     static genV1() {
-        if (UUID._state == null) {
-            UUID._state = new UUIDState();
+        if (_a._state == null) {
+            _a._state = new UUIDState();
         }
-        var now = new Date().getTime(), st = UUID._state;
+        var now = new Date().getTime(), st = _a._state;
         if (now != st.timestamp) {
             if (now < st.timestamp) {
                 st.sequence++;
             }
             st.timestamp = now;
-            st.tick = UUID._getRandomInt(12); // up to 4095, allowing 5904 tick per msec
+            st.tick = _a._getRandomInt(12); // up to 4095, allowing 5904 tick per msec
         }
         else if (st.tick < 9992) {
             // advance sub-millisecond fraction up to 9999 100-nanoseconds
-            st.tick += 1 + UUID._getRandomInt(3);
+            st.tick += 1 + _a._getRandomInt(3);
         }
         else {
             // advance seq if tick overflows in remote chance
             st.sequence++;
         }
         // format time fields
-        var tf = UUID._getTimeFieldValues(st.timestamp);
+        var tf = _a._getTimeFieldValues(st.timestamp);
         var tl = tf.low + st.tick;
         var thav = (tf.hi & 0xfff) | 0x1000; // set version '0001'
         // format clock sequence
         st.sequence &= 0x3fff;
         var cshar = (st.sequence >>> 8) | 0x80; // set variant '10'
         var csl = st.sequence & 0xff;
-        return new UUID(tl, tf.mid, thav, cshar, csl, st.node);
+        return new _a(tl, tf.mid, thav, cshar, csl, st.node);
     }
     /**
-     * Re-initializes the internal state for version 1 UUID creation.
+     * Re-initializes the internal state for UUIDv1 and UUIDv6 creation.
      * @since 3.0
      */
     static resetState() {
-        UUID._state = new UUIDState();
+        _a._state = new UUIDState();
     }
     /**
      * @param time - The number of milliseconds elapsed since 1970-01-01.
@@ -231,30 +230,27 @@ class UUID {
         };
     }
     // }}}
-    // UUID Version 6 Component {{{
+    // UUIDv6 Component {{{
     /**
-     * Creates a version 6 UUID object. This function is experimentally provided
-     * based on the draft RFC and may be changed or removed in the future without
-     * conforming to semantic versioning requirements.
-     * @returns A version 6 UUID object.
+     * Creates a UUIDv6 object.
+     * @returns A UUIDv6 object.
      * @since v4.2.13
-     * @experimental
      */
     static genV6() {
-        if (UUID._state == null) {
-            UUID._state = new UUIDState();
+        if (_a._state == null) {
+            _a._state = new UUIDState();
         }
-        var now = new Date().getTime(), st = UUID._state;
+        var now = new Date().getTime(), st = _a._state;
         if (now != st.timestamp) {
             if (now < st.timestamp) {
                 st.sequence++;
             }
             st.timestamp = now;
-            st.tick = UUID._getRandomInt(12); // up to 4095, allowing 5904 tick per msec
+            st.tick = _a._getRandomInt(12); // up to 4095, allowing 5904 tick per msec
         }
         else if (st.tick < 9992) {
             // advance sub-millisecond fraction up to 9999 100-nanoseconds
-            st.tick += 1 + UUID._getRandomInt(3);
+            st.tick += 1 + _a._getRandomInt(3);
         }
         else {
             // advance seq if tick overflows in remote chance
@@ -270,13 +266,13 @@ class UUID {
         st.sequence &= 0x3fff;
         var cshar = (st.sequence >>> 8) | 0x80; // set variant '10'
         var csl = st.sequence & 0xff;
-        return new UUID(th, tm, tlav, cshar, csl, st.node);
+        return new _a(th, tm, tlav, cshar, csl, st.node);
     }
 }
 _a = UUID;
 // }}}
 // Advanced Random Number Generator Component {{{
-UUID._mathPRNG = UUID._getRandomInt;
+UUID._mathPRNG = _a._getRandomInt;
 (() => {
     if (typeof crypto !== "undefined" && crypto.getRandomValues) {
         // Web Cryptography API
@@ -296,6 +292,9 @@ UUID._mathPRNG = UUID._getRandomInt;
 // UUID Object Component {{{
 /**
  * The names of UUID internal fields.
+ *
+ * Note that these internal fields from the obsolete RFC 4122 are no longer
+ * used in the current RFC 9562.
  * @since 3.0
  */
 UUID.FIELD_NAMES = [
@@ -308,6 +307,9 @@ UUID.FIELD_NAMES = [
 ];
 /**
  * The sizes of UUID internal fields.
+ *
+ * Note that these internal fields from the obsolete RFC 4122 are no longer
+ * used in the current RFC 9562.
  * @since 3.0
  */
 UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
@@ -315,13 +317,12 @@ UUID.FIELD_SIZES = [32, 16, 16, 8, 8, 48];
  * A nil UUID object.
  * @since v3.4.0
  */
-UUID.NIL = new UUID(0, 0, 0, 0, 0, 0);
+UUID.NIL = new _a(0, 0, 0, 0, 0, 0);
 /**
- * The persistent internal state for version 1 UUID creation.
+ * The persistent internal state for UUIDv1 and UUIDv6 creation.
  */
 UUID._state = null;
-export { UUID };
-// UUID Version 1 Component (2 of 2) {{{
+// UUIDv1 Component (2 of 2) {{{
 class UUIDState {
     constructor() {
         // @ts-ignore
